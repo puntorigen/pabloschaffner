@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode */
+    --background: 0 0% 98%; /* Off-white for softer light mode */
+    --foreground: 220 10% 10%; /* Deep gray for text */
+    --primary: 180 100% 35%; /* Darker cyan for light mode */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 250 60% 50%; /* Darker purple for light mode */
+    --secondary-foreground: 0 0% 98%;
+    --accent: 330 80% 45%; /* Darker pink for light mode */
+    --accent-foreground: 0 0% 98%;
+    --muted: 220 10% 92%; /* Light gray */
+    --muted-foreground: 215 20% 35%; /* Medium gray */
+    --border: 220 10% 85%; /* Light border */
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 220 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 10%;
+    --ring: 180 100% 35%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark Mode */
+    --background: 220 10% 3%; /* Deep black */
+    --foreground: 0 0% 98%; /* White */
+    --primary: 180 100% 50%; /* Electric cyan */
+    --primary-foreground: 220 10% 3%;
+    --secondary: 250 60% 70%; /* Vivid purple */
+    --secondary-foreground: 0 0% 98%;
+    --accent: 330 80% 60%; /* Pink */
+    --accent-foreground: 0 0% 98%;
+    --muted: 220 10% 10%; /* Dark gray */
+    --muted-foreground: 215 20% 65%; /* Light gray */
+    --border: 220 10% 15%; /* Slightly lighter dark gray */
+    --card: 220 10% 5%; /* Darker black */
+    --card-foreground: 0 0% 98%;
+    --popover: 220 10% 5%;
+    --popover-foreground: 0 0% 98%;
+    --ring: 180 100% 50%;
+  }
+
+  /* Smooth transitions for theme switching */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  /* Disable transitions for motion elements */
+  [class*="motion-"] {
+    transition: none !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--secondary));
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection colors */
+::selection {
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+}
+
