@@ -76,12 +76,11 @@ This site is optimized for deployment on Vercel Pro:
 
 ## Contact
 
-- **Email**: pablo@creador.cl
-- **Website**: https://pabloschaffner.com
-- **GitHub**: https://github.com/pabloschaffner
+- **Website**: https://www.pabloschaffner.com
+- **GitHub**: https://github.com/puntorigen
 - **LinkedIn**: https://www.linkedin.com/in/pschaffner/
 
 ---
 
-Built with ❤️ using Next.js. Currently on v0.1.0. Always improving.
+Built with ❤️ using Next.js. Currently on v0.0.1. Always improving.
 
