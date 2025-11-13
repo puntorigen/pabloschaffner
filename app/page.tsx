@@ -3,8 +3,12 @@
 import { motion } from "framer-motion";
 import { GridBackground } from "@/components/GridBackground";
 import { ContactForm } from "@/components/ContactForm";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+  
   return (
     <main className="min-h-screen bg-background overflow-hidden relative">
       <GridBackground />
@@ -25,7 +29,7 @@ export default function Home() {
               Pablo Schaffner
             </motion.div>
             <div className="flex items-center gap-6 text-sm">
-              {["about", "work", "contact"].map((item, i) => (
+              {(["about", "work", "contact"] as const).map((item, i) => (
                 <motion.a
                   key={item}
                   href={`#${item}`}
@@ -35,7 +39,7 @@ export default function Home() {
                   transition={{ delay: 0.1 * i, duration: 0.3 }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                  {t.nav[item]}
                   <motion.span
                     className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"
                     initial={{ scaleX: 0 }}
@@ -44,6 +48,7 @@ export default function Home() {
                   />
                 </motion.a>
               ))}
+              <LanguageSwitcher />
             </div>
           </div>
         </div>
@@ -110,7 +115,7 @@ export default function Home() {
                 transition={{ delay: 0.2 }}
               >
                 <span className="relative z-10">
-                  Staff Engineer • AI Architect • System Designer
+                  {t.hero.title}
                 </span>
                 <motion.span
                   className="absolute inset-0 bg-primary/10 -z-10 rounded"
@@ -127,7 +132,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Pablo Schaffner
+              {t.hero.name}
             </motion.h1>
           </motion.div>
 
@@ -138,7 +143,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            I ship in{" "}
+            {t.hero.headline1}{" "}
             <motion.span
               className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent inline-block"
               animate={{
@@ -153,9 +158,9 @@ export default function Home() {
                 backgroundSize: "200% 200%",
               }}
             >
-              3 weeks
+              {t.hero.headline2}
             </motion.span>{" "}
-            what most teams plan for{" "}
+            {t.hero.headline3}{" "}
             <motion.span
               className="bg-gradient-to-r from-accent via-secondary to-primary bg-clip-text text-transparent inline-block"
               animate={{
@@ -171,7 +176,7 @@ export default function Home() {
                 backgroundSize: "200% 200%",
               }}
             >
-              6 months
+              {t.hero.headline4}
             </motion.span>
           </motion.h2>
 
@@ -183,20 +188,19 @@ export default function Home() {
             transition={{ delay: 0.7, duration: 0.6 }}
           >
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl leading-relaxed">
-              Building{" "}
+              {t.hero.subheadline1}{" "}
               <span className="text-foreground font-semibold">
-                production-grade AI systems
+                {t.hero.subheadline1Bold}
               </span>{" "}
-              with enterprise reliability and startup velocity.
+              {t.hero.subheadline2}
             </p>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              Trusted by{" "}
+              {t.hero.subheadline3}{" "}
               <span className="text-primary font-semibold">
-                MercadoLibre ($14B, 100M users)
+                {t.hero.subheadline3Bold}
               </span>
-              . Architected systems at Fortune 500 scale. Founded companies.
-              Led teams. Shipped fast.
+              {t.hero.subheadline4}
             </p>
           </motion.div>
 
@@ -224,7 +228,7 @@ export default function Home() {
                   ease: "linear",
                 }}
               />
-              <span className="relative z-10">Let&apos;s Talk</span>
+              <span className="relative z-10">{t.hero.ctaPrimary}</span>
               <motion.span
                 className="relative z-10"
                 animate={{ x: [0, 4, 0] }}
@@ -243,7 +247,7 @@ export default function Home() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="relative z-10">View My Work</span>
+              <span className="relative z-10">{t.hero.ctaSecondary}</span>
               <motion.span
                 className="absolute inset-0 bg-primary/5 -z-0"
                 initial={{ x: "-100%" }}
@@ -262,20 +266,20 @@ export default function Home() {
           >
             {[
               {
-                value: "100M+",
-                label: "USERS AT SCALE",
+                value: t.hero.stat1Value,
+                label: t.hero.stat1Label,
                 color: "primary",
                 delay: 0,
               },
               {
-                value: "20+",
-                label: "YEARS MASTERING",
+                value: t.hero.stat2Value,
+                label: t.hero.stat2Label,
                 color: "secondary",
                 delay: 0.1,
               },
               {
-                value: "3",
-                label: "WEEKS TO SHIP",
+                value: t.hero.stat3Value,
+                label: t.hero.stat3Label,
                 color: "accent",
                 delay: 0.2,
               },
@@ -318,7 +322,7 @@ export default function Home() {
       <section className="border-y border-border bg-gradient-to-r from-muted/30 via-muted/50 to-muted/30 py-12">
         <div className="container mx-auto px-4">
           <p className="text-center text-muted-foreground mb-8 font-medium">
-            Trusted by Fortune 500s and startups
+            {t.trustedBy.title}
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 dark:opacity-70">
             <div className="text-2xl font-bold">MercadoLibre</div>
@@ -341,12 +345,10 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <span className="text-primary text-sm font-mono tracking-wider">
-                PHILOSOPHY
+                {t.about.badge}
               </span>
               <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
-                Experience Lets You See
-                <br />
-                The Whole System Upfront
+                {t.about.title}
               </h2>
             </motion.div>
 
@@ -358,26 +360,19 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <p className="text-xl text-muted-foreground leading-relaxed">
-                After two decades—from architecting custom IDEs that powered
-                100+ applications, to building ML systems for{" "}
+                {t.about.intro}{" "}
                 <span className="text-primary font-semibold">
-                  100 million users at MercadoLibre
+                  {t.about.introHighlight}
                 </span>
-                —I&apos;ve learned one truth:
+                {t.about.introEnd}
               </p>
 
               <p className="text-2xl text-foreground font-semibold leading-relaxed">
-                Most developers discover what they need after 6 months of
-                building. I see it on day one.
+                {t.about.insight}
               </p>
 
               <p className="text-xl text-muted-foreground leading-relaxed">
-                This is pattern recognition from shipping hundreds of systems. 
-                Years of experience translate into clarity—I know what features 
-                you&apos;ll need, which abstractions will scale, where 
-                technical debt hides. I build complete, production-ready
-                systems in weeks because I&apos;ve already solved these
-                problems dozens of times.
+                {t.about.description}
               </p>
 
               <motion.div
@@ -394,24 +389,13 @@ export default function Home() {
                   style={{ originX: 0 }}
                 />
                 <h3 className="text-2xl font-display font-bold text-foreground mb-4 flex items-center gap-2">
-                  <span className="text-primary">⚡</span> Okidoki.chat: Week 3
-                  Delivered
+                  <span className="text-primary">⚡</span> {t.about.okidokiTitle}
                 </h3>
                 <p className="text-lg text-muted-foreground mb-4">
-                  Most teams would plan this as a 6-month milestone. I shipped
-                  it production-ready in 3 weeks.
+                  {t.about.okidokiDescription}
                 </p>
                 <div className="grid md:grid-cols-2 gap-3 text-sm text-foreground">
-                  {[
-                    "Voice + video meetings",
-                    "Auto transcription + AI summaries",
-                    "Intelligent lead profiling",
-                    "Cron-based RAG automation",
-                    "PDF + website scraping",
-                    "Bot personality engine",
-                    "Landing page generator",
-                    "Production deployment",
-                  ].map((feature, i) => (
+                  {t.about.okidokiFeatures.map((feature, i) => (
                     <motion.div
                       key={i}
                       className="flex items-center gap-2"
@@ -428,9 +412,9 @@ export default function Home() {
               </motion.div>
 
               <p className="text-xl font-display font-bold text-transparent bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text">
-                Speed through mastery.
+                {t.about.closing1}
                 <br />
-                Execution through experience.
+                {t.about.closing2}
               </p>
             </motion.div>
           </div>
@@ -441,67 +425,61 @@ export default function Home() {
       <section className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <span className="text-primary text-sm font-mono tracking-wider">
-            EXPERIENCE
+            {t.experience.badge}
           </span>
           <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-12">
-            Where I&apos;ve Built
+            {t.experience.title}
           </h2>
 
           <div className="space-y-8">
             <div className="border-l-2 border-primary pl-6 py-2">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="text-2xl font-display font-bold">
-                  MercadoLibre
+                  {t.experience.mercadolibre.company}
                 </h3>
                 <span className="text-sm text-muted-foreground font-mono">
-                  2023-2024
+                  {t.experience.mercadolibre.period}
                 </span>
               </div>
               <p className="text-primary font-semibold mb-2">
-                Software Expert & Architect
+                {t.experience.mercadolibre.role}
               </p>
               <p className="text-muted-foreground">
-                Built ML systems for 100M+ users. MercadoPlay streaming
-                platform across 18 countries. Referenced expert for 300+
-                engineers.
+                {t.experience.mercadolibre.description}
               </p>
             </div>
 
             <div className="border-l-2 border-secondary pl-6 py-2">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="text-2xl font-display font-bold">
-                  AI Consulting
+                  {t.experience.consulting.company}
                 </h3>
                 <span className="text-sm text-muted-foreground font-mono">
-                  2024-PRESENT
+                  {t.experience.consulting.period}
                 </span>
               </div>
               <p className="text-secondary font-semibold mb-2">
-                Punto Origen - AI Specialist
+                {t.experience.consulting.role}
               </p>
               <p className="text-muted-foreground">
-                Healthcare EMR migration, insurance document translation (150
-                pages in 3 min), AI sales prospecting, enterprise AI
-                implementations.
+                {t.experience.consulting.description}
               </p>
             </div>
 
             <div className="border-l-2 border-accent pl-6 py-2">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="text-2xl font-display font-bold">
-                  Creador S.A.
+                  {t.experience.creador.company}
                 </h3>
                 <span className="text-sm text-muted-foreground font-mono">
-                  2007-2020
+                  {t.experience.creador.period}
                 </span>
               </div>
               <p className="text-accent font-semibold mb-2">
-                Founding Engineer & CEO
+                {t.experience.creador.role}
               </p>
               <p className="text-muted-foreground">
-                Built custom IDE from scratch. Powered 100+ mobile
-                applications. 13 years leading company serving major Latin
-                American businesses.
+                {t.experience.creador.description}
               </p>
             </div>
           </div>
@@ -518,15 +496,13 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-primary text-sm font-mono tracking-wider">
-              CASE STUDIES
+              {t.caseStudies.badge}
             </span>
             <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
-              Production Systems,
-              <br />
-              Delivered Fast
+              {t.caseStudies.title}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mb-16">
-              Real projects. Real impact. Real speed.
+              {t.caseStudies.subtitle}
             </p>
           </motion.div>
 
@@ -549,13 +525,13 @@ export default function Home() {
                 <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
                   <div>
                     <div className="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/10 border border-primary/40 dark:border-primary/30 rounded-full text-xs font-mono text-primary mb-3">
-                      FEATURED PROJECT
+                      {t.caseStudies.okidoki.featuredBadge}
                     </div>
                     <h3 className="text-3xl md:text-5xl font-display font-bold mb-2">
-                      Okidoki.chat
+                      {t.caseStudies.okidoki.title}
                     </h3>
                     <p className="text-xl font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                      Enterprise AI Platform in 3 Weeks
+                      {t.caseStudies.okidoki.subtitle}
                     </p>
                   </div>
                   <motion.a
@@ -566,7 +542,7 @@ export default function Home() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    View Live
+                    {t.caseStudies.okidoki.viewLive}
                     <span>→</span>
                   </motion.a>
                 </div>
@@ -574,19 +550,17 @@ export default function Home() {
                 {/* The Challenge */}
                 <div className="mb-8">
                   <h4 className="text-lg font-display font-bold text-foreground mb-3">
-                    The Challenge
+                    {t.caseStudies.okidoki.challengeTitle}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    Build a complete AI sales automation platform with voice/video
-                    capabilities, intelligent lead management, and automated RAG
-                    pipeline. Most teams would scope this as a 6-month project.
+                    {t.caseStudies.okidoki.challengeText}
                   </p>
                 </div>
 
                 {/* The Timeline */}
                 <div className="mb-8">
                   <h4 className="text-lg font-display font-bold text-foreground mb-4">
-                    The Timeline
+                    {t.caseStudies.okidoki.timelineTitle}
                   </h4>
                   <div className="grid md:grid-cols-3 gap-4">
                     <motion.div
@@ -594,10 +568,10 @@ export default function Home() {
                       whileHover={{ scale: 1.02 }}
                     >
                       <div className="text-3xl font-display font-bold text-primary mb-2">
-                        Day 3
+                        {t.caseStudies.okidoki.day3}
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Working MVP deployed with basic chat functionality
+                        {t.caseStudies.okidoki.day3Text}
                       </p>
                     </motion.div>
                     <motion.div
@@ -605,10 +579,10 @@ export default function Home() {
                       whileHover={{ scale: 1.02 }}
                     >
                       <div className="text-3xl font-display font-bold text-secondary mb-2">
-                        Week 2
+                        {t.caseStudies.okidoki.week2}
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Voice chat, video meetings, transcription added
+                        {t.caseStudies.okidoki.week2Text}
                       </p>
                     </motion.div>
                     <motion.div
@@ -616,10 +590,10 @@ export default function Home() {
                       whileHover={{ scale: 1.02 }}
                     >
                       <div className="text-3xl font-display font-bold text-accent mb-2">
-                        Week 3
+                        {t.caseStudies.okidoki.week3}
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Full enterprise platform, production-ready
+                        {t.caseStudies.okidoki.week3Text}
                       </p>
                     </motion.div>
                   </div>
@@ -628,19 +602,10 @@ export default function Home() {
                 {/* Tech Delivered */}
                 <div className="mb-8">
                   <h4 className="text-lg font-display font-bold text-foreground mb-4">
-                    What Was Delivered (Week 3)
+                    {t.caseStudies.okidoki.deliveredTitle}
                   </h4>
                   <div className="grid md:grid-cols-2 gap-3">
-                    {[
-                      "Voice + video meeting engine",
-                      "Real-time transcription & AI summarization",
-                      "Intelligent lead profiling & scoring",
-                      "Automated RAG pipeline (cron-based)",
-                      "PDF & website content scraping",
-                      "Customizable bot personalities",
-                      "Dynamic landing page generation",
-                      "Production deployment & monitoring",
-                    ].map((feature, i) => (
+                    {t.caseStudies.okidoki.features.map((feature, i) => (
                       <motion.div
                         key={i}
                         className="flex items-start gap-3 text-sm"
@@ -659,19 +624,10 @@ export default function Home() {
                 {/* Tech Stack */}
                 <div>
                   <h4 className="text-lg font-display font-bold text-foreground mb-4">
-                    Tech Stack
+                    {t.caseStudies.okidoki.techStackTitle}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {[
-                      "Next.js",
-                      "TypeScript",
-                      "OpenAI",
-                      "Vercel AI SDK",
-                      "Pinecone",
-                      "WebRTC",
-                      "PostgreSQL",
-                      "Vercel",
-                    ].map((tech, i) => (
+                    {t.caseStudies.okidoki.techStack.map((tech, i) => (
                       <motion.span
                         key={i}
                         className="px-3 py-1 bg-muted/80 dark:bg-muted border border-border rounded-full text-xs font-mono text-foreground/70 dark:text-muted-foreground"
@@ -894,7 +850,7 @@ export default function Home() {
                 transition={{ duration: 0.7, delay: 0.1 }}
               >
                 <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  FenixBlack.ai
+                  {t.fenixblack.title}
                 </span>
               </motion.h2>
               <motion.div
@@ -905,19 +861,18 @@ export default function Home() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <p className="text-xl text-foreground leading-relaxed">
-                  I wanted to explore what an AI-first marketing agency would look like as a product.
+                  {t.fenixblack.intro}
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Started with the core platform—interactive video avatars, an AI brand designer, research agents. 
-                  Built it with <span className="text-accent font-semibold">Python + NiceGUI</span>, then created 
-                  a custom React bridge because I needed the flexibility of React components inside a Python GUI framework.
+                  {t.fenixblack.description1} {t.fenixblack.description2}{" "}
+                  <span className="text-accent font-semibold">{t.fenixblack.pythonNicegui}</span>
+                  {t.fenixblack.description3}
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Then built 6 specialized tools around it: holiday video generators, brand kit creators, 
-                  virtual backgrounds, drawing tools, photo restoration. Each one solves a specific creative problem.
+                  {t.fenixblack.description4}
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Took about 4 months in parallel with client work. Now it's in production.
+                  {t.fenixblack.description5}
                 </p>
               </motion.div>
             </motion.div>
@@ -972,23 +927,23 @@ export default function Home() {
                           SAAS PLATFORM
                         </div>
                         <h4 className="text-3xl md:text-4xl font-display font-bold mb-3 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-secondary group-hover:to-accent group-hover:bg-clip-text group-hover:text-transparent transition-all">
-                          FenixBlack.ai
+                          {t.fenixblack.mainTitle}
                         </h4>
                         <p className="text-lg text-muted-foreground mb-4">
-                          AI marketing agency as a service
+                          {t.fenixblack.mainSubtitle}
                         </p>
                         <div className="space-y-2 mb-4">
                           <div className="flex items-center gap-2 text-sm">
                             <span className="text-primary">✓</span>
-                            <span className="text-muted-foreground">Interactive video avatars</span>
+                            <span className="text-muted-foreground">{t.fenixblack.feature1}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm">
                             <span className="text-secondary">✓</span>
-                            <span className="text-muted-foreground">AI brand designer</span>
+                            <span className="text-muted-foreground">{t.fenixblack.feature2}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm">
                             <span className="text-accent">✓</span>
-                            <span className="text-muted-foreground">Research agent</span>
+                            <span className="text-muted-foreground">{t.fenixblack.feature3}</span>
                           </div>
                         </div>
                         <div className="flex flex-wrap gap-2 text-xs font-mono">
@@ -1006,7 +961,7 @@ export default function Home() {
                           ease: "easeInOut",
                         }}
                       >
-                        <span>Visit</span>
+                        <span>{t.fenixblack.visit}</span>
                         <span className="text-2xl">→</span>
                       </motion.div>
                     </div>
@@ -1019,44 +974,38 @@ export default function Home() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
-                  name: "Holidays",
+                  nameKey: "holidays",
                   url: "https://holidays.fenixblack.ai",
-                  description: "Holiday video generator for any brand",
                   icon: "🎥",
                   color: "primary",
                 },
                 {
-                  name: "Brand",
+                  nameKey: "brand",
                   url: "https://brand.fenixblack.ai",
-                  description: "Complete brand kit generator",
                   icon: "🎨",
                   color: "secondary",
                 },
                 {
-                  name: "Backgrounds",
+                  nameKey: "backgrounds",
                   url: "https://backgrounds.fenixblack.ai",
-                  description: "Virtual backgrounds for meetings",
                   icon: "🖼️",
                   color: "accent",
                 },
                 {
-                  name: "Canvas",
+                  nameKey: "canvas",
                   url: "https://canvas.fenixblack.ai",
-                  description: "AI hand-drawing & animation tool",
                   icon: "✏️",
                   color: "primary",
                 },
                 {
-                  name: "Restore",
+                  nameKey: "restore",
                   url: "https://restore.fenixblack.ai",
-                  description: "Photo restoration & animation",
                   icon: "📸",
                   color: "secondary",
                 },
                 {
-                  name: "Growth",
+                  nameKey: "growth",
                   url: "https://growth.fenixblack.ai",
-                  description: "Credit management system",
                   icon: "📊",
                   color: "accent",
                 },
@@ -1101,15 +1050,15 @@ export default function Home() {
                         {app.icon}
                       </motion.div>
                       
-                      <h4 className="text-xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
-                        {app.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                        {app.description}
-                      </p>
+                              <h4 className="text-xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
+                                {t.fenixblack[app.nameKey as keyof typeof t.fenixblack].name}
+                              </h4>
+                              <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                                {t.fenixblack[app.nameKey as keyof typeof t.fenixblack].description}
+                              </p>
                       
-                      <div className="flex items-center gap-2 text-xs font-mono font-semibold text-muted-foreground group-hover:text-primary transition-colors">
-                        <span>Launch App</span>
+                              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                                <span>{t.fenixblack.launchApp}</span>
                         <motion.span
                           animate={{ x: [0, 3, 0] }}
                           transition={{
@@ -1143,13 +1092,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <span className="text-primary text-sm font-mono tracking-wider">
-                SERVICES
+                {t.services.badge}
               </span>
               <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
-                How I Can Help
+                {t.services.title}
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                From MVP to enterprise scale. From idea to production.
+                {t.services.subtitle}
               </p>
             </motion.div>
 
@@ -1180,20 +1129,17 @@ export default function Home() {
                     </svg>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
-                    For Startups
+                    {t.services.startups.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
-                    Turn your idea into a working product in weeks. I build
-                    full-featured systems that look like they took months, scale like
-                    they were planned for years.
+                    {t.services.startups.service1}. {t.services.startups.service2}.
                   </p>
                   <ul className="space-y-3">
                     {[
-                      "MVP to Production in 3-4 weeks",
-                      "Full-stack AI applications",
-                      "Modern tech stack (Next.js, TypeScript, AI)",
-                      "Production-ready from day one",
-                      "Technical leadership & mentorship",
+                      t.services.startups.service1,
+                      t.services.startups.service2,
+                      t.services.startups.service3,
+                      t.services.startups.service4,
                     ].map((item, i) => (
                       <motion.li
                         key={i}
@@ -1327,15 +1273,15 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-primary text-sm font-mono tracking-wider">
-              LET&apos;S BUILD
+              {t.contact.badge}
             </span>
             <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
-              Your 6-month roadmap?
+              {t.contact.title1}
               <br />
-              Let&apos;s ship it in 3 weeks.
+              {t.contact.title2}
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Complete, production-ready systems from day one.
+              {t.contact.subtitle}
             </p>
           </motion.div>
 
@@ -1349,7 +1295,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h3 className="text-2xl font-display font-bold mb-6">
-                Send a Message
+                {t.contact.formTitle}
               </h3>
               <ContactForm />
             </motion.div>
@@ -1365,37 +1311,9 @@ export default function Home() {
               {/* Direct Contact */}
               <div className="bg-card border border-border rounded-2xl p-8">
                 <h3 className="text-2xl font-display font-bold mb-6">
-                  Direct Contact
+                  {t.contact.directContact}
                 </h3>
                 <div className="space-y-4">
-                  <motion.a
-                    href="mailto:pablo@creador.cl"
-                    className="group flex items-center gap-4 p-4 bg-muted/50 border border-border rounded-lg hover:border-primary/50 transition-all"
-                    whileHover={{ x: 4 }}
-                  >
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <svg
-                        className="w-6 h-6 text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-sm text-muted-foreground">Email</div>
-                      <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        pablo@creador.cl
-                      </div>
-                    </div>
-                  </motion.a>
-
                   <motion.a
                     href="https://www.linkedin.com/in/pschaffner/"
                     target="_blank"
@@ -1427,10 +1345,10 @@ export default function Home() {
               {/* Schedule a Call */}
               <div className="bg-gradient-to-br from-secondary/10 to-accent/10 border border-secondary/20 rounded-2xl p-8">
                 <h3 className="text-2xl font-display font-bold mb-4">
-                  Schedule a Call
+                  {t.contact.scheduleCall}
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  Let&apos;s discuss your project and see how I can help.
+                  {t.contact.scheduleDescription}
                 </p>
                 <motion.a
                   href="https://cal.com/pabloschaffner"
@@ -1453,7 +1371,7 @@ export default function Home() {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                  Book a Meeting
+                  {t.contact.bookMeeting}
                 </motion.a>
               </div>
             </motion.div>
@@ -1469,7 +1387,7 @@ export default function Home() {
               Pablo Schaffner
             </div>
             <div className="text-sm text-muted-foreground">
-              Built with Next.js. Currently on v0.1.0. Always improving.
+              {t.footer.built} Next.js {t.footer.by}. v0.1.0. {t.footer.version}
             </div>
           </div>
         </div>

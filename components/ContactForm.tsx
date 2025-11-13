@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const ContactForm = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,8 +20,15 @@ export const ContactForm = () => {
     setStatus("sending");
 
     try {
-      // TODO: Implement actual form submission (e.g., to Vercel KV, email service, etc.)
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated delay
+      // Send via Okidoki.chat widget
+      if (typeof window !== 'undefined' && (window as any).OkidokiWidget) {
+        (window as any).OkidokiWidget.sendEmail({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        });
+      }
+      
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
@@ -45,7 +54,7 @@ export const ContactForm = () => {
           htmlFor="name"
           className="block text-sm font-medium text-foreground mb-2"
         >
-          Name
+          {t.contact.name}
         </label>
         <input
           type="text"
@@ -55,7 +64,7 @@ export const ContactForm = () => {
           onChange={handleChange}
           required
           className="w-full px-4 py-3 bg-muted border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all"
-          placeholder="Your name"
+          placeholder={t.contact.name}
         />
       </div>
 
@@ -64,7 +73,7 @@ export const ContactForm = () => {
           htmlFor="email"
           className="block text-sm font-medium text-foreground mb-2"
         >
-          Email
+          {t.contact.email}
         </label>
         <input
           type="email"
@@ -74,7 +83,7 @@ export const ContactForm = () => {
           onChange={handleChange}
           required
           className="w-full px-4 py-3 bg-muted border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all"
-          placeholder="your@email.com"
+          placeholder={t.contact.email}
         />
       </div>
 
@@ -83,7 +92,7 @@ export const ContactForm = () => {
           htmlFor="message"
           className="block text-sm font-medium text-foreground mb-2"
         >
-          Message
+          {t.contact.message}
         </label>
         <textarea
           id="message"
@@ -93,7 +102,7 @@ export const ContactForm = () => {
           required
           rows={5}
           className="w-full px-4 py-3 bg-muted border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all resize-none"
-          placeholder="Tell me about your project..."
+          placeholder={t.contact.message}
         />
       </div>
 
@@ -104,10 +113,10 @@ export const ContactForm = () => {
         whileHover={{ scale: status === "sending" ? 1 : 1.02 }}
         whileTap={{ scale: status === "sending" ? 1 : 0.98 }}
       >
-        {status === "idle" && "Send Message"}
-        {status === "sending" && "Sending..."}
-        {status === "success" && "✓ Message Sent!"}
-        {status === "error" && "✗ Error. Try email instead."}
+        {status === "idle" && t.contact.send}
+        {status === "sending" && t.contact.sending}
+        {status === "success" && `✓ ${t.contact.success}`}
+        {status === "error" && t.contact.error}
       </motion.button>
     </form>
   );

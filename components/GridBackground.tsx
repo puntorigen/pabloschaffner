@@ -5,8 +5,17 @@ import { useEffect, useState } from "react";
 
 export const GridBackground = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Set dimensions once mounted
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+    setMounted(true);
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -14,6 +23,10 @@ export const GridBackground = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  if (!mounted) {
+    return null; // Don't render particles on server
+  }
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -49,12 +62,12 @@ export const GridBackground = () => {
           key={i}
           className="absolute w-1 h-1 bg-primary rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
           }}
           animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
             opacity: [0, 1, 0],
           }}
           transition={{
