@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { GridBackground } from "@/components/GridBackground";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { ContactForm } from "@/components/ContactForm";
 
 export default function Home() {
@@ -45,13 +44,6 @@ export default function Home() {
                   />
                 </motion.a>
               ))}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <ThemeToggle />
-              </motion.div>
             </div>
           </div>
         </div>
@@ -847,6 +839,294 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* FenixBlack Portfolio Section */}
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        {/* Dramatic background with animated orbs */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary/5" />
+          <motion.div
+            className="absolute top-20 right-0 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 to-transparent dark:from-primary/10 dark:to-transparent rounded-full blur-3xl"
+            animate={{
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-secondary/20 to-transparent dark:from-secondary/10 dark:to-transparent rounded-full blur-3xl"
+            animate={{
+              x: [0, -30, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="max-w-4xl mx-auto mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.h2
+                className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-6"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+              >
+                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                  FenixBlack.ai
+                </span>
+              </motion.h2>
+              <motion.div
+                className="space-y-4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                <p className="text-xl text-foreground leading-relaxed">
+                  I wanted to explore what an AI-first marketing agency would look like as a product.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Started with the core platform—interactive video avatars, an AI brand designer, research agents. 
+                  Built it with <span className="text-accent font-semibold">Python + NiceGUI</span>, then created 
+                  a custom React bridge because I needed the flexibility of React components inside a Python GUI framework.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Then built 6 specialized tools around it: holiday video generators, brand kit creators, 
+                  virtual backgrounds, drawing tools, photo restoration. Each one solves a specific creative problem.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Took about 4 months in parallel with client work. Now it's in production.
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* The Platform */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                {/* Glowing border effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity" />
+                
+                <motion.a
+                  href="https://www.fenixblack.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="relative bg-card border-2 border-primary/30 dark:border-primary/20 rounded-2xl p-8 md:p-12 overflow-hidden">
+                    {/* Animated gradient background */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 dark:from-primary/5 dark:via-secondary/3 dark:to-accent/5"
+                      animate={{
+                        backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+                      }}
+                      transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    />
+                    
+                    {/* Sparkle effect */}
+                    <div className="absolute top-6 right-6 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 dark:from-primary/10 dark:to-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                    
+                    <div className="relative flex items-start justify-between flex-wrap gap-6">
+                      <div className="flex-1">
+                        <div className="inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-xs font-mono text-primary mb-4">
+                          SAAS PLATFORM
+                        </div>
+                        <h4 className="text-3xl md:text-4xl font-display font-bold mb-3 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-secondary group-hover:to-accent group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                          FenixBlack.ai
+                        </h4>
+                        <p className="text-lg text-muted-foreground mb-4">
+                          AI marketing agency as a service
+                        </p>
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className="text-primary">✓</span>
+                            <span className="text-muted-foreground">Interactive video avatars</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className="text-secondary">✓</span>
+                            <span className="text-muted-foreground">AI brand designer</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className="text-accent">✓</span>
+                            <span className="text-muted-foreground">Research agent</span>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2 text-xs font-mono">
+                          <span className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary">Python</span>
+                          <span className="px-3 py-1 bg-secondary/10 border border-secondary/20 rounded-full text-secondary">NiceGUI</span>
+                          <span className="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-accent">Custom React Bridge</span>
+                        </div>
+                      </div>
+                      <motion.div
+                        className="flex items-center gap-2 text-primary text-lg font-semibold"
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        <span>Visit</span>
+                        <span className="text-2xl">→</span>
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.a>
+              </motion.div>
+            </motion.div>
+
+            {/* Micro-Apps Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  name: "Holidays",
+                  url: "https://holidays.fenixblack.ai",
+                  description: "Holiday video generator for any brand",
+                  icon: "🎥",
+                  color: "primary",
+                },
+                {
+                  name: "Brand",
+                  url: "https://brand.fenixblack.ai",
+                  description: "Complete brand kit generator",
+                  icon: "🎨",
+                  color: "secondary",
+                },
+                {
+                  name: "Backgrounds",
+                  url: "https://backgrounds.fenixblack.ai",
+                  description: "Virtual backgrounds for meetings",
+                  icon: "🖼️",
+                  color: "accent",
+                },
+                {
+                  name: "Canvas",
+                  url: "https://canvas.fenixblack.ai",
+                  description: "AI hand-drawing & animation tool",
+                  icon: "✏️",
+                  color: "primary",
+                },
+                {
+                  name: "Restore",
+                  url: "https://restore.fenixblack.ai",
+                  description: "Photo restoration & animation",
+                  icon: "📸",
+                  color: "secondary",
+                },
+                {
+                  name: "Growth",
+                  url: "https://growth.fenixblack.ai",
+                  description: "Credit management system",
+                  icon: "📊",
+                  color: "accent",
+                },
+              ].map((app, i) => (
+                <motion.div
+                  key={i}
+                  className="relative"
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: i * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                >
+                  {/* Card glow effect */}
+                  <motion.div
+                    className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-secondary/30 dark:from-primary/20 dark:to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity"
+                    whileHover={{ scale: 1.05 }}
+                  />
+                  
+                  <motion.a
+                    href={app.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block bg-card border-2 border-border hover:border-primary/50 dark:hover:border-primary/30 rounded-xl p-6 h-full transition-all"
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 dark:from-primary/3 dark:via-transparent dark:to-secondary/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="relative">
+                      {/* Icon with animation */}
+                      <motion.div
+                        className="text-5xl mb-4"
+                        whileHover={{ scale: 1.2, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {app.icon}
+                      </motion.div>
+                      
+                      <h4 className="text-xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
+                        {app.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                        {app.description}
+                      </p>
+                      
+                      <div className="flex items-center gap-2 text-xs font-mono font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                        <span>Launch App</span>
+                        <motion.span
+                          animate={{ x: [0, 3, 0] }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        >
+                          →
+                        </motion.span>
+                      </div>
+                    </div>
+                  </motion.a>
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>

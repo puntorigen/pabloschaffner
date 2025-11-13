@@ -4,28 +4,7 @@
 
 @layer base {
   :root {
-    /* Light Mode - Enhanced for better readability */
-    --background: 0 0% 100%; /* Pure white for clean look */
-    --foreground: 222 47% 11%; /* Deep navy blue for excellent contrast */
-    --primary: 183 100% 35%; /* Rich cyan - more saturated */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 250 80% 55%; /* Vibrant purple */
-    --secondary-foreground: 0 0% 100%;
-    --accent: 330 85% 50%; /* Vivid pink */
-    --accent-foreground: 0 0% 100%;
-    --muted: 210 20% 96%; /* Very light blue-gray */
-    --muted-foreground: 215 25% 27%; /* Dark blue-gray for contrast */
-    --border: 214 32% 91%; /* Subtle blue-tinted border */
-    --card: 0 0% 100%; /* Pure white */
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --ring: 183 100% 35%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    /* Dark Mode */
+    /* Dark Mode Only */
     --background: 220 10% 3%; /* Deep black */
     --foreground: 0 0% 98%; /* White */
     --primary: 180 100% 50%; /* Electric cyan */
@@ -42,18 +21,7 @@
     --popover: 220 10% 5%;
     --popover-foreground: 0 0% 98%;
     --ring: 180 100% 50%;
-  }
-
-  /* Smooth transitions for theme switching */
-  * {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-  }
-
-  /* Disable transitions for motion elements */
-  [class*="motion-"] {
-    transition: none !important;
+    --radius: 0.5rem;
   }
 }
 
@@ -100,28 +68,5 @@ html {
 ::selection {
   background: hsl(var(--primary) / 0.25);
   color: hsl(var(--foreground));
-}
-
-/* Light mode specific enhancements */
-:root {
-  /* Add subtle gradient overlay for depth */
-  --light-gradient: linear-gradient(135deg, 
-    hsl(var(--primary) / 0.03) 0%,
-    hsl(var(--secondary) / 0.03) 50%,
-    hsl(var(--accent) / 0.03) 100%
-  );
-}
-
-/* Enhanced card shadows for light mode */
-.light-card-shadow {
-  box-shadow: 
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
-}
-
-.light-card-shadow-lg {
-  box-shadow: 
-    0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 

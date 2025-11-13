@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -74,24 +75,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                const theme = localStorage.getItem('theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.classList.toggle('dark', theme === 'dark');
-              })();
-            `,
-          }}
-        />
-      </head>
+    <html lang="en" className="dark">
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         {children}
+        
+        {/* Okidoki.chat Widget */}
+        <Script
+          src="https://www.okidoki.chat/embed/okidoki.js"
+          data-app-id="pk_cb800bd7721bbe848df4b0f3f71601f9835a4cd022a41aa6"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
