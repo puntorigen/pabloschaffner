@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { GridBackground } from "@/components/GridBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ContactForm } from "@/components/ContactForm";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 overflow-hidden relative">
+    <main className="min-h-screen bg-background overflow-hidden relative">
       <GridBackground />
       {/* Navigation */}
       <motion.nav
@@ -57,14 +58,14 @@ export default function Home() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-32 pb-20 md:pt-40 md:pb-32 relative">
-        {/* Animated gradient orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        {/* Animated gradient orbs - Full width background */}
+        <div className="absolute inset-0 w-full pointer-events-none">
           <motion.div
-            className="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl"
+            className="absolute -top-40 right-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/30 to-secondary/20 dark:from-primary/20 dark:to-secondary/20 rounded-full blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
+              opacity: [0.4, 0.6, 0.4],
             }}
             transition={{
               duration: 8,
@@ -73,10 +74,10 @@ export default function Home() {
             }}
           />
           <motion.div
-            className="absolute top-1/2 -left-40 w-80 h-80 bg-secondary/20 rounded-full blur-3xl"
+            className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-secondary/30 to-accent/20 dark:from-secondary/20 dark:to-accent/20 rounded-full blur-3xl"
             animate={{
               scale: [1, 1.3, 1],
-              opacity: [0.3, 0.5, 0.3],
+              opacity: [0.4, 0.6, 0.4],
             }}
             transition={{
               duration: 10,
@@ -85,9 +86,23 @@ export default function Home() {
               delay: 1,
             }}
           />
+          <motion.div
+            className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-gradient-to-tl from-accent/25 to-primary/15 dark:from-accent/15 dark:to-primary/10 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.15, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
         </div>
 
-        <div className="max-w-5xl mx-auto relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto">
           {/* Name & Title */}
           <motion.div
             className="mb-8 space-y-3"
@@ -275,14 +290,18 @@ export default function Home() {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                className={`space-y-3 border-l-2 border-${stat.color} pl-6 relative group`}
+                className={`space-y-3 pl-6 relative group`}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.1 + stat.delay, duration: 0.6 }}
                 whileHover={{ x: 4 }}
+                style={{
+                  borderLeft: `2px solid hsl(var(--${stat.color}))`,
+                }}
               >
                 <motion.div
-                  className={`text-4xl md:text-5xl font-display font-bold text-${stat.color}`}
+                  className={`text-4xl md:text-5xl font-display font-bold`}
+                  style={{ color: `hsl(var(--${stat.color}))` }}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{
@@ -296,26 +315,20 @@ export default function Home() {
                 <div className="text-sm md:text-base text-muted-foreground font-mono">
                   {stat.label}
                 </div>
-                <motion.div
-                  className={`absolute left-0 top-0 bottom-0 w-0.5 bg-${stat.color}`}
-                  initial={{ scaleY: 0 }}
-                  whileInView={{ scaleY: 1 }}
-                  transition={{ duration: 0.8, delay: stat.delay }}
-                  style={{ originY: 0 }}
-                />
               </motion.div>
             ))}
           </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Trusted By Section */}
-      <section className="border-y border-border bg-muted/50 py-12">
+      <section className="border-y border-border bg-gradient-to-r from-muted/30 via-muted/50 to-muted/30 py-12">
         <div className="container mx-auto px-4">
-          <p className="text-center text-muted-foreground mb-8">
+          <p className="text-center text-muted-foreground mb-8 font-medium">
             Trusted by Fortune 500s and startups
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-70">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 dark:opacity-70">
             <div className="text-2xl font-bold">MercadoLibre</div>
             <div className="text-2xl font-bold">Truepill</div>
             <div className="text-2xl font-bold">DocNexus</div>
@@ -326,7 +339,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="container mx-auto px-4 py-20 md:py-32">
+      <section id="about" className="container mx-auto px-4 py-20 md:py-32 relative">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-8">
             <motion.div
@@ -367,9 +380,9 @@ export default function Home() {
               </p>
 
               <p className="text-xl text-muted-foreground leading-relaxed">
-                That&apos;s not arrogance. That&apos;s pattern recognition from
-                shipping hundreds of systems. I know what features
-                you&apos;ll need, which abstractions will scale, where
+                This is pattern recognition from shipping hundreds of systems. 
+                Years of experience translate into clarity—I know what features 
+                you&apos;ll need, which abstractions will scale, where 
                 technical debt hides. I build complete, production-ready
                 systems in weeks because I&apos;ve already solved these
                 problems dozens of times.
@@ -423,9 +436,9 @@ export default function Home() {
               </motion.div>
 
               <p className="text-xl font-display font-bold text-transparent bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text">
-                This isn&apos;t speed through shortcuts.
+                Speed through mastery.
                 <br />
-                This is mastery through experience.
+                Execution through experience.
               </p>
             </motion.div>
           </div>
@@ -503,50 +516,667 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Work Section Placeholder */}
-      <section id="work" className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <span className="text-primary text-sm font-mono tracking-wider">
-            COMING SOON
-          </span>
-          <h2 className="text-4xl font-display font-bold mt-4">
-            Detailed case studies, tech stack, and open source projects
-          </h2>
+      {/* Case Studies Section */}
+      <section id="work" className="container mx-auto px-4 py-20 md:py-32">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="text-primary text-sm font-mono tracking-wider">
+              CASE STUDIES
+            </span>
+            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
+              Production Systems,
+              <br />
+              Delivered Fast
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mb-16">
+              Real projects. Real impact. Real speed.
+            </p>
+          </motion.div>
+
+          {/* Featured Case Study - Okidoki.chat */}
+          <motion.div
+            className="mb-20 relative"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Light mode: subtle shadow, Dark mode: glowing blur */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/20 dark:via-secondary/20 dark:to-accent/20 rounded-2xl blur-2xl dark:blur-2xl opacity-60 dark:opacity-100" />
+            <div className="relative bg-card border border-primary/20 dark:border-primary/20 rounded-xl p-8 md:p-12 overflow-hidden shadow-lg dark:shadow-none">
+              {/* Subtle gradient overlay instead of split pattern */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5 dark:to-primary/3 pointer-events-none" />
+
+              <div className="relative">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
+                  <div>
+                    <div className="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/10 border border-primary/40 dark:border-primary/30 rounded-full text-xs font-mono text-primary mb-3">
+                      FEATURED PROJECT
+                    </div>
+                    <h3 className="text-3xl md:text-5xl font-display font-bold mb-2">
+                      Okidoki.chat
+                    </h3>
+                    <p className="text-xl font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      Enterprise AI Platform in 3 Weeks
+                    </p>
+                  </div>
+                  <motion.a
+                    href="https://okidoki.chat"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-primary/10 dark:bg-primary/10 border-2 border-primary/50 dark:border-primary/30 text-primary rounded-lg font-mono text-sm font-semibold hover:bg-primary/20 dark:hover:bg-primary/20 transition-all inline-flex items-center gap-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    View Live
+                    <span>→</span>
+                  </motion.a>
+                </div>
+
+                {/* The Challenge */}
+                <div className="mb-8">
+                  <h4 className="text-lg font-display font-bold text-foreground mb-3">
+                    The Challenge
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Build a complete AI sales automation platform with voice/video
+                    capabilities, intelligent lead management, and automated RAG
+                    pipeline. Most teams would scope this as a 6-month project.
+                  </p>
+                </div>
+
+                {/* The Timeline */}
+                <div className="mb-8">
+                  <h4 className="text-lg font-display font-bold text-foreground mb-4">
+                    The Timeline
+                  </h4>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <motion.div
+                      className="p-4 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-muted/50 dark:to-muted/50 border border-primary/30 dark:border-border rounded-lg"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="text-3xl font-display font-bold text-primary mb-2">
+                        Day 3
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Working MVP deployed with basic chat functionality
+                      </p>
+                    </motion.div>
+                    <motion.div
+                      className="p-4 bg-gradient-to-br from-secondary/5 to-secondary/10 dark:from-muted/50 dark:to-muted/50 border border-secondary/30 dark:border-border rounded-lg"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="text-3xl font-display font-bold text-secondary mb-2">
+                        Week 2
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Voice chat, video meetings, transcription added
+                      </p>
+                    </motion.div>
+                    <motion.div
+                      className="p-4 bg-gradient-to-br from-accent/5 to-accent/10 dark:from-muted/50 dark:to-muted/50 border border-accent/30 dark:border-border rounded-lg"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      <div className="text-3xl font-display font-bold text-accent mb-2">
+                        Week 3
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Full enterprise platform, production-ready
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Tech Delivered */}
+                <div className="mb-8">
+                  <h4 className="text-lg font-display font-bold text-foreground mb-4">
+                    What Was Delivered (Week 3)
+                  </h4>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {[
+                      "Voice + video meeting engine",
+                      "Real-time transcription & AI summarization",
+                      "Intelligent lead profiling & scoring",
+                      "Automated RAG pipeline (cron-based)",
+                      "PDF & website content scraping",
+                      "Customizable bot personalities",
+                      "Dynamic landing page generation",
+                      "Production deployment & monitoring",
+                    ].map((feature, i) => (
+                      <motion.div
+                        key={i}
+                        className="flex items-start gap-3 text-sm"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                      >
+                        <span className="text-primary text-lg">✓</span>
+                        <span className="text-foreground">{feature}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tech Stack */}
+                <div>
+                  <h4 className="text-lg font-display font-bold text-foreground mb-4">
+                    Tech Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Next.js",
+                      "TypeScript",
+                      "OpenAI",
+                      "Vercel AI SDK",
+                      "Pinecone",
+                      "WebRTC",
+                      "PostgreSQL",
+                      "Vercel",
+                    ].map((tech, i) => (
+                      <motion.span
+                        key={i}
+                        className="px-3 py-1 bg-muted/80 dark:bg-muted border border-border rounded-full text-xs font-mono text-foreground/70 dark:text-muted-foreground"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                        whileHover={{ scale: 1.1, borderColor: "hsl(var(--primary))" }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Other Case Studies Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* MercadoLibre */}
+            <motion.div
+              className="group relative bg-card border border-border rounded-xl p-8 hover:border-primary/30 transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <h3 className="text-2xl font-display font-bold mb-2">
+                  MercadoLibre
+                </h3>
+                <p className="text-primary font-semibold mb-4">
+                  ML Systems at 100M+ User Scale
+                </p>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Architected machine learning systems serving 100+ million users
+                  across 18 countries. Built MercadoPlay streaming platform.
+                  Referenced expert for 300+ engineers.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["Python", "TensorFlow", "Kubernetes", "GCP", "ML"].map(
+                    (tech, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Healthcare EMR */}
+            <motion.div
+              className="group relative bg-card border border-border rounded-xl p-8 hover:border-secondary/30 transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <h3 className="text-2xl font-display font-bold mb-2">
+                  Healthcare EMR
+                </h3>
+                <p className="text-secondary font-semibold mb-4">
+                  HIPAA-Compliant AI Data Migration
+                </p>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Autonomous migration of 10+ years of medical records between EMR
+                  systems. Healthcare-grade reliability with complete audit trails.
+                  Zero data loss.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["AI Agents", "HIPAA", "Python", "PostgreSQL", "Audit"].map(
+                    (tech, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Insurance Translation */}
+            <motion.div
+              className="group relative bg-card border border-border rounded-xl p-8 hover:border-accent/30 transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <h3 className="text-2xl font-display font-bold mb-2">
+                  Insurance Docs
+                </h3>
+                <p className="text-accent font-semibold mb-4">
+                  150-Page Translation in 3 Minutes
+                </p>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Built AI system for high-speed document translation with perfect
+                  formatting fidelity. Maintains complex layouts, tables, and legal
+                  terminology.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["GPT-4", "OCR", "Python", "PDF Processing", "NLP"].map(
+                    (tech, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Creador IDE */}
+            <motion.div
+              className="group relative bg-card border border-border rounded-xl p-8 hover:border-primary/30 transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <h3 className="text-2xl font-display font-bold mb-2">
+                  Custom IDE
+                </h3>
+                <p className="text-primary font-semibold mb-4">
+                  From Scratch to 100+ Apps
+                </p>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Built complete IDE from ground up that powered 100+ mobile
+                  applications. Led company for 13 years serving major Latin
+                  American businesses.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["C++", "JavaScript", "Mobile", "Compiler", "IDE"].map(
+                    (tech, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="border-y border-border bg-gradient-to-b from-muted/20 via-muted/40 to-muted/20 py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-primary text-sm font-mono tracking-wider">
+                SERVICES
+              </span>
+              <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
+                How I Can Help
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                From MVP to enterprise scale. From idea to production.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* For Startups */}
+              <motion.div
+                className="relative group"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition-opacity" />
+                <div className="relative bg-card border border-border rounded-xl p-8 md:p-10 h-full">
+                  <div className="inline-block p-3 bg-primary/10 rounded-lg mb-6">
+                    <svg
+                      className="w-8 h-8 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
+                    For Startups
+                  </h3>
+                  <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
+                    Turn your idea into a working product in weeks. I build
+                    full-featured systems that look like they took months, scale like
+                    they were planned for years.
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      "MVP to Production in 3-4 weeks",
+                      "Full-stack AI applications",
+                      "Modern tech stack (Next.js, TypeScript, AI)",
+                      "Production-ready from day one",
+                      "Technical leadership & mentorship",
+                    ].map((item, i) => (
+                      <motion.li
+                        key={i}
+                        className="flex items-start gap-3"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 * i }}
+                      >
+                        <span className="text-primary mt-1">✓</span>
+                        <span className="text-foreground">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+
+              {/* For Enterprises */}
+              <motion.div
+                className="relative group"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-secondary to-accent rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition-opacity" />
+                <div className="relative bg-card border border-border rounded-xl p-8 md:p-10 h-full">
+                  <div className="inline-block p-3 bg-secondary/10 rounded-lg mb-6">
+                    <svg
+                      className="w-8 h-8 text-secondary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
+                    For Enterprises
+                  </h3>
+                  <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
+                    Scale AI systems to millions of users. Architect solutions that
+                    handle Fortune 500 complexity with startup agility.
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      "AI/ML system architecture at scale",
+                      "Production ML pipelines (100M+ users)",
+                      "Technical due diligence & audits",
+                      "Team leadership & training",
+                      "HIPAA, SOC2, enterprise compliance",
+                    ].map((item, i) => (
+                      <motion.li
+                        key={i}
+                        className="flex items-start gap-3"
+                        initial={{ opacity: 0, x: 10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 * i }}
+                      >
+                        <span className="text-secondary mt-1">✓</span>
+                        <span className="text-foreground">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Tech Stack Highlight */}
+            <motion.div
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <p className="text-sm text-muted-foreground mb-4 font-mono">
+                CORE TECHNOLOGIES
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  "Next.js",
+                  "React",
+                  "TypeScript",
+                  "Python",
+                  "Node.js",
+                  "PostgreSQL",
+                  "OpenAI",
+                  "Vercel AI SDK",
+                  "LangChain",
+                  "Pinecone",
+                  "TensorFlow",
+                  "Docker",
+                  "Kubernetes",
+                  "AWS",
+                  "GCP",
+                  "Vercel",
+                ].map((tech, i) => (
+                  <motion.span
+                    key={i}
+                    className="px-4 py-2 bg-muted border border-border rounded-lg text-sm font-mono hover:border-primary/50 hover:bg-primary/5 transition-all cursor-default"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.02 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="container mx-auto px-4 py-20 md:py-32">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 rounded-2xl p-12 md:p-16">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="text-primary text-sm font-mono tracking-wider">
               LET&apos;S BUILD
             </span>
-            <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mt-4 mb-6">
+            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mt-4 mb-6">
               Your 6-month roadmap?
               <br />
               Let&apos;s ship it in 3 weeks.
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-              Complete systems, not minimal prototypes. Production-ready from
-              day one.
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Complete, production-ready systems from day one.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="mailto:pablo@creador.cl"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-display font-semibold hover:opacity-90 transition-opacity"
-              >
-                pablo@creador.cl
-              </a>
-              <a
-                href="https://www.linkedin.com/in/pschaffner/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/30 text-foreground rounded-lg font-display font-semibold hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                LinkedIn
-              </a>
-            </div>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Form */}
+            <motion.div
+              className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 rounded-2xl p-8"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-display font-bold mb-6">
+                Send a Message
+              </h3>
+              <ContactForm />
+            </motion.div>
+
+            {/* Quick Contact & Cal.com */}
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              {/* Direct Contact */}
+              <div className="bg-card border border-border rounded-2xl p-8">
+                <h3 className="text-2xl font-display font-bold mb-6">
+                  Direct Contact
+                </h3>
+                <div className="space-y-4">
+                  <motion.a
+                    href="mailto:pablo@creador.cl"
+                    className="group flex items-center gap-4 p-4 bg-muted/50 border border-border rounded-lg hover:border-primary/50 transition-all"
+                    whileHover={{ x: 4 }}
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <svg
+                        className="w-6 h-6 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm text-muted-foreground">Email</div>
+                      <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        pablo@creador.cl
+                      </div>
+                    </div>
+                  </motion.a>
+
+                  <motion.a
+                    href="https://www.linkedin.com/in/pschaffner/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 p-4 bg-muted/50 border border-border rounded-lg hover:border-primary/50 transition-all"
+                    whileHover={{ x: 4 }}
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <svg
+                        className="w-6 h-6 text-primary"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm text-muted-foreground">
+                        LinkedIn
+                      </div>
+                      <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        /in/pschaffner
+                      </div>
+                    </div>
+                  </motion.a>
+                </div>
+              </div>
+
+              {/* Schedule a Call */}
+              <div className="bg-gradient-to-br from-secondary/10 to-accent/10 border border-secondary/20 rounded-2xl p-8">
+                <h3 className="text-2xl font-display font-bold mb-4">
+                  Schedule a Call
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  Let&apos;s discuss your project and see how I can help.
+                </p>
+                <motion.a
+                  href="https://cal.com/pabloschaffner"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-display font-semibold hover:opacity-90 transition-opacity"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  Book a Meeting
+                </motion.a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -19,11 +19,11 @@ export const GridBackground = () => {
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       {/* Animated grid */}
       <div
-        className="absolute inset-0 bg-grid-pattern opacity-20 dark:opacity-20"
+        className="absolute inset-0 bg-grid-pattern opacity-30 dark:opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(to right, hsl(var(--primary) / 0.15) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--primary) / 0.15) 1px, transparent 1px)
+            linear-gradient(to right, hsl(var(--primary) / 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(var(--primary) / 0.08) 1px, transparent 1px)
           `,
           backgroundSize: "50px 50px",
         }}
@@ -31,7 +31,7 @@ export const GridBackground = () => {
 
       {/* Mouse follower glow */}
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-primary/10 dark:bg-primary/10 blur-3xl"
+        className="absolute w-96 h-96 rounded-full bg-primary/15 dark:bg-primary/10 blur-3xl"
         animate={{
           x: mousePosition.x - 192,
           y: mousePosition.y - 192,
