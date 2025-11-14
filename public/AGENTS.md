@@ -45,11 +45,11 @@ Pablo Schaffner is a highly experienced Staff Software Engineer with 20+ years b
 ### AI & Machine Learning (Production Experience)
 
 **LLM Providers & Models**:
-- OpenAI: GPT-4, GPT-4o, o1, GPT-3.5 (fine-tuning experience)
-- Anthropic: Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku
+- OpenAI: GPT-5, GPT-4o, o3, GPT-3.5 (fine-tuning experience)
+- Anthropic: Claude 4.5 Sonnet, Claude 4.1 Opus, Claude 4.5 Haiku
 - Google: Gemini Pro, Gemini Flash, Vertex AI platform
-- Groq: Ultra-fast LLM inference (Mixtral, Llama models)
-- Meta: Llama 2, Llama 3 (via Ollama for local deployments)
+- Groq: Ultra-fast LLM inference (Mixtral, OpenAI OSS models)
+- Meta: Llama 4 (via Ollama for local deployments)
 - Mistral: Mixtral 8x7B, Phi-3
 - Open Source: Running local models with Ollama
 
