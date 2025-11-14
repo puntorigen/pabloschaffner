@@ -3,10 +3,24 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Language, translations } from '@/lib/translations';
 
+// Type that accepts any translation structure with string values
+type Translation = typeof translations.en;
+type TranslationStructure = {
+  [K in keyof Translation]: Translation[K] extends object
+    ? Translation[K] extends readonly any[]
+      ? readonly string[]
+      : { [P in keyof Translation[K]]: Translation[K][P] extends object
+          ? Translation[K][P] extends readonly any[]
+            ? readonly string[]
+            : { [Q in keyof Translation[K][P]]: string }
+          : string }
+    : string;
+};
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: typeof translations.en;
+  t: TranslationStructure;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
