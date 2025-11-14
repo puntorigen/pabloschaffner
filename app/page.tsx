@@ -1051,10 +1051,10 @@ export default function Home() {
                       </motion.div>
                       
                               <h4 className="text-xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
-                                {t.fenixblack[app.nameKey as keyof typeof t.fenixblack].name}
+                                {(t.fenixblack as any)[app.nameKey].name}
                               </h4>
                               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                                {t.fenixblack[app.nameKey as keyof typeof t.fenixblack].description}
+                                {(t.fenixblack as any)[app.nameKey].description}
                               </p>
                       
                               <div className="flex items-center gap-2 text-xs font-mono font-semibold text-muted-foreground group-hover:text-primary transition-colors">
@@ -1132,15 +1132,10 @@ export default function Home() {
                     {t.services.startups.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
-                    {t.services.startups.service1}. {t.services.startups.service2}.
+                    {t.services.startups.description}
                   </p>
                   <ul className="space-y-3">
-                    {[
-                      t.services.startups.service1,
-                      t.services.startups.service2,
-                      t.services.startups.service3,
-                      t.services.startups.service4,
-                    ].map((item, i) => (
+                    {t.services.startups.services.map((item, i) => (
                       <motion.li
                         key={i}
                         className="flex items-start gap-3"
@@ -1183,20 +1178,13 @@ export default function Home() {
                     </svg>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
-                    For Enterprises
+                    {t.services.enterprises.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
-                    Scale AI systems to millions of users. Architect solutions that
-                    handle Fortune 500 complexity with startup agility.
+                    {t.services.enterprises.description}
                   </p>
                   <ul className="space-y-3">
-                    {[
-                      "AI/ML system architecture at scale",
-                      "Production ML pipelines (100M+ users)",
-                      "Technical due diligence & audits",
-                      "Team leadership & training",
-                      "HIPAA, SOC2, enterprise compliance",
-                    ].map((item, i) => (
+                    {t.services.enterprises.services.map((item, i) => (
                       <motion.li
                         key={i}
                         className="flex items-start gap-3"
