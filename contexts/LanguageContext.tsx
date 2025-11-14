@@ -3,19 +3,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Language, translations } from '@/lib/translations';
 
-// Type that accepts any translation structure with string values
-type Translation = typeof translations.en;
-type TranslationStructure = {
-  [K in keyof Translation]: Translation[K] extends object
-    ? Translation[K] extends readonly any[]
-      ? readonly string[]
-      : { [P in keyof Translation[K]]: Translation[K][P] extends object
-          ? Translation[K][P] extends readonly any[]
-            ? readonly string[]
-            : { [Q in keyof Translation[K][P]]: string }
-          : string }
-    : string;
-};
+// Recursive type that converts literal types to generic string types while preserving structure
+type DeepStringify<T> = T extends readonly any[]
+  ? readonly string[]
+  : T extends object
+  ? { [K in keyof T]: DeepStringify<T[K]> }
+  : string;
+
+type TranslationStructure = DeepStringify<typeof translations.en>;
 
 interface LanguageContextType {
   language: Language;

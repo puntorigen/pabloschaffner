@@ -605,7 +605,7 @@ export default function Home() {
                     {t.caseStudies.okidoki.deliveredTitle}
                   </h4>
                   <div className="grid md:grid-cols-2 gap-3">
-                    {t.caseStudies.okidoki.features.map((feature, i) => (
+                    {(t.caseStudies.okidoki.features as unknown as readonly string[]).map((feature, i) => (
                       <motion.div
                         key={i}
                         className="flex items-start gap-3 text-sm"
@@ -627,7 +627,7 @@ export default function Home() {
                     {t.caseStudies.okidoki.techStackTitle}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {t.caseStudies.okidoki.techStack.map((tech, i) => (
+                    {(t.caseStudies.okidoki.techStack as unknown as readonly string[]).map((tech, i) => (
                       <motion.span
                         key={i}
                         className="px-3 py-1 bg-muted/80 dark:bg-muted border border-border rounded-full text-xs font-mono text-foreground/70 dark:text-muted-foreground"
@@ -1135,7 +1135,7 @@ export default function Home() {
                     {t.services.startups.description}
                   </p>
                   <ul className="space-y-3">
-                    {t.services.startups.services.map((item, i) => (
+                    {(t.services.startups.services as unknown as readonly string[]).map((item, i) => (
                       <motion.li
                         key={i}
                         className="flex items-start gap-3"
@@ -1184,7 +1184,7 @@ export default function Home() {
                     {t.services.enterprises.description}
                   </p>
                   <ul className="space-y-3">
-                    {t.services.enterprises.services.map((item, i) => (
+                    {(t.services.enterprises.services as unknown as readonly string[]).map((item, i) => (
                       <motion.li
                         key={i}
                         className="flex items-start gap-3"
@@ -1338,11 +1338,13 @@ export default function Home() {
                 <p className="text-muted-foreground mb-6">
                   {t.contact.scheduleDescription}
                 </p>
-                <motion.a
-                  href="https://cal.com/pabloschaffner"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-display font-semibold hover:opacity-90 transition-opacity"
+                <motion.button
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && (window as any).OkidokiWidget) {
+                      (window as any).OkidokiWidget.scheduleMeeting();
+                    }
+                  }}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-display font-semibold hover:opacity-90 transition-opacity w-full md:w-auto justify-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -1360,7 +1362,7 @@ export default function Home() {
                     />
                   </svg>
                   {t.contact.bookMeeting}
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
           </div>
