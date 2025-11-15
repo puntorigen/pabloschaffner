@@ -5,9 +5,11 @@ import { GridBackground } from "@/components/GridBackground";
 import { ContactForm } from "@/components/ContactForm";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useState } from "react";
 
 export default function Home() {
   const { t } = useLanguage();
+  const [featuredCase, setFeaturedCase] = useState<string>('fenixblack');
   
   return (
     <main className="min-h-screen bg-background overflow-hidden relative">
@@ -432,56 +434,49 @@ export default function Home() {
           </h2>
 
           <div className="space-y-8">
-            <div className="border-l-2 border-primary pl-6 py-2">
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="text-2xl font-display font-bold">
-                  {t.experience.mercadolibre.company}
-                </h3>
-                <span className="text-sm text-muted-foreground font-mono">
-                  {t.experience.mercadolibre.period}
-                </span>
-              </div>
-              <p className="text-primary font-semibold mb-2">
-                {t.experience.mercadolibre.role}
-              </p>
-              <p className="text-muted-foreground">
-                {t.experience.mercadolibre.description}
-              </p>
-            </div>
-
-            <div className="border-l-2 border-secondary pl-6 py-2">
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="text-2xl font-display font-bold">
-                  {t.experience.consulting.company}
-                </h3>
-                <span className="text-sm text-muted-foreground font-mono">
-                  {t.experience.consulting.period}
-                </span>
-              </div>
-              <p className="text-secondary font-semibold mb-2">
-                {t.experience.consulting.role}
-              </p>
-              <p className="text-muted-foreground">
-                {t.experience.consulting.description}
-              </p>
-            </div>
-
-            <div className="border-l-2 border-accent pl-6 py-2">
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="text-2xl font-display font-bold">
-                  {t.experience.creador.company}
-                </h3>
-                <span className="text-sm text-muted-foreground font-mono">
-                  {t.experience.creador.period}
-                </span>
-              </div>
-              <p className="text-accent font-semibold mb-2">
-                {t.experience.creador.role}
-              </p>
-              <p className="text-muted-foreground">
-                {t.experience.creador.description}
-              </p>
-            </div>
+            {[
+              { key: 'consulting', color: 'primary' },
+              { key: 'mercadolibre', color: 'secondary' },
+              { key: 'docnexus', color: 'accent' },
+              { key: 'truepill', color: 'primary' },
+              { key: 'vpublicidad', color: 'secondary' },
+              { key: 'creador', color: 'accent' },
+              { key: 'trabajando', color: 'primary' },
+              { key: 'celmedia', color: 'secondary' },
+            ].map((exp, i) => {
+              const experience = (t.experience as any)[exp.key];
+              return (
+                <motion.div
+                  key={exp.key}
+                  className={`border-l-2 border-${exp.color} pl-6 py-2`}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  style={{
+                    borderLeftColor: `hsl(var(--${exp.color}))`,
+                  }}
+                >
+                  <div className="flex items-start justify-between mb-2 flex-wrap gap-2">
+                    <h3 className="text-2xl font-display font-bold">
+                      {experience.company}
+                    </h3>
+                    <span className="text-sm text-muted-foreground font-mono">
+                      {experience.period}
+                    </span>
+                  </div>
+                  <p 
+                    className="font-semibold mb-2"
+                    style={{ color: `hsl(var(--${exp.color}))` }}
+                  >
+                    {experience.role}
+                  </p>
+                  <p className="text-muted-foreground">
+                    {experience.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -506,577 +501,393 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Featured Case Study - Okidoki.chat */}
-          <motion.div
-            className="mb-20 relative"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Light mode: subtle shadow, Dark mode: glowing blur */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/20 dark:via-secondary/20 dark:to-accent/20 rounded-2xl blur-2xl dark:blur-2xl opacity-60 dark:opacity-100" />
-            <div className="relative bg-card border border-primary/20 dark:border-primary/20 rounded-xl p-8 md:p-12 overflow-hidden shadow-lg dark:shadow-none">
-              {/* Subtle gradient overlay instead of split pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5 dark:to-primary/3 pointer-events-none" />
+          {/* Define all case studies */}
+          {(() => {
+            const caseStudies = {
+              fenixblack: {
+                id: 'fenixblack',
+                title: t.fenixblack.mainTitle,
+                subtitle: t.fenixblack.mainSubtitle,
+                badge: 'SAAS PLATFORM',
+                description: t.fenixblack.intro,
+                features: [
+                  t.fenixblack.feature1,
+                  t.fenixblack.feature2,
+                  t.fenixblack.feature3,
+                ],
+                tech: ['Python', 'NiceGUI', 'Custom React Bridge', 'Next.js', 'Vercel'],
+                link: 'https://www.fenixblack.ai',
+                linkText: t.fenixblack.visit,
+                color: 'primary',
+                type: 'fenixblack',
+                microApps: [
+                  {
+                    nameKey: "holidays",
+                    url: "https://holidays.fenixblack.ai",
+                    icon: "🎥",
+                    color: "primary",
+                  },
+                  {
+                    nameKey: "brand",
+                    url: "https://brand.fenixblack.ai",
+                    icon: "🎨",
+                    color: "secondary",
+                  },
+                  {
+                    nameKey: "backgrounds",
+                    url: "https://backgrounds.fenixblack.ai",
+                    icon: "🖼️",
+                    color: "accent",
+                  },
+                  {
+                    nameKey: "canvas",
+                    url: "https://canvas.fenixblack.ai",
+                    icon: "✏️",
+                    color: "primary",
+                  },
+                  {
+                    nameKey: "restore",
+                    url: "https://restore.fenixblack.ai",
+                    icon: "📸",
+                    color: "secondary",
+                  },
+                  {
+                    nameKey: "growth",
+                    url: "https://growth.fenixblack.ai",
+                    icon: "📊",
+                    color: "accent",
+                  },
+                ],
+              },
+              mercadolibre: {
+                id: 'mercadolibre',
+                title: 'MercadoLibre',
+                subtitle: 'ML Systems at 100M+ User Scale',
+                badge: 'ML AT SCALE',
+                description: 'Architected machine learning systems serving 100+ million users across 18 countries. Built MercadoPlay streaming platform. Referenced expert for 300+ engineers.',
+                features: [
+                  'Created ML classifiers to analyze video content and place strategic ads',
+                  'Developed Python module for e-commerce catalog matching from movie content',
+                  'Engineered high-performance dynamic menu system for millions of concurrent users',
+                  'Conducted system design reviews and PR reviews across multiple teams',
+                  'Served 100M+ users across 18 countries',
+                ],
+                tech: ['Python', 'TensorFlow', 'Kubernetes', 'GCP', 'ML', 'Java', 'Docker'],
+                color: 'primary',
+                type: 'standard',
+              },
+              healthcare: {
+                id: 'healthcare',
+                title: 'Healthcare EMR',
+                subtitle: 'HIPAA-Compliant AI Data Migration',
+                badge: 'HEALTHCARE AI',
+                description: 'Autonomous migration of 10+ years of medical records between EMR systems. Healthcare-grade reliability with complete audit trails. Zero data loss.',
+                features: [
+                  'Developed efficient XML data extraction for terabyte-scale government datasets',
+                  'Built Neo4j graph database pipeline with daily updates',
+                  'Optimized Cypher queries for search performance',
+                  'Created ReactJS dashboards with Storybook UI kit',
+                  'Built FastAPI backend + PostgreSQL storage',
+                  'HIPAA-compliant with complete audit trails',
+                ],
+                tech: ['AI Agents', 'HIPAA', 'Python', 'PostgreSQL', 'Neo4j', 'FastAPI', 'React'],
+                color: 'secondary',
+                type: 'standard',
+              },
+              insurance: {
+                id: 'insurance',
+                title: 'Insurance Docs',
+                subtitle: '150-Page Translation in 3 Minutes',
+                badge: 'HIGH-SPEED AI',
+                description: 'Built AI system for high-speed document translation with perfect formatting fidelity. Maintains complex layouts, tables, and legal terminology.',
+                features: [
+                  '150-200 page documents translated in < 3 minutes',
+                  'Formatting preservation across complex layouts',
+                  'Secure PII detection and handling',
+                  'Multi-LLM orchestration with custom load balancing',
+                  'GDPR-compliant data processing',
+                  'Perfect terminology preservation',
+                ],
+                tech: ['GPT-4', 'OCR', 'Python', 'PDF Processing', 'NLP', 'FastAPI', 'RAG'],
+                color: 'accent',
+                type: 'standard',
+              },
+              ide: {
+                id: 'ide',
+                title: 'Custom IDE',
+                subtitle: 'From Scratch to 100+ Apps',
+                badge: 'CUSTOM TOOLING',
+                description: 'Built complete IDE from ground up that powered 100+ mobile applications. Led company for 13 years serving major Latin American businesses.',
+                features: [
+                  'Built custom IDE in Java with mindmap-like low-code environment',
+                  'Automatic code generation: Node.js backends + React/Vue frontends',
+                  'Real-time task management apps with Node.js sockets',
+                  'Medical apps with image recognition',
+                  'Data scraping with Algolia integration',
+                  'Served media, finance, and government sectors across LATAM',
+                ],
+                tech: ['Java', 'C++', 'JavaScript', 'Mobile', 'Compiler', 'IDE', 'Node.js'],
+                color: 'primary',
+                type: 'standard',
+              },
+            };
 
-              <div className="relative">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
-                  <div>
-                    <div className="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/10 border border-primary/40 dark:border-primary/30 rounded-full text-xs font-mono text-primary mb-3">
-                      {t.caseStudies.okidoki.featuredBadge}
-                    </div>
-                    <h3 className="text-3xl md:text-5xl font-display font-bold mb-2">
-                      {t.caseStudies.okidoki.title}
-                    </h3>
-                    <p className="text-xl font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                      {t.caseStudies.okidoki.subtitle}
-                    </p>
-                  </div>
-                  <motion.a
-                    href="https://okidoki.chat"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-primary/10 dark:bg-primary/10 border-2 border-primary/50 dark:border-primary/30 text-primary rounded-lg font-mono text-sm font-semibold hover:bg-primary/20 dark:hover:bg-primary/20 transition-all inline-flex items-center gap-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {t.caseStudies.okidoki.viewLive}
-                    <span>→</span>
-                  </motion.a>
-                </div>
+            const featured = caseStudies[featuredCase as keyof typeof caseStudies];
+            const otherCases = Object.values(caseStudies).filter(c => c.id !== featuredCase);
 
-                {/* The Challenge */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-display font-bold text-foreground mb-3">
-                    {t.caseStudies.okidoki.challengeTitle}
-                  </h4>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {t.caseStudies.okidoki.challengeText}
-                  </p>
-                </div>
-
-                {/* The Timeline */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-display font-bold text-foreground mb-4">
-                    {t.caseStudies.okidoki.timelineTitle}
-                  </h4>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <motion.div
-                      className="p-4 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-muted/50 dark:to-muted/50 border border-primary/30 dark:border-border rounded-lg"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      <div className="text-3xl font-display font-bold text-primary mb-2">
-                        {t.caseStudies.okidoki.day3}
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {t.caseStudies.okidoki.day3Text}
-                      </p>
-                    </motion.div>
-                    <motion.div
-                      className="p-4 bg-gradient-to-br from-secondary/5 to-secondary/10 dark:from-muted/50 dark:to-muted/50 border border-secondary/30 dark:border-border rounded-lg"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      <div className="text-3xl font-display font-bold text-secondary mb-2">
-                        {t.caseStudies.okidoki.week2}
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {t.caseStudies.okidoki.week2Text}
-                      </p>
-                    </motion.div>
-                    <motion.div
-                      className="p-4 bg-gradient-to-br from-accent/5 to-accent/10 dark:from-muted/50 dark:to-muted/50 border border-accent/30 dark:border-border rounded-lg"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      <div className="text-3xl font-display font-bold text-accent mb-2">
-                        {t.caseStudies.okidoki.week3}
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {t.caseStudies.okidoki.week3Text}
-                      </p>
-                    </motion.div>
-                  </div>
-                </div>
-
-                {/* Tech Delivered */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-display font-bold text-foreground mb-4">
-                    {t.caseStudies.okidoki.deliveredTitle}
-                  </h4>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {(t.caseStudies.okidoki.features as unknown as readonly string[]).map((feature, i) => (
-                      <motion.div
-                        key={i}
-                        className="flex items-start gap-3 text-sm"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.05 }}
-                      >
-                        <span className="text-primary text-lg">✓</span>
-                        <span className="text-foreground">{feature}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Tech Stack */}
-                <div>
-                  <h4 className="text-lg font-display font-bold text-foreground mb-4">
-                    {t.caseStudies.okidoki.techStackTitle}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {(t.caseStudies.okidoki.techStack as unknown as readonly string[]).map((tech, i) => (
-                      <motion.span
-                        key={i}
-                        className="px-3 py-1 bg-muted/80 dark:bg-muted border border-border rounded-full text-xs font-mono text-foreground/70 dark:text-muted-foreground"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.05 }}
-                        whileHover={{ scale: 1.1, borderColor: "hsl(var(--primary))" }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Other Case Studies Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* MercadoLibre */}
-            <motion.div
-              className="group relative bg-card border border-border rounded-xl p-8 hover:border-primary/30 transition-all"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ y: -4 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative">
-                <h3 className="text-2xl font-display font-bold mb-2">
-                  MercadoLibre
-                </h3>
-                <p className="text-primary font-semibold mb-4">
-                  ML Systems at 100M+ User Scale
-                </p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Architected machine learning systems serving 100+ million users
-                  across 18 countries. Built MercadoPlay streaming platform.
-                  Referenced expert for 300+ engineers.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {["Python", "TensorFlow", "Kubernetes", "GCP", "ML"].map(
-                    (tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Healthcare EMR */}
-            <motion.div
-              className="group relative bg-card border border-border rounded-xl p-8 hover:border-secondary/30 transition-all"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              whileHover={{ y: -4 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative">
-                <h3 className="text-2xl font-display font-bold mb-2">
-                  Healthcare EMR
-                </h3>
-                <p className="text-secondary font-semibold mb-4">
-                  HIPAA-Compliant AI Data Migration
-                </p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Autonomous migration of 10+ years of medical records between EMR
-                  systems. Healthcare-grade reliability with complete audit trails.
-                  Zero data loss.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {["AI Agents", "HIPAA", "Python", "PostgreSQL", "Audit"].map(
-                    (tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Insurance Translation */}
-            <motion.div
-              className="group relative bg-card border border-border rounded-xl p-8 hover:border-accent/30 transition-all"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              whileHover={{ y: -4 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative">
-                <h3 className="text-2xl font-display font-bold mb-2">
-                  Insurance Docs
-                </h3>
-                <p className="text-accent font-semibold mb-4">
-                  150-Page Translation in 3 Minutes
-                </p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Built AI system for high-speed document translation with perfect
-                  formatting fidelity. Maintains complex layouts, tables, and legal
-                  terminology.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {["GPT-4", "OCR", "Python", "PDF Processing", "NLP"].map(
-                    (tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Creador IDE */}
-            <motion.div
-              className="group relative bg-card border border-border rounded-xl p-8 hover:border-primary/30 transition-all"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              whileHover={{ y: -4 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative">
-                <h3 className="text-2xl font-display font-bold mb-2">
-                  Custom IDE
-                </h3>
-                <p className="text-primary font-semibold mb-4">
-                  From Scratch to 100+ Apps
-                </p>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Built complete IDE from ground up that powered 100+ mobile
-                  applications. Led company for 13 years serving major Latin
-                  American businesses.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {["C++", "JavaScript", "Mobile", "Compiler", "IDE"].map(
-                    (tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* FenixBlack Portfolio Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
-        {/* Dramatic background with animated orbs */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary/5" />
-          <motion.div
-            className="absolute top-20 right-0 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 to-transparent dark:from-primary/10 dark:to-transparent rounded-full blur-3xl"
-            animate={{
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-20 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-secondary/20 to-transparent dark:from-secondary/10 dark:to-transparent rounded-full blur-3xl"
-            animate={{
-              x: [0, -30, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-          />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              className="max-w-4xl mx-auto mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.h2
-                className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-6"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-              >
-                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  {t.fenixblack.title}
-                </span>
-              </motion.h2>
-              <motion.div
-                className="space-y-4"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                <p className="text-xl text-foreground leading-relaxed">
-                  {t.fenixblack.intro}
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {t.fenixblack.description1} {t.fenixblack.description2}{" "}
-                  <span className="text-accent font-semibold">{t.fenixblack.pythonNicegui}</span>
-                  {t.fenixblack.description3}
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {t.fenixblack.description4}
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {t.fenixblack.description5}
-                </p>
-              </motion.div>
-            </motion.div>
-
-            {/* The Platform */}
-            <motion.div
-              className="mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              
-              <motion.div
-                className="relative"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                {/* Glowing border effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity" />
-                
-                <motion.a
-                  href="https://www.fenixblack.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative block"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative bg-card border-2 border-primary/30 dark:border-primary/20 rounded-2xl p-8 md:p-12 overflow-hidden">
-                    {/* Animated gradient background */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 dark:from-primary/5 dark:via-secondary/3 dark:to-accent/5"
-                      animate={{
-                        backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-                      }}
-                      transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                    
-                    {/* Sparkle effect */}
-                    <div className="absolute top-6 right-6 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 dark:from-primary/10 dark:to-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-                    
-                    <div className="relative flex items-start justify-between flex-wrap gap-6">
-                      <div className="flex-1">
-                        <div className="inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-xs font-mono text-primary mb-4">
-                          SAAS PLATFORM
-                        </div>
-                        <h4 className="text-3xl md:text-4xl font-display font-bold mb-3 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-secondary group-hover:to-accent group-hover:bg-clip-text group-hover:text-transparent transition-all">
-                          {t.fenixblack.mainTitle}
-                        </h4>
-                        <p className="text-lg text-muted-foreground mb-4">
-                          {t.fenixblack.mainSubtitle}
-                        </p>
-                        <div className="space-y-2 mb-4">
-                          <div className="flex items-center gap-2 text-sm">
-                            <span className="text-primary">✓</span>
-                            <span className="text-muted-foreground">{t.fenixblack.feature1}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm">
-                            <span className="text-secondary">✓</span>
-                            <span className="text-muted-foreground">{t.fenixblack.feature2}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm">
-                            <span className="text-accent">✓</span>
-                            <span className="text-muted-foreground">{t.fenixblack.feature3}</span>
-                          </div>
-                        </div>
-                        <div className="flex flex-wrap gap-2 text-xs font-mono">
-                          <span className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary">Python</span>
-                          <span className="px-3 py-1 bg-secondary/10 border border-secondary/20 rounded-full text-secondary">NiceGUI</span>
-                          <span className="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-accent">Custom React Bridge</span>
-                        </div>
-                      </div>
-                      <motion.div
-                        className="flex items-center gap-2 text-primary text-lg font-semibold"
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      >
-                        <span>{t.fenixblack.visit}</span>
-                        <span className="text-2xl">→</span>
-                      </motion.div>
-                    </div>
-                  </div>
-                </motion.a>
-              </motion.div>
-            </motion.div>
-
-            {/* Micro-Apps Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  nameKey: "holidays",
-                  url: "https://holidays.fenixblack.ai",
-                  icon: "🎥",
-                  color: "primary",
-                },
-                {
-                  nameKey: "brand",
-                  url: "https://brand.fenixblack.ai",
-                  icon: "🎨",
-                  color: "secondary",
-                },
-                {
-                  nameKey: "backgrounds",
-                  url: "https://backgrounds.fenixblack.ai",
-                  icon: "🖼️",
-                  color: "accent",
-                },
-                {
-                  nameKey: "canvas",
-                  url: "https://canvas.fenixblack.ai",
-                  icon: "✏️",
-                  color: "primary",
-                },
-                {
-                  nameKey: "restore",
-                  url: "https://restore.fenixblack.ai",
-                  icon: "📸",
-                  color: "secondary",
-                },
-                {
-                  nameKey: "growth",
-                  url: "https://growth.fenixblack.ai",
-                  icon: "📊",
-                  color: "accent",
-                },
-              ].map((app, i) => (
+            return (
+              <>
+                {/* Featured Case Study Display */}
                 <motion.div
-                  key={i}
-                  className="relative"
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: i * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
+                  key={featuredCase}
+                  className="mb-20"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  {/* Card glow effect */}
                   <motion.div
-                    className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-secondary/30 dark:from-primary/20 dark:to-secondary/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity"
-                    whileHover={{ scale: 1.05 }}
-                  />
-                  
-                  <motion.a
-                    href={app.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative block bg-card border-2 border-border hover:border-primary/50 dark:hover:border-primary/30 rounded-xl p-6 h-full transition-all"
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
+                    className="relative"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
                   >
-                    {/* Gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 dark:from-primary/3 dark:via-transparent dark:to-secondary/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {/* Glowing border effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity" />
                     
-                    <div className="relative">
-                      {/* Icon with animation */}
-                      <motion.div
-                        className="text-5xl mb-4"
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {app.icon}
-                      </motion.div>
-                      
+                    <div className="group relative block">
+                      <div className="relative bg-card border-2 border-primary/30 dark:border-primary/20 rounded-2xl p-8 md:p-12 overflow-hidden">
+                        {/* Animated gradient background */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 dark:from-primary/5 dark:via-secondary/3 dark:to-accent/5"
+                          animate={{
+                            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+                          }}
+                          transition={{
+                            duration: 10,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                        />
+                        
+                        {/* Sparkle effect */}
+                        <div className="absolute top-6 right-6 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 dark:from-primary/10 dark:to-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                        
+                        <div className="relative">
+                          <div className="flex items-start justify-between flex-wrap gap-6 mb-6">
+                            <div className="flex-1">
+                              <div className="inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-xs font-mono text-primary mb-4">
+                                FEATURED • {featured.badge}
+                              </div>
+                              <h3 className="text-3xl md:text-5xl font-display font-bold mb-3">
+                                {featured.title}
+                              </h3>
+                              <p className="text-xl font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
+                                {featured.subtitle}
+                              </p>
+                            </div>
+                            {'link' in featured && featured.link && (
+                              <motion.a
+                                href={featured.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-primary text-lg font-semibold hover:underline"
+                                whileHover={{ scale: 1.05 }}
+                                animate={{ x: [0, 5, 0] }}
+                                transition={{
+                                  duration: 1.5,
+                                  repeat: Infinity,
+                                  ease: "easeInOut",
+                                }}
+                              >
+                                <span>{'linkText' in featured ? featured.linkText : 'View Project'}</span>
+                                <span className="text-2xl">→</span>
+                              </motion.a>
+                            )}
+                          </div>
+
+                          <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                            {featured.description}
+                          </p>
+
+                          <div className="mb-6">
+                            <h4 className="text-lg font-display font-bold mb-3">Key Features:</h4>
+                            <div className="grid md:grid-cols-2 gap-3">
+                              {featured.features.map((feature, i) => (
+                                <motion.div
+                                  key={i}
+                                  className="flex items-start gap-2 text-sm"
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: i * 0.05 }}
+                                >
+                                  <span className="text-primary text-lg">✓</span>
+                                  <span className="text-muted-foreground">{feature}</span>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mb-4">
+                            <h4 className="text-lg font-display font-bold mb-3">Tech Stack:</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {featured.tech.map((tech, i) => (
+                                <motion.span
+                                  key={i}
+                                  className="px-3 py-1 bg-muted/80 dark:bg-muted border border-border rounded-full text-xs font-mono text-foreground/70 dark:text-muted-foreground"
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: i * 0.03 }}
+                                  whileHover={{ scale: 1.1, borderColor: "hsl(var(--primary))" }}
+                                >
+                                  {tech}
+                                </motion.span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* FenixBlack Micro-Apps Grid (only when fenixblack is featured) */}
+                  {featured.type === 'fenixblack' && 'microApps' in featured && featured.microApps && (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                      {featured.microApps.map((app: any, i: number) => (
+                        <motion.div
+                          key={i}
+                          className="relative"
+                          initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ 
+                            duration: 0.5, 
+                            delay: i * 0.1,
+                            type: "spring",
+                            stiffness: 100
+                          }}
+                        >
+                          <motion.a
+                            href={app.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative block bg-card border-2 border-border hover:border-primary/50 dark:hover:border-primary/30 rounded-xl p-6 h-full transition-all"
+                            whileHover={{ y: -8, scale: 1.02 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 dark:from-primary/3 dark:via-transparent dark:to-secondary/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                            
+                            <div className="relative">
+                              <motion.div
+                                className="text-5xl mb-4"
+                                whileHover={{ scale: 1.2, rotate: 5 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {app.icon}
+                              </motion.div>
+                              
                               <h4 className="text-xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
                                 {(t.fenixblack as any)[app.nameKey].name}
                               </h4>
                               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
                                 {(t.fenixblack as any)[app.nameKey].description}
                               </p>
-                      
+                              
                               <div className="flex items-center gap-2 text-xs font-mono font-semibold text-muted-foreground group-hover:text-primary transition-colors">
                                 <span>{t.fenixblack.launchApp}</span>
-                        <motion.span
-                          animate={{ x: [0, 3, 0] }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                        >
-                          →
-                        </motion.span>
-                      </div>
+                                <motion.span
+                                  animate={{ x: [0, 3, 0] }}
+                                  transition={{
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                  }}
+                                >
+                                  →
+                                </motion.span>
+                              </div>
+                            </div>
+                          </motion.a>
+                        </motion.div>
+                      ))}
                     </div>
-                  </motion.a>
+                  )}
                 </motion.div>
-              ))}
-            </div>
 
-          </div>
+                {/* Other Case Studies Grid */}
+                <div className="grid md:grid-cols-2 gap-8">
+                  {otherCases.map((caseStudy, i) => (
+                    <motion.div
+                      key={caseStudy.id}
+                      className="group relative bg-card border border-border rounded-xl overflow-hidden transition-all cursor-pointer"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: i * 0.1 }}
+                      onClick={() => setFeaturedCase(caseStudy.id)}
+                      whileHover={{ y: -4, scale: 1.02 }}
+                    >
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"
+                        style={{ 
+                          backgroundImage: `linear-gradient(to bottom right, hsl(var(--${caseStudy.color}) / 0.05), transparent)` 
+                        }}
+                      />
+                      
+                      <div className="p-8">
+                        <div className="relative">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <h3 className="text-2xl font-display font-bold mb-2">
+                                {caseStudy.title}
+                              </h3>
+                              <p 
+                                className="font-semibold mb-4"
+                                style={{ color: `hsl(var(--${caseStudy.color}))` }}
+                              >
+                                {caseStudy.subtitle}
+                              </p>
+                            </div>
+                            <motion.div
+                              className="text-muted-foreground"
+                              whileHover={{ scale: 1.2 }}
+                            >
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
+                            </motion.div>
+                          </div>
+                          
+                          <p className="text-muted-foreground mb-6 leading-relaxed">
+                            {caseStudy.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {caseStudy.tech.slice(0, 5).map((tech, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                            {caseStudy.tech.length > 5 && (
+                              <span className="px-2 py-1 bg-muted rounded text-xs font-mono text-muted-foreground">
+                                +{caseStudy.tech.length - 5}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="text-xs text-primary font-semibold">
+                            Click to view details →
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 

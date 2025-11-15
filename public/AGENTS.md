@@ -79,7 +79,6 @@ Pablo Schaffner is a highly experienced Staff Software Engineer with 20+ years b
 - Video Generation: Stable Diffusion, DALL-E, Midjourney integration
 
 **Notable AI Projects**:
-- **Okidoki.chat** (Oct 2024): Enterprise AI chat widget with RAG, voice mode, video calls, sub-200ms response times
 - **FenixBlack Suite** (2024): 7 GenAI micro-apps (brand kits, backgrounds, video generation, photo restoration)
 - **GPT-Research** (Aug 2024): Autonomous research agent with multi-source synthesis
 - **Async-Promptic** (Jan 2024): Python library for making LLM calls as simple as function decorators

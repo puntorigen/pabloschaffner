@@ -68,23 +68,53 @@ export const translations = {
     experience: {
       badge: 'EXPERIENCE',
       title: "Where I've Built",
+      consulting: {
+        company: 'Punto Origen',
+        period: '2024-PRESENT',
+        role: 'AI Consulting Specialist',
+        description: 'Healthcare EMR migration, insurance document translation (150 pages in 3 min), AI sales prospecting, enterprise AI implementations.',
+      },
       mercadolibre: {
         company: 'MercadoLibre',
         period: '2023-2024',
         role: 'Software Expert & Architect',
         description: 'Built ML systems for 100M+ users. MercadoPlay streaming platform across 18 countries. Referenced expert for 300+ engineers.',
       },
-      consulting: {
-        company: 'AI Consulting',
-        period: '2024-PRESENT',
-        role: 'Punto Origen - AI Specialist',
-        description: 'Healthcare EMR migration, insurance document translation (150 pages in 3 min), AI sales prospecting, enterprise AI implementations.',
+      docnexus: {
+        company: 'DocNexus Inc.',
+        period: '2022-2023',
+        role: 'Principal Software Engineer',
+        description: 'Physician search engine with Neo4j graph database. Terabyte-scale data extraction. ReactJS dashboards with Storybook UI kit.',
+      },
+      truepill: {
+        company: 'Truepill.com Inc.',
+        period: '2021-2022',
+        role: 'Senior Software Engineer & Tech Lead',
+        description: 'Led team of 7 engineers. Telehealth platform with video consultations (Twilio). Backend migration Next.js → NestJS. Promoted to Tech Lead in 1 month.',
+      },
+      vpublicidad: {
+        company: 'V+ Publicidad SpA',
+        period: '2019-2021',
+        role: 'Principal Engineer & Tech Lead',
+        description: 'D-OOH advertising platform. AWS infrastructure design. VueJS/Nuxt web panel. Android IoT integration. React Native mobile app.',
       },
       creador: {
         company: 'Creador S.A.',
         period: '2007-2020',
         role: 'Founding Engineer & CEO',
         description: 'Built custom IDE from scratch. Powered 100+ mobile applications. 13 years leading company serving major Latin American businesses.',
+      },
+      trabajando: {
+        company: 'Trabajando.com',
+        period: '2002-2004',
+        role: 'CTO & Board Member',
+        description: 'Complete website remake (ASP → ColdFusion + Java). Company acquired by El Mercurio. Co-founders became Endeavor Entrepreneurs.',
+      },
+      celmedia: {
+        company: 'Celmedia S.A.',
+        period: '2004-2007',
+        role: 'Lead Engineer → Head of Engineering',
+        description: 'Raised WAP traffic by 18,000%. Backend for 120M+ requests/month (Movistar Chat). Clients: TVN, Mega, Discovery Networks.',
       },
     },
     
@@ -319,23 +349,53 @@ export const translations = {
     experience: {
       badge: 'EXPERIENCIA',
       title: 'Dónde He Construido',
+      consulting: {
+        company: 'Punto Origen',
+        period: '2024-PRESENTE',
+        role: 'Especialista en Consultoría IA',
+        description: 'Migración de historias clínicas, traducción de documentos de seguros (150 páginas en 3 min), prospección de ventas con IA, implementaciones empresariales.',
+      },
       mercadolibre: {
         company: 'MercadoLibre',
         period: '2023-2024',
         role: 'Experto en Software & Arquitecto',
         description: 'Sistemas ML para 100M+ usuarios. Plataforma de streaming MercadoPlay en 18 países. Referente técnico para 300+ ingenieros.',
       },
-      consulting: {
-        company: 'Consultoría en IA',
-        period: '2024-PRESENTE',
-        role: 'Punto Origen - Especialista IA',
-        description: 'Migración de historias clínicas, traducción de documentos de seguros (150 páginas en 3 min), prospección de ventas con IA, implementaciones empresariales.',
+      docnexus: {
+        company: 'DocNexus Inc.',
+        period: '2022-2023',
+        role: 'Ingeniero Principal de Software',
+        description: 'Motor de búsqueda de médicos con base de datos Neo4j. Extracción de datos a escala de terabytes. Dashboards ReactJS con UI kit Storybook.',
+      },
+      truepill: {
+        company: 'Truepill.com Inc.',
+        period: '2021-2022',
+        role: 'Ingeniero Senior & Tech Lead',
+        description: 'Lideré equipo de 7 ingenieros. Plataforma de telesalud con consultas por video (Twilio). Migración backend Next.js → NestJS. Promovido a Tech Lead en 1 mes.',
+      },
+      vpublicidad: {
+        company: 'V+ Publicidad SpA',
+        period: '2019-2021',
+        role: 'Ingeniero Principal & Tech Lead',
+        description: 'Plataforma publicitaria D-OOH. Diseño infraestructura AWS. Panel web VueJS/Nuxt. Integración IoT Android. App móvil React Native.',
       },
       creador: {
         company: 'Creador S.A.',
         period: '2007-2020',
         role: 'Ingeniero Fundador & CEO',
         description: 'Construí un IDE completo desde cero. Impulsó 100+ aplicaciones móviles. 13 años liderando empresa sirviendo grandes negocios latinoamericanos.',
+      },
+      trabajando: {
+        company: 'Trabajando.com',
+        period: '2002-2004',
+        role: 'CTO & Miembro del Directorio',
+        description: 'Reescritura completa del sitio web (ASP → ColdFusion + Java). Empresa adquirida por El Mercurio. Co-fundadores se convirtieron en Emprendedores Endeavor.',
+      },
+      celmedia: {
+        company: 'Celmedia S.A.',
+        period: '2004-2007',
+        role: 'Ingeniero Líder → Jefe de Ingeniería',
+        description: 'Aumenté tráfico WAP en 18.000%. Backend para 120M+ solicitudes/mes (Movistar Chat). Clientes: TVN, Mega, Discovery Networks.',
       },
     },
     
