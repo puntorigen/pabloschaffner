@@ -55,18 +55,18 @@ export const translations = {
     
     // Track Record Section
     trackRecord: {
-      badge: 'CREDIBILITY',
-      title: 'Why You Can Trust Me',
-      summary: '20+ years building systems at every scale—from startups to Fortune 500. Staff Engineer level with deep experience in AI/ML, full-stack development, and technical leadership. Built systems serving 100M+ users, led teams of 7+ engineers, and founded companies that ran for 13 years.',
+      badge: 'TRACK RECORD',
+      title: 'Built for Startups. Proven at Scale.',
+      summary: 'From founding companies to scaling systems for 100M+ users. From shipping MVPs in weeks to architecting Fortune 500 infrastructure.',
       highlights: [
-        '100M+ users served at MercadoLibre ($14.3B company)',
-        'Built custom IDE that powered 100+ mobile applications',
-        'Healthcare, insurance, fintech, e-commerce experience',
-        'CTO and Board Member at Trabajando.com (acquired by El Mercurio)',
+        '100M+ users at MercadoLibre ($14.3B company)',
+        'Custom IDE powering 100+ mobile apps',
+        '13 years as Founding CEO at Creador S.A.',
+        'CTO at Trabajando.com (acquired by El Mercurio)',
         'Promoted to Tech Lead in 1 month at Truepill',
-        'Founded and ran Creador S.A. for 13 years',
-        'Raised WAP traffic by 18,000% at Celmedia',
-        'Staff/Principal Engineer at multiple companies',
+        'Healthcare, insurance, fintech, e-commerce',
+        'Raised traffic 18,000% at Celmedia',
+        'Staff/Principal Engineer level',
       ],
     },
     
@@ -352,18 +352,18 @@ export const translations = {
     
     // Sección Trayectoria
     trackRecord: {
-      badge: 'CREDIBILIDAD',
-      title: 'Por Qué Puedes Confiar en Mí',
-      summary: '20+ años construyendo sistemas a toda escala—desde startups hasta Fortune 500. Nivel Staff Engineer con experiencia profunda en IA/ML, desarrollo full-stack y liderazgo técnico. Construí sistemas sirviendo 100M+ usuarios, lideré equipos de 7+ ingenieros, y fundé empresas que corrieron por 13 años.',
+      badge: 'TRAYECTORIA',
+      title: 'Construido para Startups. Probado a Escala.',
+      summary: 'Desde fundar empresas hasta escalar sistemas para 100M+ usuarios. Desde entregar MVPs en semanas hasta arquitectura Fortune 500.',
       highlights: [
-        '100M+ usuarios servidos en MercadoLibre (empresa de $14.3B)',
-        'Construí IDE personalizado que impulsó 100+ aplicaciones móviles',
-        'Experiencia en salud, seguros, fintech, e-commerce',
-        'CTO y Miembro del Directorio en Trabajando.com (adquirida por El Mercurio)',
+        '100M+ usuarios en MercadoLibre (empresa de $14.3B)',
+        'IDE personalizado impulsando 100+ apps móviles',
+        '13 años como CEO Fundador en Creador S.A.',
+        'CTO en Trabajando.com (adquirida por El Mercurio)',
         'Promovido a Tech Lead en 1 mes en Truepill',
-        'Fundé y dirigí Creador S.A. por 13 años',
-        'Aumenté tráfico WAP en 18,000% en Celmedia',
-        'Ingeniero Staff/Principal en múltiples empresas',
+        'Salud, seguros, fintech, e-commerce',
+        'Aumenté tráfico 18,000% en Celmedia',
+        'Nivel Staff/Principal Engineer',
       ],
     },
     

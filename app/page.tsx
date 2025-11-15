@@ -172,7 +172,7 @@ export default function Home() {
       </section>
 
       {/* Trusted By Section */}
-      <section className="border-y border-border bg-muted/30 py-12">
+      <section className="border-y border-border bg-slate-50/40 dark:bg-slate-900/20 py-12">
         <div className="container mx-auto px-4">
           <p className="text-center text-muted-foreground mb-8 font-medium text-sm">
             {t.trustedBy.title}
@@ -188,7 +188,7 @@ export default function Home() {
       </section>
 
       {/* Key Pillars Section */}
-      <section id="about" className="container mx-auto px-4 py-20 md:py-32 relative">
+      <section id="about" className="container mx-auto px-4 py-20 md:py-32 relative bg-purple-50/30 dark:bg-purple-950/10">
         <div className="max-w-6xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -239,7 +239,7 @@ export default function Home() {
       </section>
 
       {/* Track Record Section */}
-      <section className="border-y border-border bg-muted/30 py-20 md:py-32">
+      <section className="border-y border-border bg-cyan-50/50 dark:bg-cyan-950/20 py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -248,18 +248,18 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
+              <span className="inline-block px-5 py-2.5 bg-primary text-primary-foreground text-base font-black rounded-md border-2 border-border uppercase tracking-wider mb-6">
                 {t.trackRecord.badge}
               </span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-8">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-foreground mb-6">
                 {t.trackRecord.title}
               </h2>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+              <p className="text-xl md:text-2xl font-bold text-foreground leading-tight mb-10">
                 {t.trackRecord.summary}
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-5">
               {(t.trackRecord.highlights as unknown as readonly string[]).map((highlight, i) => (
                 <motion.div
                   key={i}
@@ -269,8 +269,8 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <span className="text-primary mt-1 flex-shrink-0">✓</span>
-                  <span className="text-foreground">{highlight}</span>
+                  <span className="text-primary mt-1 flex-shrink-0 text-xl font-bold">✓</span>
+                  <span className="text-foreground font-medium text-lg">{highlight}</span>
                 </motion.div>
               ))}
             </div>
@@ -723,7 +723,7 @@ export default function Home() {
       </section>
 
       {/* How We Can Work Together Section */}
-      <section className="border-y border-border bg-muted/30 py-20 md:py-32">
+      <section className="border-y border-border bg-pink-50/40 dark:bg-pink-950/15 py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -1004,7 +1004,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-muted/20 py-12">
+      <footer className="border-t border-border bg-slate-100/50 dark:bg-slate-900/30 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="font-display font-bold text-lg text-foreground">
