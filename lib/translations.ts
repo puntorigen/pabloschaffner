@@ -5,32 +5,25 @@ export const translations = {
     // Navigation
     nav: {
       about: 'About',
+      approach: 'Approach',
       work: 'Work',
       contact: 'Contact',
     },
     
     // Hero Section
     hero: {
-      title: 'Staff Engineer • AI Architect • System Designer',
+      title: 'Staff Engineer • AI Architect',
       name: 'Pablo Schaffner',
-      headline1: 'Building complete systems in',
-      headline2: '3 weeks',
-      headline3: 'instead of',
-      headline4: '6 months',
-      subheadline1: 'Production',
-      subheadline1Bold: 'AI systems',
-      subheadline2: 'that work from day one.',
-      subheadline3: 'Worked with',
-      subheadline3Bold: 'MercadoLibre (100M users)',
-      subheadline4: ', healthcare startups, insurance companies, and more.',
+      headline: 'I build production AI systems—from scratch to 100M+ users',
+      subheadline: 'Full-stack AI development, system architecture, and technical leadership for startups and Fortune 500 companies.',
       ctaPrimary: "Let's Talk",
-      ctaSecondary: 'See Projects',
+      ctaSecondary: 'View Projects',
       stat1Value: '100M+',
       stat1Label: 'USERS SERVED',
       stat2Value: '20+',
       stat2Label: 'YEARS BUILDING',
-      stat3Value: '3',
-      stat3Label: 'WEEKS TYPICAL',
+      stat3Value: '3 weeks',
+      stat3Label: 'TYPICAL DELIVERY',
     },
     
     // Trusted By Section
@@ -38,30 +31,43 @@ export const translations = {
       title: 'Trusted by Fortune 500s and startups',
     },
     
-    // About Section
-    about: {
-      badge: 'PHILOSOPHY',
-      title: "20 Years Building. Still Learning.",
-      intro: "After two decades—from custom IDEs that ran 100+ apps, to ML systems at",
-      introHighlight: "MercadoLibre serving 100M users",
-      introEnd: "—here's what I've learned:",
-      insight: "You start seeing patterns. What usually breaks. What actually scales. Where complexity hides.",
-      description: "Experience means I've made the mistakes already. Tried the shortcuts that don't work. Built the architectures that do. It's not magic—just repetition across hundreds of projects.",
-      okidokiTitle: "Okidoki.chat: Production-Grade in Week 3",
-      okidokiDescription: "Deployed a complete platform to production in 3 weeks. Still adding features based on what users actually need.",
-      okidokiFeatures: [
-        "Voice + video meetings",
-        "Auto transcription + AI summaries",
-        "Intelligent lead profiling",
-        "Cron-based RAG automation",
-        "PDF + website scraping",
-        "Bot personality engine",
-        "Landing page generator",
-        "Production deployment",
+    // Key Pillars Section
+    pillars: {
+      badge: 'WHAT I DO',
+      title: 'How I Create Value',
+      aiSystems: {
+        title: 'Production AI Systems',
+        description: 'Build complete AI platforms from scratch—RAG pipelines, multi-agent systems, voice/video integrations. For startups that need to ship fast and enterprises serving millions.',
+      },
+      fullStack: {
+        title: 'Full-Stack Product Delivery',
+        description: 'End-to-end development with Next.js, Python, React. From backend architecture to frontend polish. Ship complete, production-ready systems in weeks, not months.',
+      },
+      scale: {
+        title: 'Scale & Architecture',
+        description: 'Systems that handle 100M+ users. ML pipelines for Fortune 500 companies. Enterprise compliance (HIPAA, SOC2). Built MercadoPlay streaming platform across 18 countries.',
+      },
+      leadership: {
+        title: 'Technical Leadership',
+        description: 'Led engineering teams as Tech Lead and CTO. 13 years as founding CEO. Fractional CTO services for startups that need strategic technical guidance.',
+      },
+    },
+    
+    // Track Record Section
+    trackRecord: {
+      badge: 'CREDIBILITY',
+      title: 'Why You Can Trust Me',
+      summary: '20+ years building systems at every scale—from startups to Fortune 500. Staff Engineer level with deep experience in AI/ML, full-stack development, and technical leadership. Built systems serving 100M+ users, led teams of 7+ engineers, and founded companies that ran for 13 years.',
+      highlights: [
+        '100M+ users served at MercadoLibre ($14.3B company)',
+        'Built custom IDE that powered 100+ mobile applications',
+        'Healthcare, insurance, fintech, e-commerce experience',
+        'CTO and Board Member at Trabajando.com (acquired by El Mercurio)',
+        'Promoted to Tech Lead in 1 month at Truepill',
+        'Founded and ran Creador S.A. for 13 years',
+        'Raised WAP traffic by 18,000% at Celmedia',
+        'Staff/Principal Engineer at multiple companies',
       ],
-      closing1: "Experience compounds.",
-      closing2: "Problems I solve now, I've solved variations of before.",
-      experienceTitle: "Companies I've worked with",
     },
     
     // Experience Section
@@ -118,11 +124,11 @@ export const translations = {
       },
     },
     
-    // Case Studies Section
-    caseStudies: {
-      badge: 'CASE STUDIES',
-      title: 'Production Systems, Delivered Fast',
-      subtitle: 'Real projects. Real impact. Real speed.',
+    // Projects Section (formerly Case Studies)
+    projects: {
+      badge: 'PROJECTS & VENTURES',
+      title: 'What I Have Built',
+      subtitle: 'Production systems that solve real problems.',
       okidoki: {
         featuredBadge: 'FEATURED PROJECT',
         title: 'Okidoki.chat',
@@ -224,10 +230,20 @@ export const translations = {
       techNote2: 'Micro-Apps:',
     },
     
-    // Services Section
-    services: {
-      badge: 'SERVICES',
-      title: 'How I Can Help',
+    // Mission and Values Section
+    mission: {
+      badge: 'MISSION & VALUES',
+      title: 'Why I Build What I Build',
+      problem: 'Most teams spend 6 months planning what could ship in 3 weeks. They get stuck in complexity that experience would have avoided.',
+      whoIHelp: 'I work with startups that need to move fast without breaking things, and enterprises that need AI systems to scale to millions of users.',
+      approach: 'Experience means I have already made the mistakes. I know what breaks, what scales, where complexity hides. This is not speed through shortcuts—mastery through 20 years and hundreds of projects.',
+      focus: 'Building production-ready AI systems from day one. Complete platforms that work, scale, and solve real business problems.',
+    },
+    
+    // How We Can Work Together (formerly Services)
+    workTogether: {
+      badge: 'WORK WITH ME',
+      title: 'How We Can Work Together',
       subtitle: 'From idea to production. From MVP to enterprise scale.',
       startups: {
         title: 'For Startups',
@@ -286,32 +302,25 @@ export const translations = {
     // Navegación
     nav: {
       about: 'Acerca',
+      approach: 'Enfoque',
       work: 'Trabajo',
       contact: 'Contacto',
     },
     
     // Sección Hero
     hero: {
-      title: 'Staff Engineer • Arquitecto AI • Diseñador de Sistemas',
+      title: 'Staff Engineer • Arquitecto AI',
       name: 'Pablo Schaffner',
-      headline1: 'Sistemas completos en',
-      headline2: '3 semanas',
-      headline3: 'en vez de',
-      headline4: '6 meses',
-      subheadline1: 'Sistemas de',
-      subheadline1Bold: 'inteligencia artificial',
-      subheadline2: 'que funcionan desde el día uno.',
-      subheadline3: 'He trabajado con',
-      subheadline3Bold: 'MercadoLibre (100M usuarios)',
-      subheadline4: ', startups de salud, aseguradoras y más.',
+      headline: 'Construyo sistemas de IA para producción—desde cero hasta 100M+ usuarios',
+      subheadline: 'Desarrollo full-stack de IA, arquitectura de sistemas y liderazgo técnico para startups y empresas Fortune 500.',
       ctaPrimary: 'Hablemos',
       ctaSecondary: 'Ver Proyectos',
       stat1Value: '100M+',
       stat1Label: 'USUARIOS SERVIDOS',
       stat2Value: '20+',
       stat2Label: 'AÑOS CONSTRUYENDO',
-      stat3Value: '3',
-      stat3Label: 'SEMANAS TÍPICO',
+      stat3Value: '3 semanas',
+      stat3Label: 'ENTREGA TÍPICA',
     },
     
     // Sección Confianza
@@ -319,30 +328,43 @@ export const translations = {
       title: 'Han confiado en mí desde Fortune 500 hasta startups',
     },
     
-    // Sección Acerca
-    about: {
-      badge: 'FILOSOFÍA',
-      title: "20 Años Construyendo. Todavía Aprendiendo.",
-      intro: "Dos décadas—desde IDEs personalizados que corrían 100+ apps, hasta sistemas ML en",
-      introHighlight: "MercadoLibre sirviendo 100M usuarios",
-      introEnd: "—esto es lo que he aprendido:",
-      insight: "Empiezas a ver patrones. Qué suele fallar. Qué realmente escala. Dónde se esconde la complejidad.",
-      description: "La experiencia significa que ya cometí los errores. Probé los atajos que no funcionan. Construí las arquitecturas que sí. No es magia—es repetición a través de cientos de proyectos.",
-      okidokiTitle: "Okidoki.chat: En Producción Semana 3",
-      okidokiDescription: "Desplegué una plataforma completa a producción en 3 semanas. Sigo agregando funcionalidades según lo que los usuarios realmente necesitan.",
-      okidokiFeatures: [
-        "Reuniones de voz + video",
-        "Transcripción automática + resúmenes IA",
-        "Perfilado inteligente de leads",
-        "Automatización RAG programada",
-        "Extracción de PDFs + sitios web",
-        "Motor de personalidades del bot",
-        "Generador de landing pages",
-        "Desplegado en producción",
+    // Sección Pilares Clave
+    pillars: {
+      badge: 'LO QUE HAGO',
+      title: 'Cómo Creo Valor',
+      aiSystems: {
+        title: 'Sistemas de IA para Producción',
+        description: 'Construyo plataformas de IA completas desde cero—pipelines RAG, sistemas multi-agente, integraciones de voz/video. Para startups que necesitan entregar rápido y empresas que sirven millones.',
+      },
+      fullStack: {
+        title: 'Entrega de Producto Full-Stack',
+        description: 'Desarrollo end-to-end con Next.js, Python, React. Desde arquitectura backend hasta frontend pulido. Entrego sistemas completos y listos para producción en semanas, no meses.',
+      },
+      scale: {
+        title: 'Escala y Arquitectura',
+        description: 'Sistemas que manejan 100M+ usuarios. Pipelines ML para empresas Fortune 500. Cumplimiento empresarial (HIPAA, SOC2). Construí plataforma de streaming MercadoPlay en 18 países.',
+      },
+      leadership: {
+        title: 'Liderazgo Técnico',
+        description: 'Lideré equipos de ingeniería como Tech Lead y CTO. 13 años como CEO fundador. Servicios de CTO fraccionado para startups que necesitan guía técnica estratégica.',
+      },
+    },
+    
+    // Sección Trayectoria
+    trackRecord: {
+      badge: 'CREDIBILIDAD',
+      title: 'Por Qué Puedes Confiar en Mí',
+      summary: '20+ años construyendo sistemas a toda escala—desde startups hasta Fortune 500. Nivel Staff Engineer con experiencia profunda en IA/ML, desarrollo full-stack y liderazgo técnico. Construí sistemas sirviendo 100M+ usuarios, lideré equipos de 7+ ingenieros, y fundé empresas que corrieron por 13 años.',
+      highlights: [
+        '100M+ usuarios servidos en MercadoLibre (empresa de $14.3B)',
+        'Construí IDE personalizado que impulsó 100+ aplicaciones móviles',
+        'Experiencia en salud, seguros, fintech, e-commerce',
+        'CTO y Miembro del Directorio en Trabajando.com (adquirida por El Mercurio)',
+        'Promovido a Tech Lead en 1 mes en Truepill',
+        'Fundé y dirigí Creador S.A. por 13 años',
+        'Aumenté tráfico WAP en 18,000% en Celmedia',
+        'Ingeniero Staff/Principal en múltiples empresas',
       ],
-      closing1: "La experiencia se acumula.",
-      closing2: "Los problemas que resuelvo ahora, ya resolví variantes antes.",
-      experienceTitle: "Empresas con las que he trabajado",
     },
     
     // Sección Experiencia
@@ -399,11 +421,11 @@ export const translations = {
       },
     },
     
-    // Sección Casos de Estudio
-    caseStudies: {
-      badge: 'CASOS DE ESTUDIO',
-      title: 'Sistemas Reales, Velocidad Real',
-      subtitle: 'Proyectos reales. Impacto real. Velocidad real.',
+    // Sección Proyectos
+    projects: {
+      badge: 'PROYECTOS Y PRODUCTOS',
+      title: 'Lo Que He Construido',
+      subtitle: 'Sistemas de producción que resuelven problemas reales.',
       okidoki: {
         featuredBadge: 'PROYECTO DESTACADO',
         title: 'Okidoki.chat',
@@ -505,10 +527,20 @@ export const translations = {
       techNote2: 'Apps:',
     },
     
-    // Sección Servicios
-    services: {
-      badge: 'SERVICIOS',
-      title: 'Cómo Puedo Ayudarte',
+    // Sección Misión y Valores
+    mission: {
+      badge: 'MISIÓN Y VALORES',
+      title: 'Por Qué Construyo Lo Que Construyo',
+      problem: 'La mayoría de equipos gastan 6 meses planeando lo que podría entregarse en 3 semanas. Se atascan en complejidad que la experiencia habría evitado.',
+      whoIHelp: 'Trabajo con startups que necesitan moverse rápido sin romper cosas, y empresas que necesitan sistemas de IA que escalen a millones de usuarios.',
+      approach: 'La experiencia significa que ya cometí los errores. Sé qué falla, qué escala, dónde se esconde la complejidad. No es velocidad por atajos—es maestría por 20 años y cientos de proyectos.',
+      focus: 'Construir sistemas de IA listos para producción desde el día uno. Plataformas completas que funcionan, escalan y resuelven problemas reales de negocio.',
+    },
+    
+    // Sección Trabajar Juntos
+    workTogether: {
+      badge: 'TRABAJA CONMIGO',
+      title: 'Cómo Podemos Trabajar Juntos',
       subtitle: 'De la idea a producción. De MVP a escala empresarial.',
       startups: {
         title: 'Si Tienes una Startup',

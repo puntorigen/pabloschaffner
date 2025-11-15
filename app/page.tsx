@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { GridBackground } from "@/components/GridBackground";
 import { ContactForm } from "@/components/ContactForm";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -12,11 +13,11 @@ export default function Home() {
   const [featuredCase, setFeaturedCase] = useState<string>('fenixblack');
   
   return (
-    <main className="min-h-screen bg-background overflow-hidden relative">
+    <main className="min-h-screen bg-background overflow-hidden relative px-[3px] md:px-[11px]">
       <GridBackground />
       {/* Navigation */}
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b-2 border-border"
+        className="fixed top-0 left-[3px] right-[3px] md:left-[11px] md:right-[11px] z-50 bg-card/95 backdrop-blur-sm border-b-2 border-border"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -31,7 +32,7 @@ export default function Home() {
               Pablo Schaffner
             </motion.div>
             <div className="flex items-center gap-6 text-sm">
-              {(["about", "work", "contact"] as const).map((item, i) => (
+              {(["about", "approach", "work", "contact"] as const).map((item, i) => (
                 <motion.a
                   key={item}
                   href={`#${item}`}
@@ -51,18 +52,31 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        {/* Background Image with padding */}
+        <div className="absolute left-0 right-0 bottom-0 top-[67px] md:top-[83px] z-0 overflow-hidden">
+          <Image
+            src="/manquehue.jpg"
+            alt="Santiago, Chile - my home"
+            fill
+            priority
+            className="object-cover object-center opacity-50"
+            quality={95}
+          />
+          {/* Subtle gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/75" />
+        </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
           {/* Name & Title */}
           <motion.div
-            className="mb-8 space-y-4"
+            className="mb-10 space-y-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <motion.span
-              className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider"
+              className="inline-block px-5 py-2.5 bg-primary text-primary-foreground text-base font-black rounded-md border-2 border-border uppercase tracking-wider"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -70,7 +84,7 @@ export default function Home() {
               {t.hero.title}
             </motion.span>
             <motion.h1
-              className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight leading-tight text-foreground"
+              className="text-5xl md:text-6xl lg:text-7xl font-serif font-black tracking-tight leading-[0.95] text-foreground"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -81,55 +95,24 @@ export default function Home() {
 
           {/* Headline */}
           <motion.h2
-            className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold tracking-tight leading-tight mb-6 text-foreground"
+            className="text-2xl md:text-3xl lg:text-4xl font-serif font-extrabold tracking-tight leading-tight text-foreground max-w-4xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            {t.hero.headline1}{" "}
-            <span className="italic">
-              {t.hero.headline2}
-            </span>{" "}
-            {t.hero.headline3}{" "}
-            <span className="italic">
-              {t.hero.headline4}
-            </span>
+            {t.hero.headline}
           </motion.h2>
 
-          {/* Subheadline */}
+          {/* CTA Buttons */}
           <motion.div
-            className="space-y-4"
+            className="flex flex-col sm:flex-row gap-5 pt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl leading-relaxed">
-              {t.hero.subheadline1}{" "}
-              <span className="text-foreground font-semibold">
-                {t.hero.subheadline1Bold}
-              </span>{" "}
-              {t.hero.subheadline2}
-            </p>
-
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              {t.hero.subheadline3}{" "}
-              <span className="text-primary font-semibold">
-                {t.hero.subheadline3Bold}
-              </span>
-              {t.hero.subheadline4}
-            </p>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 pt-10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          >
             <motion.a
               href="#contact"
-              className="px-8 py-4 bg-primary hover:bg-primary-hover text-primary-foreground rounded-md font-sans font-bold inline-flex items-center gap-2 justify-center transition-all border-2 border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+              className="px-10 py-5 bg-primary hover:bg-primary-hover text-primary-foreground rounded-md font-sans font-black text-lg inline-flex items-center gap-3 justify-center transition-all border-2 border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
               whileTap={{ scale: 0.98 }}
             >
               <span>{t.hero.ctaPrimary}</span>
@@ -137,7 +120,7 @@ export default function Home() {
             </motion.a>
             <motion.a
               href="#work"
-              className="px-8 py-4 border-2 border-border bg-card text-foreground rounded-md font-sans font-bold hover:bg-secondary transition-all justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+              className="px-10 py-5 border-2 border-border bg-card text-foreground rounded-md font-sans font-black text-lg hover:bg-secondary transition-all justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
               whileTap={{ scale: 0.98 }}
             >
               {t.hero.ctaSecondary}
@@ -204,10 +187,61 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* Key Pillars Section */}
       <section id="about" className="container mx-auto px-4 py-20 md:py-32 relative">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
+              {t.pillars.badge}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground">
+              {t.pillars.title}
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { key: 'aiSystems', icon: '🤖' },
+              { key: 'fullStack', icon: '⚡' },
+              { key: 'scale', icon: '📈' },
+              { key: 'leadership', icon: '👥' },
+            ].map((pillar, i) => {
+              const pillarData = (t.pillars as any)[pillar.key];
+              return (
+                <motion.div
+                  key={pillar.key}
+                  className="relative group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                  <div className="relative bg-card border-2 border-border rounded-lg p-8 h-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="text-4xl mb-4">{pillar.icon}</div>
+                    <h3 className="text-2xl font-serif font-bold mb-4 text-foreground">
+                      {pillarData.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {pillarData.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Track Record Section */}
+      <section className="border-y border-border bg-muted/30 py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -215,71 +249,31 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
-                {t.about.badge}
+                {t.trackRecord.badge}
               </span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground">
-                {t.about.title}
+              <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-8">
+                {t.trackRecord.title}
               </h2>
-            </motion.div>
-
-            <motion.div
-              className="max-w-none space-y-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {t.about.intro}{" "}
-                <span className="text-primary font-semibold">
-                  {t.about.introHighlight}
-                </span>
-                {t.about.introEnd}
-              </p>
-
-              <p className="text-2xl text-foreground font-semibold leading-relaxed">
-                {t.about.insight}
-              </p>
-
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {t.about.description}
-              </p>
-
-              <motion.div
-                className="bg-card border-2 border-border rounded-lg p-8 my-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="w-full h-2 bg-primary rounded-sm mb-6" />
-                <h3 className="text-2xl font-serif font-bold text-foreground mb-4 flex items-center gap-2">
-                  <span className="text-primary">⚡</span> {t.about.okidokiTitle}
-                </h3>
-                <p className="text-lg text-muted-foreground mb-4">
-                  {t.about.okidokiDescription}
-                </p>
-                <div className="grid md:grid-cols-2 gap-3 text-sm text-foreground">
-                  {t.about.okidokiFeatures.map((feature, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex items-center gap-2"
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.6 + i * 0.05 }}
-                    >
-                      <span className="text-primary">✓</span>
-                      <span>{feature}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <p className="text-xl font-display font-bold text-primary">
-                {t.about.closing1}
-                <br />
-                {t.about.closing2}
+              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+                {t.trackRecord.summary}
               </p>
             </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              {(t.trackRecord.highlights as unknown as readonly string[]).map((highlight, i) => (
+                <motion.div
+                  key={i}
+                  className="flex items-start gap-3"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  <span className="text-primary mt-1 flex-shrink-0">✓</span>
+                  <span className="text-foreground">{highlight}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -336,7 +330,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Case Studies Section */}
+      {/* Projects Section */}
       <section id="work" className="container mx-auto px-4 py-20 md:py-32">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -347,13 +341,13 @@ export default function Home() {
             className="mb-12"
           >
             <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
-              {t.caseStudies.badge}
+              {t.projects.badge}
             </span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-4">
-              {t.caseStudies.title}
+              {t.projects.title}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mb-0">
-              {t.caseStudies.subtitle}
+              {t.projects.subtitle}
             </p>
           </motion.div>
 
@@ -495,14 +489,15 @@ export default function Home() {
               <>
                 {/* Split Screen Layout */}
                 <div className="grid lg:grid-cols-[1.5fr,1fr] gap-8">
-                  {/* Left: Featured Case Study */}
+                  {/* Left: Featured Case Study + FenixBlack Apps */}
+                  <div className="space-y-8">
                   <motion.div
                     key={featuredCase}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className="group relative block sticky top-24">
+                    <div className="group relative block lg:sticky lg:top-24">
                       <div className="relative bg-card border-2 border-border rounded-lg p-8 md:p-10 overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
                         {/* Subtle gradient background */}
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
@@ -574,6 +569,53 @@ export default function Home() {
                     </div>
                   </motion.div>
 
+                  {/* FenixBlack Micro-Apps Grid (only when fenixblack is featured) */}
+                  {featured.type === 'fenixblack' && 'microApps' in featured && featured.microApps && (
+                    <div className="grid md:grid-cols-2 gap-4">
+                        {featured.microApps.map((app: any, i: number) => (
+                          <motion.div
+                            key={i}
+                            className="relative"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ 
+                              duration: 0.4, 
+                              delay: i * 0.05
+                            }}
+                          >
+                            <motion.a
+                              href={app.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative block bg-card border-2 border-border hover:border-border rounded-lg p-4 h-full transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
+                              transition={{ duration: 0.2 }}
+                            >
+                              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                              
+                              <div className="relative">
+                                <div className="text-3xl mb-3">
+                                  {app.icon}
+                                </div>
+                                
+                                <h4 className="text-base font-serif font-bold mb-1 text-foreground group-hover:text-primary transition-colors">
+                                  {(t.fenixblack as any)[app.nameKey].name}
+                                </h4>
+                                <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+                                  {(t.fenixblack as any)[app.nameKey].description}
+                                </p>
+                                
+                                <div className="flex items-center gap-1 text-xs font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                                  <span>{t.fenixblack.launchApp}</span>
+                                  <span>→</span>
+                                </div>
+                              </div>
+                            </motion.a>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
                   {/* Right: All Case Studies Grid */}
                   <div className="space-y-4">
                     {allCases.map((caseStudy, i) => (
@@ -633,65 +675,54 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-
-                {/* FenixBlack Micro-Apps Grid (only when fenixblack is featured) */}
-                {featured.type === 'fenixblack' && 'microApps' in featured && featured.microApps && (
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                      {featured.microApps.map((app: any, i: number) => (
-                        <motion.div
-                          key={i}
-                          className="relative"
-                          initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ 
-                            duration: 0.5, 
-                            delay: i * 0.1,
-                            type: "spring",
-                            stiffness: 100
-                          }}
-                        >
-                          <motion.a
-                            href={app.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative block bg-card border-2 border-border hover:border-border rounded-lg p-6 h-full transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
-                            transition={{ duration: 0.2 }}
-                          >
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                            
-                            <div className="relative">
-                              <motion.div
-                                className="text-5xl mb-4"
-                                whileHover={{ scale: 1.2, rotate: 5 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                {app.icon}
-                              </motion.div>
-                              
-                              <h4 className="text-lg font-serif font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                                {(t.fenixblack as any)[app.nameKey].name}
-                              </h4>
-                              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                                {(t.fenixblack as any)[app.nameKey].description}
-                              </p>
-                              
-                              <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground group-hover:text-primary transition-colors">
-                                <span>{t.fenixblack.launchApp}</span>
-                                <span>→</span>
-                              </div>
-                            </div>
-                          </motion.a>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
               </>
             );
           })()}
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Mission Section */}
+      <section id="approach" className="container mx-auto px-4 py-20 md:py-32">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
+              {t.mission.badge}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-8">
+              {t.mission.title}
+            </h2>
+          </motion.div>
+
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              {t.mission.problem}
+            </p>
+            <p className="text-xl text-foreground font-semibold leading-relaxed">
+              {t.mission.whoIHelp}
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              {t.mission.approach}
+            </p>
+            <p className="text-xl text-primary font-bold leading-relaxed">
+              {t.mission.focus}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* How We Can Work Together Section */}
       <section className="border-y border-border bg-muted/30 py-20 md:py-32">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -703,13 +734,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
             <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
-              {t.services.badge}
+              {t.workTogether.badge}
             </span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-4">
-              {t.services.title}
+              {t.workTogether.title}
             </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                {t.services.subtitle}
+                {t.workTogether.subtitle}
               </p>
             </motion.div>
 
@@ -739,13 +770,13 @@ export default function Home() {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-serif font-bold mb-4 text-foreground">
-                    {t.services.startups.title}
+                    {t.workTogether.startups.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {t.services.startups.description}
+                    {t.workTogether.startups.description}
                   </p>
                   <ul className="space-y-3">
-                    {(t.services.startups.services as unknown as readonly string[]).map((item, i) => (
+                    {(t.workTogether.startups.services as unknown as readonly string[]).map((item, i) => (
                       <motion.li
                         key={i}
                         className="flex items-start gap-3"
@@ -787,13 +818,13 @@ export default function Home() {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-serif font-bold mb-4 text-foreground">
-                    {t.services.enterprises.title}
+                    {t.workTogether.enterprises.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {t.services.enterprises.description}
+                    {t.workTogether.enterprises.description}
                   </p>
                   <ul className="space-y-3">
-                    {(t.services.enterprises.services as unknown as readonly string[]).map((item, i) => (
+                    {(t.workTogether.enterprises.services as unknown as readonly string[]).map((item, i) => (
                       <motion.li
                         key={i}
                         className="flex items-start gap-3"
