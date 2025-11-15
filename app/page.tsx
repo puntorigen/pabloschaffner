@@ -411,71 +411,55 @@ export default function Home() {
               },
               mercadolibre: {
                 id: 'mercadolibre',
-                title: 'MercadoLibre',
-                subtitle: 'ML Systems at 100M+ User Scale',
-                badge: 'ML AT SCALE',
-                description: 'Architected machine learning systems serving 100+ million users across 18 countries. Built MercadoPlay streaming platform. Referenced expert for 300+ engineers.',
-                features: [
-                  'Created ML classifiers to analyze video content and place strategic ads',
-                  'Developed Python module for e-commerce catalog matching from movie content',
-                  'Engineered high-performance dynamic menu system for millions of concurrent users',
-                  'Conducted system design reviews and PR reviews across multiple teams',
-                  'Served 100M+ users across 18 countries',
-                ],
+                title: t.mercadolibre.title,
+                subtitle: t.mercadolibre.subtitle,
+                badge: t.mercadolibre.badge,
+                description: t.mercadolibre.description,
+                features: t.mercadolibre.features,
                 tech: ['Python', 'TensorFlow', 'Kubernetes', 'GCP', 'ML', 'Java', 'Docker'],
                 color: 'primary',
                 type: 'standard',
               },
-              healthcare: {
-                id: 'healthcare',
-                title: 'Healthcare EMR',
-                subtitle: 'HIPAA-Compliant AI Data Migration',
-                badge: 'HEALTHCARE AI',
-                description: 'Autonomous migration of 10+ years of medical records between EMR systems. Healthcare-grade reliability with complete audit trails. Zero data loss.',
-                features: [
-                  'Developed efficient XML data extraction for terabyte-scale government datasets',
-                  'Built Neo4j graph database pipeline with daily updates',
-                  'Optimized Cypher queries for search performance',
-                  'Created ReactJS dashboards with Storybook UI kit',
-                  'Built FastAPI backend + PostgreSQL storage',
-                  'HIPAA-compliant with complete audit trails',
-                ],
-                tech: ['AI Agents', 'HIPAA', 'Python', 'PostgreSQL', 'Neo4j', 'FastAPI', 'React'],
+              docnexus: {
+                id: 'docnexus',
+                title: t.docnexus.title,
+                subtitle: t.docnexus.subtitle,
+                badge: t.docnexus.badge,
+                description: t.docnexus.description,
+                features: t.docnexus.features,
+                tech: ['Python', 'Neo4j', 'FastAPI', 'PostgreSQL', 'ReactJS', 'Storybook', 'ElasticSearch'],
+                color: 'secondary',
+                type: 'standard',
+              },
+              healthcareEmr: {
+                id: 'healthcareEmr',
+                title: t.healthcareEmr.title,
+                subtitle: t.healthcareEmr.subtitle,
+                badge: t.healthcareEmr.badge,
+                description: t.healthcareEmr.description,
+                features: t.healthcareEmr.features,
+                tech: ['Node.js', 'AI Agents', 'HIPAA', 'Next.js', 'Medplum', 'Vertex AI', 'Redis'],
                 color: 'secondary',
                 type: 'standard',
               },
               insurance: {
                 id: 'insurance',
-                title: 'Insurance Docs',
-                subtitle: '150-Page Translation in 3 Minutes',
-                badge: 'HIGH-SPEED AI',
-                description: 'Built AI system for high-speed document translation with perfect formatting fidelity. Maintains complex layouts, tables, and legal terminology.',
-                features: [
-                  '150-200 page documents translated in < 3 minutes',
-                  'Formatting preservation across complex layouts',
-                  'Secure PII detection and handling',
-                  'Multi-LLM orchestration with custom load balancing',
-                  'GDPR-compliant data processing',
-                  'Perfect terminology preservation',
-                ],
+                title: t.insurance.title,
+                subtitle: t.insurance.subtitle,
+                badge: t.insurance.badge,
+                description: t.insurance.description,
+                features: t.insurance.features,
                 tech: ['GPT-4', 'OCR', 'Python', 'PDF Processing', 'NLP', 'FastAPI', 'RAG'],
                 color: 'accent',
                 type: 'standard',
               },
               ide: {
                 id: 'ide',
-                title: 'Custom IDE',
-                subtitle: 'From Scratch to 100+ Apps',
-                badge: 'CUSTOM TOOLING',
-                description: 'Built complete IDE from ground up that powered 100+ mobile applications. Led company for 13 years serving major Latin American businesses.',
-                features: [
-                  'Built custom IDE in Java with mindmap-like low-code environment',
-                  'Automatic code generation: Node.js backends + React/Vue frontends',
-                  'Real-time task management apps with Node.js sockets',
-                  'Medical apps with image recognition',
-                  'Data scraping with Algolia integration',
-                  'Served media, finance, and government sectors across LATAM',
-                ],
+                title: t.ide.title,
+                subtitle: t.ide.subtitle,
+                badge: t.ide.badge,
+                description: t.ide.description,
+                features: t.ide.features,
                 tech: ['Java', 'C++', 'JavaScript', 'Mobile', 'Compiler', 'IDE', 'Node.js'],
                 color: 'primary',
                 type: 'standard',
@@ -506,7 +490,7 @@ export default function Home() {
                           <div className="flex items-start justify-between flex-wrap gap-6 mb-6">
                             <div className="flex-1">
                               <div className="inline-block px-3 py-1 bg-primary text-primary-foreground border-2 border-border rounded-md text-xs font-bold uppercase tracking-wider mb-4">
-                                FEATURED • {featured.badge}
+                                {t.featured} • {featured.badge}
                               </div>
                               <h3 className="text-3xl md:text-4xl font-serif font-bold mb-3 text-foreground">
                                 {featured.title}
@@ -534,7 +518,7 @@ export default function Home() {
                           </p>
 
                           <div className="mb-6">
-                            <h4 className="text-lg font-display font-bold mb-3">Key Features:</h4>
+                            <h4 className="text-lg font-display font-bold mb-3">{t.keyFeatures}</h4>
                             <div className="grid md:grid-cols-2 gap-3">
                               {featured.features.map((feature, i) => (
                                 <motion.div
@@ -552,7 +536,7 @@ export default function Home() {
                           </div>
 
                           <div className="mb-4">
-                            <h4 className="text-base font-display font-bold mb-3 text-foreground">Tech Stack:</h4>
+                            <h4 className="text-base font-display font-bold mb-3 text-foreground">{t.techStack}</h4>
                             <div className="flex flex-wrap gap-2">
                               {featured.tech.map((tech, i) => (
                                 <span
@@ -635,7 +619,7 @@ export default function Home() {
                         {caseStudy.id === featuredCase && (
                           <div className="absolute top-4 right-4 z-10">
                             <span className="inline-block px-2 py-1 bg-primary text-primary-foreground text-xs font-bold rounded border-2 border-border uppercase tracking-wider">
-                              Viewing
+                              {t.viewing}
                             </span>
                           </div>
                         )}
