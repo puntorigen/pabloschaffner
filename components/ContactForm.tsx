@@ -100,45 +100,34 @@ export const ContactForm = () => {
 
             {/* Success card */}
             <motion.div
-              className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border-2 border-primary/50 rounded-2xl p-12 text-center relative overflow-hidden"
-              initial={{ rotateY: 90 }}
-              animate={{ rotateY: 0 }}
-              transition={{ duration: 0.6, type: "spring" }}
+              className="bg-card border-2 border-border rounded-lg p-12 text-center relative overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, type: "spring" }}
             >
-              {/* Glowing background pulse */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-2xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 0.8, 0.5],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+              {/* Subtle background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
 
               {/* Check mark animation */}
               <motion.div
-                className="relative mx-auto mb-6 w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
+                className="relative mx-auto mb-6 w-20 h-20 rounded-full bg-primary flex items-center justify-center border-2 border-border"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
                 transition={{
                   type: "spring",
                   stiffness: 200,
                   damping: 15,
-                  delay: 0.2,
+                  delay: 0.1,
                 }}
               >
                 <motion.svg
-                  className="w-12 h-12 text-white"
+                  className="w-10 h-10 text-primary-foreground"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
                 >
                   <motion.path
                     strokeLinecap="round"
@@ -151,39 +140,17 @@ export const ContactForm = () => {
 
               {/* Success text */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.4 }}
               >
-                <h3 className="text-3xl font-display font-bold text-foreground mb-3">
+                <h3 className="text-2xl font-serif font-bold text-foreground mb-2">
                   {t.contact.success}
                 </h3>
-                <p className="text-muted-foreground text-lg">
+                <p className="text-muted-foreground">
                   {t.contact.successSubtitle}
                 </p>
               </motion.div>
-
-              {/* Sparkle effects */}
-              {[...Array(6)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-primary rounded-full"
-                  style={{
-                    left: `${20 + i * 15}%`,
-                    top: `${30 + (i % 2) * 40}%`,
-                  }}
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.6 + i * 0.1,
-                    repeat: Infinity,
-                    repeatDelay: 2,
-                  }}
-                />
-              ))}
             </motion.div>
           </motion.div>
         ) : (
@@ -209,7 +176,7 @@ export const ContactForm = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 bg-muted border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all"
+          className="w-full px-4 py-3 bg-card border-2 border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-foreground placeholder-muted-foreground transition-all font-sans"
           placeholder={t.contact.name}
         />
       </div>
@@ -228,7 +195,7 @@ export const ContactForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 bg-muted border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all"
+          className="w-full px-4 py-3 bg-card border-2 border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-foreground placeholder-muted-foreground transition-all font-sans"
           placeholder={t.contact.email}
         />
       </div>
@@ -247,7 +214,7 @@ export const ContactForm = () => {
           onChange={handleChange}
           required
           rows={5}
-          className="w-full px-4 py-3 bg-muted border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all resize-none"
+          className="w-full px-4 py-3 bg-card border-2 border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-foreground placeholder-muted-foreground transition-all resize-none font-sans"
           placeholder={t.contact.message}
         />
       </div>
@@ -255,8 +222,7 @@ export const ContactForm = () => {
       <motion.button
         type="submit"
         disabled={status === "sending"}
-        className="w-full px-8 py-4 bg-primary text-primary-foreground rounded-lg font-display font-semibold disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
-        whileHover={{ scale: status === "sending" ? 1 : 1.02 }}
+        className="w-full px-8 py-4 bg-primary hover:bg-primary-hover text-primary-foreground rounded-md font-sans font-bold disabled:opacity-50 disabled:cursor-not-allowed transition-all border-2 border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] disabled:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:translate-x-[2px] disabled:translate-y-[2px]"
         whileTap={{ scale: status === "sending" ? 1 : 0.98 }}
       >
         {status === "idle" && t.contact.send}

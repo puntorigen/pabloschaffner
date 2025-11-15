@@ -1,86 +1,54 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 export const GridBackground = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // Set dimensions once mounted
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-    setMounted(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  if (!mounted) {
-    return null; // Don't render particles on server
-  }
-
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-      {/* Animated grid */}
+      {/* Grainy texture overlay */}
       <div
-        className="absolute inset-0 bg-grid-pattern opacity-30 dark:opacity-20"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--primary) / 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--primary) / 0.08) 1px, transparent 1px)
-          `,
-          backgroundSize: "50px 50px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Mouse follower glow */}
+      {/* Warm gradient orbs */}
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-primary/15 dark:bg-primary/10 blur-3xl"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, hsl(340 82% 75% / 0.15) 0%, transparent 70%)",
+        }}
         animate={{
-          x: mousePosition.x - 192,
-          y: mousePosition.y - 192,
+          scale: [1, 1.1, 1],
+          opacity: [0.4, 0.6, 0.4],
         }}
         transition={{
-          type: "spring",
-          damping: 30,
-          stiffness: 200,
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      
+      <motion.div
+        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, hsl(36 50% 80% / 0.3) 0%, transparent 70%)",
+        }}
+        animate={{
+          scale: [1, 1.15, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
         }}
       />
 
-      {/* Random floating particles */}
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-primary rounded-full"
-          initial={{
-            x: Math.random() * dimensions.width,
-            y: Math.random() * dimensions.height,
-          }}
-          animate={{
-            x: Math.random() * dimensions.width,
-            y: Math.random() * dimensions.height,
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            ease: "linear",
-            delay: Math.random() * 5,
-          }}
-        />
-      ))}
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/80" />
     </div>
   );
 };

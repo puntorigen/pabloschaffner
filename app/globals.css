@@ -4,24 +4,51 @@
 
 @layer base {
   :root {
-    /* Dark Mode Only */
-    --background: 220 10% 3%; /* Deep black */
-    --foreground: 0 0% 98%; /* White */
-    --primary: 180 100% 50%; /* Electric cyan */
-    --primary-foreground: 220 10% 3%;
-    --secondary: 250 60% 70%; /* Vivid purple */
-    --secondary-foreground: 0 0% 98%;
-    --accent: 330 80% 60%; /* Pink */
-    --accent-foreground: 0 0% 98%;
-    --muted: 220 10% 10%; /* Dark gray */
-    --muted-foreground: 215 20% 65%; /* Light gray */
-    --border: 220 10% 15%; /* Slightly lighter dark gray */
-    --card: 220 10% 5%; /* Darker black */
-    --card-foreground: 0 0% 98%;
-    --popover: 220 10% 5%;
-    --popover-foreground: 0 0% 98%;
-    --ring: 180 100% 50%;
-    --radius: 0.5rem;
+    /* Base - Warm neutral backgrounds */
+    --background: 36 40% 94%;         /* Warm beige/cream */
+    --foreground: 0 0% 10%;           /* Almost black text */
+    
+    /* Primary Accent - Warm pink/coral */
+    --primary: 340 82% 75%;           /* Warm pink/coral for CTAs */
+    --primary-foreground: 0 0% 10%;   /* Dark text on primary */
+    --primary-hover: 340 82% 70%;     /* Slightly darker on hover */
+    
+    /* Secondary - Muted warm tones */
+    --secondary: 36 30% 88%;          /* Warm light beige */
+    --secondary-foreground: 0 0% 10%;
+    
+    /* Accent - For highlights */
+    --accent: 340 82% 90%;            /* Very light pink tint */
+    --accent-foreground: 0 0% 10%;    /* Dark text */
+    
+    /* Muted - Warm neutrals */
+    --muted: 36 25% 88%;              /* Warm muted beige */
+    --muted-foreground: 0 0% 40%;     /* Medium gray text */
+    
+    /* Border & Dividers - Bold black */
+    --border: 0 0% 0%;                /* Bold black borders */
+    --border-light: 36 20% 80%;       /* Subtle borders */
+    
+    /* Cards & Elevated surfaces */
+    --card: 36 50% 97%;               /* Very light warm cream */
+    --card-foreground: 0 0% 10%;      /* Dark text */
+    
+    /* Other elements */
+    --popover: 36 50% 97%;
+    --popover-foreground: 0 0% 10%;
+    --ring: 340 82% 75%;
+    
+    /* Success, Warning, Error */
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
+    --error: 0 84% 60%;
+    
+    /* Radius tokens - keep them the same */
+    --radius-sm: 0.375rem;  /* 6px */
+    --radius-md: 0.5rem;    /* 8px */
+    --radius-lg: 0.75rem;   /* 12px */
+    --radius-xl: 1rem;      /* 16px */
+    --radius: 0.5rem;       /* Default */
   }
 }
 
@@ -40,7 +67,7 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - clean and minimal */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -50,13 +77,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--secondary)));
+  background: hsl(var(--primary) / 0.4);
   border-radius: 5px;
   border: 2px solid hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, hsl(var(--secondary)), hsl(var(--accent)));
+  background: hsl(var(--primary) / 0.6);
 }
 
 /* Smooth scroll behavior */
@@ -66,7 +93,7 @@ html {
 
 /* Selection colors */
 ::selection {
-  background: hsl(var(--primary) / 0.25);
+  background: hsl(var(--primary) / 0.15);
   color: hsl(var(--foreground));
 }
 
