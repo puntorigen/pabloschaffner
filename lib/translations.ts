@@ -292,7 +292,7 @@ export const translations = {
     
     // Footer
     footer: {
-      built: 'Built with',
+      built: 'Built with ❤️',
       by: 'by Pablo Schaffner',
       version: 'Always improving.',
     },
@@ -589,7 +589,7 @@ export const translations = {
     
     // Footer
     footer: {
-      built: 'Hecho con',
+      built: 'Hecho con ❤️',
       by: 'por Pablo Schaffner',
       version: 'Siempre evolucionando.',
     },

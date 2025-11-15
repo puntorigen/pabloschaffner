@@ -1011,7 +1011,7 @@ export default function Home() {
               Pablo Schaffner
             </div>
             <div className="text-sm text-muted-foreground">
-              {t.footer.built} Next.js {t.footer.by}. v0.1.0. {t.footer.version}
+              {t.footer.built} {t.footer.by}. v0.1.1. {t.footer.version}
             </div>
           </div>
         </div>
