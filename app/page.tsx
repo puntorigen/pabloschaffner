@@ -338,12 +338,13 @@ export default function Home() {
 
       {/* Case Studies Section */}
       <section id="work" className="container mx-auto px-4 py-20 md:py-32">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="mb-12"
           >
             <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
               {t.caseStudies.badge}
@@ -351,7 +352,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-4">
               {t.caseStudies.title}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mb-16">
+            <p className="text-xl text-muted-foreground max-w-3xl mb-0">
               {t.caseStudies.subtitle}
             </p>
           </motion.div>
@@ -488,26 +489,21 @@ export default function Home() {
             };
 
             const featured = caseStudies[featuredCase as keyof typeof caseStudies];
-            const otherCases = Object.values(caseStudies).filter(c => c.id !== featuredCase);
+            const allCases = Object.values(caseStudies);
 
             return (
               <>
-                {/* Featured Case Study Display */}
-                <motion.div
-                  key={featuredCase}
-                  className="mb-20"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
+                {/* Split Screen Layout */}
+                <div className="grid lg:grid-cols-[1.5fr,1fr] gap-8">
+                  {/* Left: Featured Case Study */}
                   <motion.div
-                    className="relative"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6 }}
+                    key={featuredCase}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <div className="group relative block">
-                      <div className="relative bg-card border-2 border-border rounded-lg p-8 md:p-12 overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="group relative block sticky top-24">
+                      <div className="relative bg-card border-2 border-border rounded-lg p-8 md:p-10 overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
                         {/* Subtle gradient background */}
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
                         
@@ -578,9 +574,69 @@ export default function Home() {
                     </div>
                   </motion.div>
 
-                  {/* FenixBlack Micro-Apps Grid (only when fenixblack is featured) */}
-                  {featured.type === 'fenixblack' && 'microApps' in featured && featured.microApps && (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                  {/* Right: All Case Studies Grid */}
+                  <div className="space-y-4">
+                    {allCases.map((caseStudy, i) => (
+                      <motion.div
+                        key={caseStudy.id}
+                        className={`group relative bg-card rounded-lg overflow-hidden transition-all cursor-pointer ${
+                          caseStudy.id === featuredCase
+                            ? 'border-4 border-primary shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] bg-primary/5'
+                            : 'border-2 border-border shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]'
+                        }`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.1 }}
+                        onClick={() => setFeaturedCase(caseStudy.id)}
+                      >
+                        {caseStudy.id === featuredCase && (
+                          <div className="absolute top-4 right-4 z-10">
+                            <span className="inline-block px-2 py-1 bg-primary text-primary-foreground text-xs font-bold rounded border-2 border-border uppercase tracking-wider">
+                              Viewing
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        
+                        <div className="p-6 relative">
+                          <div>
+                            <h3 className="text-lg font-serif font-bold mb-1 text-foreground">
+                              {caseStudy.title}
+                            </h3>
+                            <p className="font-bold mb-3 text-sm text-foreground/70 italic">
+                              {caseStudy.subtitle}
+                            </p>
+                          </div>
+                          
+                          <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">
+                            {caseStudy.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-1">
+                            {caseStudy.tech.slice(0, 3).map((tech, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                            {caseStudy.tech.length > 3 && (
+                              <span className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
+                                +{caseStudy.tech.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* FenixBlack Micro-Apps Grid (only when fenixblack is featured) */}
+                {featured.type === 'fenixblack' && 'microApps' in featured && featured.microApps && (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                       {featured.microApps.map((app: any, i: number) => (
                         <motion.div
                           key={i}
@@ -629,72 +685,6 @@ export default function Home() {
                       ))}
                     </div>
                   )}
-                </motion.div>
-
-                {/* Other Case Studies Grid */}
-                <div className="grid md:grid-cols-2 gap-8">
-                  {otherCases.map((caseStudy, i) => (
-                    <motion.div
-                      key={caseStudy.id}
-                      className="group relative bg-card border-2 border-border rounded-lg overflow-hidden transition-all cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: i * 0.1 }}
-                      onClick={() => setFeaturedCase(caseStudy.id)}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                      
-                      <div className="p-8">
-                        <div className="relative">
-                          <div className="flex items-start justify-between mb-4">
-                            <div>
-                              <h3 className="text-xl font-serif font-bold mb-2 text-foreground">
-                                {caseStudy.title}
-                              </h3>
-                              <p className="font-bold mb-4 text-foreground italic">
-                                {caseStudy.subtitle}
-                              </p>
-                            </div>
-                            <motion.div
-                              className="text-muted-foreground"
-                              whileHover={{ scale: 1.2 }}
-                            >
-                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </motion.div>
-                          </div>
-                          
-                          <p className="text-muted-foreground mb-6 leading-relaxed">
-                            {caseStudy.description}
-                          </p>
-
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {caseStudy.tech.slice(0, 5).map((tech, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 py-1 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                            {caseStudy.tech.length > 5 && (
-                              <span className="px-2 py-1 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
-                                +{caseStudy.tech.length - 5}
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="text-xs text-primary font-semibold group-hover:text-primary-hover transition-colors">
-                            Click to view details →
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
               </>
             );
           })()}
