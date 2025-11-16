@@ -23,39 +23,77 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pablo Schaffner - Staff Software Engineer & AI Expert",
+  metadataBase: new URL('https://pabloschaffner.com'),
+  title: {
+    default: "Pablo Schaffner - AI Architect & Visionary Builder | Staff Software Engineer",
+    template: "%s | Pablo Schaffner"
+  },
   description:
-    "I ship in 3 weeks what most teams plan for 6 months. Full-featured AI systems, not prototypes. 20 years of experience building for startups and Fortune 500s.",
+    "Staff Software Engineer architecting AI systems for complex, ambitious problems. 20+ years building production systems from startups to 100M+ users. Founder & CTO with deep full-stack expertise in Python, Next.js, and AI/ML.",
   keywords: [
     "Pablo Schaffner",
-    "AI Engineer",
+    "AI Architect",
     "Staff Software Engineer",
+    "AI Systems Architecture",
+    "RAG Pipeline Developer",
+    "LangChain Expert",
     "Full Stack Developer",
+    "Fractional CTO",
     "AI Consultant",
-    "Machine Learning",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Chile",
-    "Santiago",
+    "Machine Learning Engineer",
+    "Next.js Expert",
+    "Python Developer",
+    "React Developer",
+    "TypeScript Developer",
+    "AWS Architect",
+    "Production AI Systems",
+    "Multi-Agent Systems",
+    "Technical Leadership",
+    "Startup CTO",
+    "Chile Software Engineer",
+    "Santiago Tech",
+    "Remote Software Engineer",
+    "MercadoLibre Engineer",
+    "AI Pioneer",
+    "Custom IDE Developer",
+    "Visionary Builder",
+    "Complex Systems Architect",
   ],
   authors: [{ name: "Pablo Schaffner", url: "https://pabloschaffner.com" }],
   creator: "Pablo Schaffner",
+  publisher: "Pablo Schaffner",
+  alternates: {
+    canonical: "https://pabloschaffner.com",
+    languages: {
+      'en-US': 'https://pabloschaffner.com',
+      'es-CL': 'https://pabloschaffner.com',
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
+    alternateLocale: ["es_CL"],
     url: "https://pabloschaffner.com",
-    title: "Pablo Schaffner - Staff Software Engineer & AI Expert",
+    title: "Pablo Schaffner - AI Architect & Visionary Builder",
     description:
-      "I ship in 3 weeks what most teams plan for 6 months. Full-featured AI systems, not prototypes.",
-    siteName: "Pablo Schaffner",
+      "Staff Software Engineer architecting AI systems for complex problems. 20+ years experience, Founder & CTO, 100M+ users at scale.",
+    siteName: "Pablo Schaffner - Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Pablo Schaffner - AI Architect & Staff Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pablo Schaffner - Staff Software Engineer & AI Expert",
+    title: "Pablo Schaffner - AI Architect & Visionary Builder",
     description:
-      "I ship in 3 weeks what most teams plan for 6 months. Full-featured AI systems, not prototypes.",
+      "Staff Software Engineer architecting AI systems for complex problems. 20+ years, Founder & CTO, 100M+ users at scale.",
     creator: "@pabloschaffner",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -68,6 +106,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "your-google-site-verification-code",
+  },
+  category: "Technology",
 };
 
 export default function RootLayout({
@@ -75,8 +117,62 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Pablo Schaffner",
+    url: "https://pabloschaffner.com",
+    image: "https://pabloschaffner.com/og-image.png",
+    jobTitle: "Staff Software Engineer & AI Architect",
+    worksFor: {
+      "@type": "Organization",
+      name: "Punto Origen",
+    },
+    description: "Staff Software Engineer architecting AI systems for complex, ambitious problems. 20+ years building production systems from startups to 100M+ users.",
+    sameAs: [
+      "https://linkedin.com/in/pschaffner",
+      "https://github.com/puntorigen",
+      "https://twitter.com/pabloschaffner",
+    ],
+    knowsAbout: [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "AI Systems Architecture",
+      "Full Stack Development",
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "Next.js",
+      "React",
+      "AWS",
+      "LangChain",
+      "RAG Pipelines",
+      "Multi-Agent Systems",
+    ],
+    alumniOf: [
+      {
+        "@type": "EducationalOrganization",
+        name: "University of Toronto",
+      },
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Santiago",
+      addressCountry: "Chile",
+    },
+    email: "pablo@creador.cl",
+  };
+
   return (
     <html lang="en">
+      <head>
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          strategy="beforeInteractive"
+        />
+      </head>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
