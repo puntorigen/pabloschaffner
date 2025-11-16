@@ -62,6 +62,23 @@ export const metadata: Metadata = {
   authors: [{ name: "Pablo Schaffner", url: "https://pabloschaffner.com" }],
   creator: "Pablo Schaffner",
   publisher: "Pablo Schaffner",
+  icons: {
+    icon: [
+      { url: '/favicon/favicon.ico', sizes: 'any' },
+      { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
+    ],
+    apple: [
+      { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/favicon/favicon.svg',
+      },
+    ],
+  },
+  manifest: '/favicon/site.webmanifest',
   alternates: {
     canonical: "https://pabloschaffner.com",
     languages: {
@@ -110,6 +127,14 @@ export const metadata: Metadata = {
     google: "your-google-site-verification-code",
   },
   category: "Technology",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Pablo Schaffner",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function RootLayout({

@@ -1,0 +1,47 @@
+{
+  "name": "Pablo Schaffner - AI Architect & Staff Software Engineer",
+  "short_name": "Pablo Schaffner",
+  "description": "Staff Software Engineer architecting AI systems for complex problems. 20+ years building production systems.",
+  "icons": [
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#fff8e8",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["technology", "software", "ai", "portfolio"],
+  "shortcuts": [
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Contact Pablo Schaffner",
+      "url": "/#contact",
+      "icons": [{ "src": "/favicon/favicon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}

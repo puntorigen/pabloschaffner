@@ -483,7 +483,7 @@ export const translations = {
       title: 'Arquitecto IA • Constructor Visionario',
       name: 'Pablo Schaffner',
       headline: 'Diseño sistemas de IA para problemas complejos y ambiciosos',
-      subheadline: 'Constructor de punta a punta. Creador de IDE personalizado. 100M+ usuarios. Donde la visión se encuentra con la maestría técnica.',
+      subheadline: 'Constructor de punta a punta. Creador de un IDE personalizado. 100M+ usuarios. Donde la visión se encuentra con la maestría técnica.',
       ctaPrimary: 'Construyamos Algo Audaz',
       ctaSecondary: 'Ver Proyectos',
       stat1Value: 'IDE Propio',
