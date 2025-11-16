@@ -148,7 +148,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <motion.span
-              className="inline-block px-5 py-2.5 bg-primary text-primary-foreground text-base font-black rounded-md border-2 border-border uppercase tracking-wider"
+              className="inline-block px-5 py-2.5 bg-blue text-blue-foreground text-base font-black rounded-md border-2 border-border uppercase tracking-wider"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -372,10 +372,11 @@ export default function Home() {
               { key: 'celmedia' },
             ].map((exp, i) => {
               const experience = (t.experience as any)[exp.key];
+              const isEven = i % 2 === 1;
               return (
                 <motion.div
                   key={exp.key}
-                  className="border-l-4 border-primary pl-6 py-2 hover:border-primary-hover transition-colors"
+                  className={`border-l-4 ${isEven ? 'border-blue hover:border-blue-hover' : 'border-primary hover:border-primary-hover'} pl-6 py-2 transition-colors`}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -572,12 +573,12 @@ export default function Home() {
                           {/* Try It Live CTA for Okidoki */}
                           {featured.id === 'okidoki' && 'tryItTitle' in t.projects.okidoki && (
                             <motion.div
-                              className="mb-6 p-3 bg-primary/10 border-2 border-primary rounded-md"
+                              className="mb-6 p-3 bg-blue/10 border-2 border-blue rounded-md"
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.3 }}
                             >
-                              <h4 className="text-sm font-display font-bold mb-1 text-primary flex items-center gap-2">
+                              <h4 className="text-sm font-display font-bold mb-1 text-blue flex items-center gap-2">
                                 <span>💬</span>
                                 {t.projects.okidoki.tryItTitle}
                               </h4>
@@ -760,7 +761,7 @@ export default function Home() {
                 href={t.opensource.pypiLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-card border-2 border-border rounded-lg text-sm font-semibold hover:border-primary hover:text-primary transition-colors shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card border-2 border-border rounded-lg text-sm font-semibold hover:border-blue hover:text-blue transition-colors shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
               >
                 <span>🐍</span>
                 <span>{t.opensource.viewAllPyPI}</span>
@@ -770,7 +771,7 @@ export default function Home() {
                 href={t.opensource.npmLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-card border-2 border-border rounded-lg text-sm font-semibold hover:border-primary hover:text-primary transition-colors shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card border-2 border-border rounded-lg text-sm font-semibold hover:border-blue hover:text-blue transition-colors shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
               >
                 <span>📦</span>
                 <span>{t.opensource.viewAllNPM}</span>
@@ -1142,12 +1143,12 @@ export default function Home() {
                     href="https://www.linkedin.com/in/pschaffner/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-4 p-4 bg-muted border border-border rounded-md hover:border-primary transition-all"
+                    className="group flex items-center gap-4 p-4 bg-muted border border-border rounded-md hover:border-linkedin transition-all"
                     whileHover={{ x: 2 }}
                   >
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="flex-shrink-0 w-12 h-12 bg-linkedin/10 rounded-lg flex items-center justify-center group-hover:bg-linkedin/20 transition-colors">
                       <svg
-                        className="w-6 h-6 text-primary"
+                        className="w-6 h-6 text-linkedin"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -1158,7 +1159,7 @@ export default function Home() {
                       <div className="text-sm text-muted-foreground">
                         LinkedIn
                       </div>
-                      <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                      <div className="font-semibold text-foreground group-hover:text-linkedin transition-colors">
                         /in/pschaffner
                       </div>
                     </div>
@@ -1180,7 +1181,7 @@ export default function Home() {
                       (window as any).OkidokiWidget.scheduleMeeting();
                     }
                   }}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover text-primary-foreground rounded-md font-sans font-bold transition-all w-full md:w-auto justify-center border-2 border-border shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue hover:bg-blue-hover text-blue-foreground rounded-md font-sans font-bold transition-all w-full md:w-auto justify-center border-2 border-border shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
                   whileTap={{ scale: 0.98 }}
                 >
                   <svg

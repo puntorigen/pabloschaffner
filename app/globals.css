@@ -21,6 +21,15 @@
     --accent: 340 82% 90%;            /* Very light pink tint */
     --accent-foreground: 0 0% 10%;    /* Dark text */
     
+    /* Blue Accent - Cyan-blue pastel from vic20 */
+    --blue: 190 65% 68%;              /* Pastel cyan-blue accent */
+    --blue-foreground: 0 0% 10%;      /* Dark text on blue */
+    --blue-hover: 190 65% 63%;        /* Slightly darker on hover */
+    
+    /* LinkedIn Official Blue */
+    --linkedin: 210 92% 40%;          /* LinkedIn brand color #0A66C2 */
+    --linkedin-hover: 210 92% 35%;    /* Darker on hover */
+    
     /* Muted - Warm neutrals */
     --muted: 36 25% 88%;              /* Warm muted beige */
     --muted-foreground: 0 0% 40%;     /* Medium gray text */

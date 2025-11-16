@@ -24,6 +24,15 @@ const config: Config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        blue: {
+          DEFAULT: "hsl(var(--blue))",
+          foreground: "hsl(var(--blue-foreground))",
+          hover: "hsl(var(--blue-hover))",
+        },
+        linkedin: {
+          DEFAULT: "hsl(var(--linkedin))",
+          hover: "hsl(var(--linkedin-hover))",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",

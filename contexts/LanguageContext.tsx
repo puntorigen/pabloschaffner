@@ -24,6 +24,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Load saved language from localStorage
     const saved = localStorage.getItem('language') as Language;
     const initialLang = (saved === 'en' || saved === 'es') ? saved : 'en';
@@ -45,7 +47,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', lang);
+    }
     
     // Sync with Okidoki.chat widget
     if (typeof window !== 'undefined' && (window as any).OkidokiWidget) {
@@ -53,7 +57,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const t = translations[language];
+  const t = translations[language] || translations.en;
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
