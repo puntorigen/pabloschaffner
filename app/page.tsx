@@ -409,58 +409,38 @@ export default function Home() {
                   },
                 ],
               },
-              mercadolibre: {
-                id: 'mercadolibre',
-                title: t.mercadolibre.title,
-                subtitle: t.mercadolibre.subtitle,
-                badge: t.mercadolibre.badge,
-                description: t.mercadolibre.description,
-                features: t.mercadolibre.features,
-                tech: ['Python', 'TensorFlow', 'Kubernetes', 'GCP', 'ML', 'Java', 'Docker'],
-                color: 'primary',
-                type: 'standard',
-              },
-              docnexus: {
-                id: 'docnexus',
-                title: t.docnexus.title,
-                subtitle: t.docnexus.subtitle,
-                badge: t.docnexus.badge,
-                description: t.docnexus.description,
-                features: t.docnexus.features,
-                tech: ['Python', 'Neo4j', 'FastAPI', 'PostgreSQL', 'ReactJS', 'Storybook', 'ElasticSearch'],
+              okidoki: {
+                id: 'okidoki',
+                title: t.okidoki.title,
+                subtitle: t.okidoki.subtitle,
+                badge: t.okidoki.badge,
+                description: t.okidoki.description,
+                features: t.okidoki.features,
+                tech: ['Next.js', 'TypeScript', 'Gemini Live', 'Daily.co', 'AssemblyAI', 'Groq', 'Redis', 'Vercel'],
                 color: 'secondary',
                 type: 'standard',
+                link: 'https://okidoki.chat',
+                linkText: t.viewProject,
               },
-              healthcareEmr: {
-                id: 'healthcareEmr',
-                title: t.healthcareEmr.title,
-                subtitle: t.healthcareEmr.subtitle,
-                badge: t.healthcareEmr.badge,
-                description: t.healthcareEmr.description,
-                features: t.healthcareEmr.features,
-                tech: ['Node.js', 'AI Agents', 'HIPAA', 'Next.js', 'Medplum', 'Vertex AI', 'Redis'],
-                color: 'secondary',
-                type: 'standard',
-              },
-              insurance: {
-                id: 'insurance',
-                title: t.insurance.title,
-                subtitle: t.insurance.subtitle,
-                badge: t.insurance.badge,
-                description: t.insurance.description,
-                features: t.insurance.features,
-                tech: ['GPT-4', 'OCR', 'Python', 'PDF Processing', 'NLP', 'FastAPI', 'RAG'],
+              vplus: {
+                id: 'vplus',
+                title: t.vplus.title,
+                subtitle: t.vplus.subtitle,
+                badge: t.vplus.badge,
+                description: t.vplus.description,
+                features: t.vplus.features,
+                tech: ['Python', 'C', 'Java', 'Vue.js', 'Nuxt.js', 'React Native', 'AWS', 'MongoDB', 'DynamoDB'],
                 color: 'accent',
                 type: 'standard',
               },
-              ide: {
-                id: 'ide',
-                title: t.ide.title,
-                subtitle: t.ide.subtitle,
-                badge: t.ide.badge,
-                description: t.ide.description,
-                features: t.ide.features,
-                tech: ['Java', 'C++', 'JavaScript', 'Mobile', 'Compiler', 'IDE', 'Node.js'],
+              concepto: {
+                id: 'concepto',
+                title: t.concepto.title,
+                subtitle: t.concepto.subtitle,
+                badge: t.concepto.badge,
+                description: t.concepto.description,
+                features: t.concepto.features,
+                tech: ['Java', 'Eclipse IDE', 'Compiler', 'Node.js', 'React', 'Vue.js', 'Mobile'],
                 color: 'primary',
                 type: 'standard',
               },
@@ -516,6 +496,24 @@ export default function Home() {
                           <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                             {featured.description}
                           </p>
+
+                          {/* Try It Live CTA for Okidoki */}
+                          {featured.id === 'okidoki' && 'tryItTitle' in t.projects.okidoki && (
+                            <motion.div
+                              className="mb-6 p-3 bg-primary/10 border-2 border-primary rounded-md"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.3 }}
+                            >
+                              <h4 className="text-sm font-display font-bold mb-1 text-primary flex items-center gap-2">
+                                <span>💬</span>
+                                {t.projects.okidoki.tryItTitle}
+                              </h4>
+                              <p className="text-xs text-muted-foreground">
+                                {t.projects.okidoki.tryItText}
+                              </p>
+                            </motion.div>
+                          )}
 
                           <div className="mb-6">
                             <h4 className="text-lg font-display font-bold mb-3">{t.keyFeatures}</h4>
@@ -665,14 +663,158 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section id="approach" className="container mx-auto px-4 py-20 md:py-32">
-        <div className="max-w-4xl mx-auto">
+      {/* Open Source Section */}
+      <section id="opensource" className="bg-muted/30 py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
+              {t.opensource.badge}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-4">
+              {t.opensource.title}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mb-6">
+              {t.opensource.subtitle}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href={t.opensource.pypiLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card border-2 border-border rounded-lg text-sm font-semibold hover:border-primary hover:text-primary transition-colors shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+              >
+                <span>🐍</span>
+                <span>{t.opensource.viewAllPyPI}</span>
+                <span>→</span>
+              </a>
+              <a
+                href={t.opensource.npmLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card border-2 border-border rounded-lg text-sm font-semibold hover:border-primary hover:text-primary transition-colors shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+              >
+                <span>📦</span>
+                <span>{t.opensource.viewAllNPM}</span>
+                <span>→</span>
+              </a>
+            </div>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              t.opensource.brainProxy,
+              t.opensource.asyncPromptic,
+              t.opensource.easyModel,
+              t.opensource.niceguiReact,
+              t.opensource.gptResearch,
+              t.opensource.aiCode,
+              t.opensource.prRules,
+            ].map((project, i) => (
+              <motion.div
+                key={i}
+                className="group relative bg-card border-2 border-border rounded-lg p-6 hover:border-primary transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-lg" />
+                
+                <div className="relative h-full flex flex-col">
+                  <a 
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <h3 className="text-xl font-serif font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </a>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.slice(0, 3).map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-1 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 3 && (
+                      <span className="px-2 py-1 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
+                        +{project.tech.length - 3}
+                      </span>
+                    )}
+                  </div>
+                  {'article' in project && project.article && (
+                    <a
+                      href={project.article}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
+                    >
+                      <span>📄</span>
+                      <span>{t.opensource.readArticle}</span>
+                      <span>→</span>
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Section - Hero Image + Story */}
+      <section id="approach" className="container mx-auto px-4 py-20 md:py-32">
+        <div className="max-w-4xl mx-auto">
+          {/* Vic20 Hero Card - Polaroid Style */}
+          <motion.div
+            className="relative w-full max-w-2xl mx-auto mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="bg-card border-2 border-border rounded-lg p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              {/* Image container */}
+              <div 
+                className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-muted"
+              >
+                <div 
+                  className="absolute inset-0 p-8"
+                  style={{
+                    backgroundImage: 'url(/vic20.jpg)',
+                    backgroundSize: 'contain',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                />
+              </div>
+              {/* Polaroid caption */}
+              <p className="text-center text-sm text-muted-foreground mt-3 font-medium italic">
+                {t.mission.imageCaption}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-12"
           >
             <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
@@ -688,8 +830,11 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
+            <p className="text-lg text-muted-foreground leading-relaxed italic border-l-4 border-primary pl-4">
+              {t.mission.origin}
+            </p>
             <p className="text-xl text-muted-foreground leading-relaxed">
               {t.mission.problem}
             </p>
