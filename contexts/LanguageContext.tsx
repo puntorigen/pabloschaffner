@@ -26,9 +26,20 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
-    // Load saved language from localStorage
+    // Load saved language from localStorage or detect from browser
     const saved = localStorage.getItem('language') as Language;
-    const initialLang = (saved === 'en' || saved === 'es') ? saved : 'en';
+    let initialLang: Language;
+    
+    if (saved === 'en' || saved === 'es') {
+      // Use saved preference
+      initialLang = saved;
+    } else {
+      // Auto-detect browser language
+      const browserLang = navigator.language || (navigator as any).userLanguage;
+      // Check if browser language is Spanish (es, es-ES, es-MX, etc.)
+      initialLang = browserLang.toLowerCase().startsWith('es') ? 'es' : 'en';
+    }
+    
     setLanguageState(initialLang);
     
     // Wait for Okidoki widget to load, then sync language
