@@ -11,6 +11,7 @@ import { useState } from "react";
 export default function Home() {
   const { t } = useLanguage();
   const [featuredCase, setFeaturedCase] = useState<string>('fenixblack');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
     <main className="min-h-screen bg-background overflow-hidden relative px-[3px] md:px-[11px]">
@@ -24,30 +25,101 @@ export default function Home() {
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <motion.div
-              className="font-serif text-2xl font-bold text-foreground"
+            <motion.button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="font-serif text-xl md:text-2xl font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
               whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
+              aria-label="Scroll to top"
             >
               Pablo Schaffner
-            </motion.div>
-            <div className="flex items-center gap-6 text-sm">
+            </motion.button>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-6 text-sm">
               {(["about", "approach", "work", "contact"] as const).map((item, i) => (
-                <motion.a
+                <motion.button
                   key={item}
-                  href={`#${item}`}
-                  className="text-foreground hover:text-primary transition-colors relative font-medium uppercase tracking-wide"
+                  onClick={() => {
+                    const element = document.getElementById(item);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="text-foreground hover:text-primary transition-colors relative font-medium uppercase tracking-wide cursor-pointer"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i, duration: 0.3 }}
                 >
                   {t.nav[item]}
-                </motion.a>
+                </motion.button>
               ))}
               <LanguageSwitcher />
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden items-center gap-4">
+              <LanguageSwitcher />
+              <motion.button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-foreground hover:text-primary transition-colors"
+                whileTap={{ scale: 0.95 }}
+                aria-label="Toggle menu"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {mobileMenuOpen ? (
+                    <path d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </motion.button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <motion.div
+          initial={false}
+          animate={{
+            height: mobileMenuOpen ? "auto" : 0,
+            opacity: mobileMenuOpen ? 1 : 0,
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="md:hidden overflow-hidden border-t-2 border-border"
+        >
+          <div className="container mx-auto px-4 py-6 space-y-4">
+            {(["about", "approach", "work", "contact"] as const).map((item, i) => (
+              <motion.button
+                key={item}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setTimeout(() => {
+                    const element = document.getElementById(item);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 350);
+                }}
+                className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium uppercase tracking-wide text-lg py-2 cursor-pointer"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : -20 }}
+                transition={{ delay: mobileMenuOpen ? 0.1 * i : 0, duration: 0.3 }}
+              >
+                {t.nav[item]}
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
       </motion.nav>
 
       {/* Hero Section */}
