@@ -756,9 +756,9 @@ export default function Home() {
                       </span>
                     )}
                   </div>
-                  {'article' in project && project.article && (
+                  {('article' in project && project.article) ? (
                     <a
-                      href={project.article}
+                      href={project.article as string}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
@@ -767,7 +767,7 @@ export default function Home() {
                       <span>{t.opensource.readArticle}</span>
                       <span>→</span>
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </motion.div>
             ))}
