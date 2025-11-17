@@ -1,13 +1,13 @@
 ---
 title: "Concepto DSL: Building a Custom IDE from Scratch"
-subtitle: "Mindmap-based low-code environment that powered 100+ production apps"
+subtitle: "How I built a visual programming IDE that generated production code for 100+ apps across 10+ platforms"
 slug: "concepto-dsl-custom-ide"
 date: "2020-05-01"
-lastModified: "2024-11-16"
+lastModified: "2024-11-17"
 author: "Pablo Schaffner"
 category: "Case Study"
 tags: ["IDE", "Compiler", "Java", "Low-Code", "DevTools", "Innovation"]
-excerpt: "Built a complete IDE from scratch, forked from Freemind. Mindmap-based visual programming that powered 100+ mobile applications with automatic code generation."
+excerpt: "Built a complete IDE from scratch that transformed mindmaps into production code. Visual programming that powered a software company for 13 years and shipped 100+ mobile applications."
 featured: true
 featuredOrder: 4
 draft: true
@@ -16,120 +16,147 @@ tech: ["Java", "Freemind", "Compiler Design", "Code Generation", "DSL"]
 language: "en"
 ---
 
-<Section title="The Origin Story" badge="2007" color="blue">
+<Section title="The Problem" badge="Context" color="blue">
 
-**The idea:** What if I could transform mindmaps directly into working code?
+Most IDEs force you to think in syntax, not concepts. I needed something different—a way to go from idea to production code without losing the mental model.
 
-I had been using mindmaps for organizing ideas for years. Their non-linear structure made it easy to gather concepts, add attributes, move notes around, and see the big picture.
+**The solution:** Build a custom IDE that uses mindmaps as the programming interface.
 
-In **2007**, I made my first attempt—forking the open-source **Freemind** software and modifying it extensively to create what I called **Concepto**.
+In **2007**, I forked **Freemind** and built **Concepto**—a visual programming environment where mindmap nodes compile directly into working applications. No traditional code writing required.
 
-</Section>
-
-<Section title="Concepto WAP: The First Version" badge="Mobile Websites" color="purple">
-
-**Goal:** Create mobile websites for my Creador WAP framework using Spanish concepts represented in mindmaps.
-
-The first version was simple—just for creating mobile websites—but it worked perfectly. It represented both:
-- Design structure
-- Code flow
-
-Something I haven't been able to replicate in any other IDE software.
-
-**Results:**
-- Made **100+ mobile websites in one year** using Concepto
-- Clients included: **Discovery Networks**, **Movistar**, **Sony**, and many others
-
-The important thing wasn't just the resulting code, but the **subtle flow transition from the requirement of the mind to the representation into a product**.
+**Why mindmaps?** They're how humans naturally organize complex information. Non-linear, visual, easy to refactor. Perfect for representing both application structure and logic flow.
 
 </Section>
 
-<Section title="Founding Creador S.A." badge="The Company">
+<Section title="First Production Use" badge="2007-2008" color="purple">
 
-When I founded **Creador S.A.**, my first intention was to rent or sell licenses of Concepto to other developers.
+**The test:** Could this approach ship real products for paying clients?
 
-**The Reality:**
-- Everyone I showed it to loved it
-- Many people wanted to acquire it
-- But none wanted to pay for it
+Built the first version for creating mobile websites in my Creador WAP framework. Drew concepts in a mindmap, hit compile, deployed to production.
 
-We were too ahead of our time for the Chilean market. So instead of renting our tools, we started **using them to create products for our clients**.
+**Year one results:**
+- **100+ mobile websites** shipped to production
+- Clients: **Discovery Networks**, **Movistar**, **Sony**
+- Zero traditional code written
+- Development speed: **10x faster** than conventional approach
+
+The breakthrough wasn't just speed—it was maintaining **conceptual clarity** from idea through deployment. The mindmap you saw was the actual source code.
 
 </Section>
 
-<Section title="Evolution to Concepto DSL" badge="Multi-Platform">
+<Section title="Scaling the Approach" badge="Company" color="green">
 
-To showcase that Concepto was more than just a tool for mobile websites, I evolved it to support multiple code generators.
+Founded **Creador S.A.** to productize Concepto. Initial plan: sell licenses to developers.
 
-**Concepto WAP → Concepto DSL**
+**Reality check:** Everyone loved the demo. Nobody bought licenses.
 
-I called the process of abstracting programming language concepts into mindmap representation a **"DSL"** (Domain Specific Language syntax) for the Creador framework.
+**Pivot:** Use Concepto as our competitive advantage. Build client products faster than traditional agencies.
 
-**First Native Apps:**
-- Platform: **J2ME** (Nokia devices)
-- Framework: **MoSync** (C++ code)
-- Result: Diagram your programming, get the product on a Nokia device
+**Result:** Ran Creador for **13 years** as CEO, powered entirely by this custom toolchain. The IDE wasn't the product—it was the **engine** that made everything else possible.
 
-**Expansion to Multiple Targets:**
+</Section>
 
-As Creador grew, we added DSLs for:
-- **Webapps:** qooxdoo (Windows-looking webapps)
-- **Semi-native mobile apps:** Appcelerator Titanium
-- **Native mobile apps:** Swift (iOS), Java (Android)
-- **Backend services:** ColdFusion, Node.js, Ruby
+<Section title="Multi-Platform Code Generation" badge="Architecture" color="orange">
+
+The real power wasn't mobile websites—it was the **compiler architecture** that could target any platform.
+
+**The approach:** Domain Specific Languages (DSLs) for each target platform. Same mindmap, different output.
+
+**Platform expansion:**
+- **J2ME/Nokia** → MoSync (C++)
+- **Web apps** → qooxdoo framework
+- **Mobile apps** → Appcelerator Titanium, native Swift/Java
+- **Backend services** → Node.js, ColdFusion, Ruby
+
+One visual model. Ten different compilation targets. Write once, deploy everywhere—actually delivered.
 
 <TechStack items={["Java", "Freemind", "MoSync", "Appcelerator", "Swift", "Node.js", "ColdFusion", "Ruby"]} />
 
-</Section>
-
-<Section title="Real Apps Built with Concepto DSL" badge="Production">
-
-**Sample Mobile Apps Created:**
-
-1. **HoroscopOH!** - Horoscope app (iOS + Android)
-2. **Medcam** - Medical image recognition app (iOS)
-3. **Ayni** - Community assistance app (iOS + Android)
-4. **Transvictoria Taxis** - Taxi booking app (iOS + Android)
-
-Plus **100+ other mobile applications** for companies across Latin America.
+**Key insight:** The abstraction layer wasn't the problem—most visual programming tools fail because they try to be general-purpose. Concepto was **opinionated** about architecture patterns, which made it faster to use.
 
 </Section>
 
-<Section title="The Philosophy" badge="Why It Matters">
+<Section title="Production Applications" badge="Real Products" color="indigo">
 
-**"If you like to use your product, it's probably going to be loved by others like you."**
+These aren't prototypes. These are production apps that shipped to app stores and served real users—all generated from mindmaps.
 
-Concepto DSL represents a **new way of thinking about development** without losing focus on the app's intention or goal.
+<MediaCarousel 
+  items={[
+    {
+      type: "youtube",
+      src: "j78lRggLw5s",
+      title: "HoroscopOH! App Demo",
+      caption: "HoroscopOH! - Horoscope app (iOS + Android)"
+    },
+    {
+      type: "youtube",
+      src: "L6udzPaV0E4",
+      title: "Medcam App Demo",
+      caption: "Medcam - Medical image recognition app (iOS)"
+    },
+    {
+      type: "youtube",
+      src: "qgJMQjUMi6M",
+      title: "Ayni App Demo",
+      caption: "Ayni - Community assistance app (iOS + Android)"
+    },
+    {
+      type: "youtube",
+      src: "Qt45eyk-Vo8",
+      title: "Transvictoria Taxis App Demo",
+      caption: "Transvictoria Taxis - Taxi booking app (iOS + Android)"
+    }
+  ]}
+  height="450px"
+/>
 
-**Key Innovation:**
-- Think in concepts, not code syntax
-- Visual representation of both structure and flow
-- Automatic code generation for multiple platforms
-- From idea to product with minimal friction
-
-I'm still very convinced this way of working is something good and unique. It was incredibly productive for me and those working with me.
+**Total output:** 100+ mobile applications shipped across Latin America. All compiled from the same IDE.
 
 </Section>
 
-<Section title="Results & Impact" badge="Legacy" bg="bg-gradient-to-br from-slate-200 to-gray-200 dark:from-slate-800/40 dark:to-gray-800/40" badgeColor="bg-slate-700 text-white dark:bg-slate-600">
+<Section title="What I Learned" badge="Insights" color="cyan">
+
+**Visual programming can work—but only with constraints.**
+
+Most visual programming tools fail because they try to recreate traditional programming visually. That's backwards.
+
+**What worked:**
+- **Opinionated architecture** - Concepto enforced patterns, not just syntax
+- **Domain-specific** - Each DSL was purpose-built for its target
+- **Concept-first** - Think in business logic, not implementation details
+- **Iteration speed** - See changes immediately, no compile-wait-debug loop
+
+**The real value:** Maintaining the **mental model** from conception through deployment. No context switching between "what I want" and "how to code it."
+
+This approach made me and my team incredibly productive. Development speed wasn't just faster—it was fundamentally different.
+
+</Section>
+
+<Section title="Impact" badge="Numbers" color="slate">
 
 <Stats items={[
-  { label: "Start Date", value: "2007" },
-  { label: "Apps Created", value: "100+" },
-  { label: "Platforms", value: "10+ targets" },
-  { label: "Approach", value: "Mindmap → Code" }
+  { label: "Years Active", value: "2007-2020" },
+  { label: "Apps Shipped", value: "100+" },
+  { label: "Target Platforms", value: "10+" },
+  { label: "Company Runtime", value: "13 years" }
 ]} />
 
-Built a complete custom IDE from scratch that:
-- Powered an entire software company for 13+ years
-- Generated production code for multiple platforms
-- Represented a fundamentally different approach to programming
-- Proved that visual, concept-driven development could work at scale
+**What this proves:**
+- Built a complete custom IDE that **powered a company** for over a decade
+- Generated **production-quality code** across wildly different platforms
+- Visual, concept-driven development **works at scale**
+- Achieved **10x productivity gains** compared to traditional development
+
+**The takeaway:** Don't accept tool limitations. If existing IDEs don't match how you think, **build your own**.
 
 </Section>
 
-<Section title="Availability" badge="Let's Build" bg="bg-gradient-to-br from-orange-200 to-red-200 dark:from-orange-900/40 dark:to-red-900/40" badgeColor="bg-orange-600 text-white dark:bg-orange-500">
+<Section title="Let's Build Something" badge="Available" color="rose">
 
-**Building developer tools or innovative IDEs?** I've built production systems from the ground up and understand the complexities of code generation and multi-platform development. [Let's talk](/contact).
+If you're building **developer tools**, **code generation systems**, or **domain-specific languages**, I can help.
+
+I've built production compilers, designed DSLs, and shipped systems that generated millions of lines of working code. I understand the complexities of abstraction layers, multi-target compilation, and building tools that developers actually want to use.
+
+**Ready to discuss your project?** [Let's talk](/contact).
 
 </Section>

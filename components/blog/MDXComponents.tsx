@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { ContactLink } from "./ContactLink";
+import { MediaCarousel } from "./MediaCarousel";
 
 // Section counter for alternating backgrounds
 let sectionCounter = 0;
@@ -197,6 +198,38 @@ export function ImageWithCaption({
           )}
         </div>
         {/* Polaroid caption */}
+        {caption && (
+          <p className="text-center text-sm text-muted-foreground mt-3 font-medium italic">
+            {caption}
+          </p>
+        )}
+      </div>
+    </figure>
+  );
+}
+
+interface YouTubeEmbedProps {
+  videoId: string; // YouTube video ID (e.g., "dQw4w9WgXcQ")
+  caption?: string;
+  title?: string; // For accessibility
+}
+
+export function YouTubeEmbed({ videoId, caption, title = "YouTube video" }: YouTubeEmbedProps) {
+  return (
+    <figure className="my-8 max-w-3xl mx-auto">
+      {/* Neo-brutalist Card */}
+      <div className="bg-card border-2 border-border rounded-lg p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        {/* Video container with 16:9 aspect ratio */}
+        <div className="relative w-full aspect-video rounded-md overflow-hidden bg-muted">
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+        </div>
+        {/* Caption */}
         {caption && (
           <p className="text-center text-sm text-muted-foreground mt-3 font-medium italic">
             {caption}
@@ -480,6 +513,8 @@ export const MDXComponents = {
   Section,
   Callout,
   ImageWithCaption,
+  YouTubeEmbed,
+  MediaCarousel,
   TechStack,
   Stats,
 };
