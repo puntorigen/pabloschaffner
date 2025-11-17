@@ -139,10 +139,10 @@ export function FeaturedWorkCarousel({ posts }: FeaturedWorkCarouselProps) {
 
       {/* Navigation and View All Link */}
       <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
-        {/* Previous Arrow */}
+        {/* Previous Arrow - Hidden on mobile/tablet */}
         <button
           onClick={handlePrev}
-          className="bg-primary hover:bg-primary-hover text-primary-foreground border-4 border-border rounded-full p-3 md:p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] active:scale-95 transition-all"
+          className="hidden lg:block bg-primary hover:bg-primary-hover text-primary-foreground border-4 border-border rounded-full p-3 md:p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] active:scale-95 transition-all"
           aria-label="Previous project"
         >
           <svg
@@ -169,10 +169,10 @@ export function FeaturedWorkCarousel({ posts }: FeaturedWorkCarouselProps) {
           <span>→</span>
         </Link>
 
-        {/* Next Arrow */}
+        {/* Next Arrow - Hidden on mobile/tablet */}
         <button
           onClick={handleNext}
-          className="bg-primary hover:bg-primary-hover text-primary-foreground border-4 border-border rounded-full p-3 md:p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] active:scale-95 transition-all"
+          className="hidden lg:block bg-primary hover:bg-primary-hover text-primary-foreground border-4 border-border rounded-full p-3 md:p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] active:scale-95 transition-all"
           aria-label="Next project"
         >
           <svg

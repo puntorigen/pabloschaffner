@@ -15,6 +15,9 @@ interface SectionProps {
   title: string;
   badge?: string;
   color?: ColorOption; // Color name (purple, blue, green, etc.)
+  bgImage?: string; // Background image URL (overrides color)
+  bgImageSize?: 'cover' | 'contain'; // Background size for image
+  bgImagePosition?: string; // Background position (e.g., "center", "top right")
 }
 
 // Predefined color schemes - all classes are included at build time
@@ -73,7 +76,7 @@ const colorMap: Record<ColorOption, { bg: string; badge: string }> = {
   },
 };
 
-export function Section({ children, title, badge, color }: SectionProps) {
+export function Section({ children, title, badge, color, bgImage, bgImageSize = 'cover', bgImagePosition = 'center' }: SectionProps) {
   const index = sectionCounter++;
   
   // Default rotation for sections without explicit color
@@ -83,8 +86,19 @@ export function Section({ children, title, badge, color }: SectionProps) {
   const selectedColor = color || defaultColor;
   const { bg: bgClass, badge: badgeClass } = colorMap[selectedColor];
   
+  // Inline styles for background image
+  const bgStyle = bgImage ? {
+    backgroundImage: `url(${bgImage})`,
+    backgroundSize: bgImageSize,
+    backgroundPosition: bgImagePosition,
+    backgroundRepeat: 'no-repeat',
+  } : undefined;
+  
   return (
-    <section className={`relative -ml-[calc((100vw-100%)/2-1rem)] -mr-[calc((100vw-100%)/2-1rem)] md:-ml-[calc((100vw-100%)/2-1rem)] md:-mr-[calc((100vw-100%)/2-1rem)] py-12 md:py-20 first:mt-0 ${bgClass}`}>
+    <section 
+      className={`relative -ml-[calc((100vw-100%)/2-1rem)] -mr-[calc((100vw-100%)/2-1rem)] md:-ml-[calc((100vw-100%)/2-1rem)] md:-mr-[calc((100vw-100%)/2-1rem)] py-12 md:py-20 first:mt-0 ${!bgImage ? bgClass : 'bg-muted/20'}`}
+      style={bgStyle}
+    >
       <div className="px-4">
         <div className="max-w-4xl mx-auto">
           <div className="inline-block mb-4">
@@ -142,6 +156,7 @@ interface ImageWithCaptionProps {
   caption?: string;
   width?: number;
   height?: number;
+  contain?: boolean; // Use 'contain' instead of 'cover' for background
 }
 
 export function ImageWithCaption({
@@ -150,23 +165,43 @@ export function ImageWithCaption({
   caption,
   width = 1200,
   height = 675,
+  contain = false,
 }: ImageWithCaptionProps) {
   return (
-    <figure className="my-8">
-      <div className="relative border-2 border-border rounded-lg overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-        <Image
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          className="w-full h-auto"
-        />
+    <figure className="my-8 max-w-2xl mx-auto">
+      {/* Neo-brutalist Polaroid Card */}
+      <div className="bg-card border-2 border-border rounded-lg p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+        {/* Image container */}
+        <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-muted">
+          {contain ? (
+            // Background image style (for contain mode, like vic20)
+            <div 
+              className="absolute inset-0 p-8"
+              style={{
+                backgroundImage: `url(${src})`,
+                backgroundSize: 'contain',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          ) : (
+            // Next Image component (for cover mode)
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+        {/* Polaroid caption */}
+        {caption && (
+          <p className="text-center text-sm text-muted-foreground mt-3 font-medium italic">
+            {caption}
+          </p>
+        )}
       </div>
-      {caption && (
-        <figcaption className="mt-3 text-center text-sm text-muted-foreground italic">
-          {caption}
-        </figcaption>
-      )}
     </figure>
   );
 }
