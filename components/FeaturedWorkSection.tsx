@@ -10,6 +10,7 @@ interface FeaturedWorkSectionProps {
   badge: string;
   title: string;
   subtitle: string;
+  viewAllText?: string;
   language?: string;
 }
 
@@ -17,6 +18,7 @@ export function FeaturedWorkSection({
   badge, 
   title, 
   subtitle,
+  viewAllText = "View All Articles",
   language = 'en' 
 }: FeaturedWorkSectionProps) {
   const [featuredPosts, setFeaturedPosts] = useState<BlogPostMetadata[]>([]);
@@ -66,7 +68,7 @@ export function FeaturedWorkSection({
 
       {/* Featured Work Carousel */}
       {featuredPosts.length > 0 && (
-        <FeaturedWorkCarousel posts={featuredPosts} />
+        <FeaturedWorkCarousel posts={featuredPosts} viewAllText={viewAllText} />
       )}
     </div>
   );

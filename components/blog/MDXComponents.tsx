@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { ContactLink } from "./ContactLink";
 
 // Section counter for alternating backgrounds
 let sectionCounter = 0;
@@ -309,8 +310,9 @@ export const MDXComponents = {
   a: ({ children, href, ...props }: any) => {
     const isExternal = href?.startsWith("http");
     const isAnchor = href?.startsWith("#");
+    const isContact = href === "/contact" || href === "#contact";
 
-    if (isAnchor) {
+    if (isAnchor && !isContact) {
       return (
         <a
           href={href}
@@ -319,6 +321,18 @@ export const MDXComponents = {
         >
           {children}
         </a>
+      );
+    }
+
+    // Trigger Okidoki chat widget for /contact links
+    if (isContact) {
+      return (
+        <ContactLink
+          href={href}
+          className="text-primary hover:text-primary-hover underline underline-offset-4 transition-colors cursor-pointer"
+        >
+          {children}
+        </ContactLink>
       );
     }
 

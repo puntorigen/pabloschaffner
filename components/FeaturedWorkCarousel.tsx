@@ -13,9 +13,10 @@ import "swiper/css/effect-cards";
 
 interface FeaturedWorkCarouselProps {
   posts: BlogPostMetadata[];
+  viewAllText?: string;
 }
 
-export function FeaturedWorkCarousel({ posts }: FeaturedWorkCarouselProps) {
+export function FeaturedWorkCarousel({ posts, viewAllText = "View All Articles" }: FeaturedWorkCarouselProps) {
   const swiperRef = useRef<SwiperType | null>(null);
 
   const handlePrev = () => {
@@ -162,10 +163,10 @@ export function FeaturedWorkCarousel({ posts }: FeaturedWorkCarouselProps) {
 
         {/* View All Link */}
         <Link
-          href="/blog?category=Case Study"
+          href="/blog"
           className="inline-flex items-center gap-2 px-6 py-3 bg-card border-2 border-border text-foreground rounded-md font-sans font-bold hover:bg-secondary transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
         >
-          <span>View All Case Studies</span>
+          <span>{viewAllText}</span>
           <span>→</span>
         </Link>
 

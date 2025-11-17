@@ -6,6 +6,7 @@ import { GridBackground } from "@/components/GridBackground";
 import { ContactForm } from "@/components/ContactForm";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { FeaturedWorkSection } from "@/components/FeaturedWorkSection";
+import { RecentArticlesGrid } from "@/components/RecentArticlesGrid";
 import { Footer } from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
@@ -437,8 +438,16 @@ export default function Home() {
           badge={t.projects.badge}
           title={t.projects.title}
           subtitle={t.projects.subtitle}
+          viewAllText={t.projects.viewAll}
         />
       </section>
+
+      {/* Recent Articles Grid */}
+      <RecentArticlesGrid 
+        title="Recent Articles"
+        subtitle="Latest insights, tutorials, and technical deep dives"
+        limit={4}
+      />
 
       {/* Open Source Section */}
       <section id="opensource" className="bg-muted/30 py-20 md:py-32">

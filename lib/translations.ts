@@ -127,9 +127,10 @@ export const translations = {
     
     // Projects Section (formerly Case Studies)
     projects: {
-      badge: 'PROJECTS & VENTURES',
-      title: 'What I Have Built',
-      subtitle: 'Production systems that solve real problems.',
+      badge: 'FEATURED WORK & WRITING',
+      title: 'Things I\'ve Built and Lessons I\'ve Learned',
+      subtitle: 'Selected projects, technical insights, and approaches that have shaped how I build software.',
+      viewAll: 'View All Articles',
       okidoki: {
         featuredBadge: 'FEATURED PROJECT',
         title: 'Okidoki.chat',
@@ -614,9 +615,10 @@ export const translations = {
     
     // Sección Proyectos
     projects: {
-      badge: 'PROYECTOS Y PRODUCTOS',
-      title: 'Lo Que He Construido',
-      subtitle: 'Sistemas de producción que resuelven problemas reales.',
+      badge: 'TRABAJO DESTACADO Y ARTÍCULOS',
+      title: 'Cosas Que He Construido y Lecciones Aprendidas',
+      subtitle: 'Proyectos seleccionados, conocimientos técnicos, y enfoques que han moldeado cómo construyo software.',
+      viewAll: 'Ver Todos los Artículos',
       okidoki: {
         featuredBadge: 'PROYECTO DESTACADO',
         title: 'Okidoki.chat',
