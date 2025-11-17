@@ -105,13 +105,6 @@ export function FeaturedWorkCarousel({ posts }: FeaturedWorkCarouselProps) {
                       </p>
                     )}
 
-                    {/* Description fallback if no excerpt */}
-                    {!post.excerpt && post.description && (
-                      <p className="text-muted-foreground mb-3 leading-relaxed line-clamp-2 text-sm md:text-base">
-                        {post.description}
-                      </p>
-                    )}
-
                     {/* Tech Stack */}
                     {post.tech && post.tech.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mb-3">
@@ -126,25 +119,6 @@ export function FeaturedWorkCarousel({ posts }: FeaturedWorkCarouselProps) {
                         {post.tech.length > 3 && (
                           <span className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
                             +{post.tech.length - 3}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                    
-                    {/* Fallback to techStack if tech doesn't exist */}
-                    {!post.tech && post.techStack && post.techStack.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {post.techStack.slice(0, 3).map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {post.techStack.length > 3 && (
-                          <span className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
-                            +{post.techStack.length - 3}
                           </span>
                         )}
                       </div>
