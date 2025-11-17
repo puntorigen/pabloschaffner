@@ -1,0 +1,74 @@
+---
+title: "Okidoki.chat: Enterprise AI Chat Widget"
+subtitle: "Sub-200ms responses with RAG, voice mode, and video calls—built in 3 weeks"
+slug: "okidoki-chat-case-study"
+date: "2024-10-15"
+lastModified: "2024-11-16"
+author: "Pablo Schaffner"
+category: "Case Study"
+tags: ["AI", "RAG", "Next.js", "Production", "SaaS", "TypeScript", "Real-time"]
+excerpt: "Enterprise AI chat widget with RAG pipelines, real-time voice, and video capabilities. Built and shipped in 3 weeks."
+featured: true
+featuredOrder: 1
+coverImage: "/blog/okidoki-cover.jpg"
+projectUrl: "https://okidoki.chat"
+tech: ["Next.js", "TypeScript", "Gemini Live", "Daily.co", "AssemblyAI", "Groq", "Redis", "Vercel Edge"]
+language: "en"
+---
+
+<Section title="The Product" badge="Overview" bg="bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30" badgeColor="bg-purple-600 text-white">
+
+Built a production-ready enterprise AI chat widget from scratch in **3 weeks** (October 2024).
+
+**Core Features:**
+- RAG pipeline for brand-specific responses
+- Voice mode powered by Gemini Live
+- Video calls with Daily.co integration
+- Meeting transcription via AssemblyAI
+- Sub-200ms response times from brand data
+- Website generator
+- Automated content scraping
+
+**Live:** [okidoki.chat](https://okidoki.chat)
+
+</Section>
+
+<Section title="Technical Architecture" badge="How It Works">
+
+**Stack:**
+- **Frontend:** Next.js 14 + TypeScript
+- **AI:** Gemini Live (voice), Groq (fast inference)
+- **RAG:** Custom pipeline with vector storage
+- **Video:** Daily.co WebRTC
+- **Transcription:** AssemblyAI
+- **Infrastructure:** Vercel Edge Functions + Redis
+- **Caching:** Redis for sub-200ms responses
+
+**Key Innovation:** Pre-processing RAG content and intelligent caching moved heavy computation to build time, enabling real-time response speeds.
+
+<TechStack items={["Next.js", "TypeScript", "Gemini Live", "Daily.co", "AssemblyAI", "Groq", "Redis", "Vercel Edge"]} />
+
+</Section>
+
+<Section title="Results" badge="Impact" bg="bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30" badgeColor="bg-green-600 text-white">
+
+<Stats items={[
+  { label: "Build Time", value: "3 weeks" },
+  { label: "Response Speed", value: "<200ms" },
+  { label: "Features", value: "RAG+Voice+Video" },
+  { label: "Status", value: "Production" }
+]} />
+
+Shipped to production with paying customers. Demonstrates ability to rapidly build and deploy complex AI systems.
+
+**Try it:** This website uses Okidoki.chat! Use the chat widget to see it in action.
+
+</Section>
+
+<Section title="Availability" badge="Let's Build">
+
+**Want to build something ambitious?** Whether it's AI systems, full-stack applications, or novel products—[let's talk](/contact).
+
+The best way to predict the future is to build it. Fast.
+
+</Section>

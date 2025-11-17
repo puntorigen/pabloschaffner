@@ -7,6 +7,7 @@ export const translations = {
       about: 'About',
       approach: 'Approach',
       work: 'Work',
+      blog: 'Blog',
       contact: 'Contact',
     },
     
@@ -440,6 +441,24 @@ export const translations = {
       techStack: 'Tech Stack Highlight',
     },
     
+    // Blog Page
+    blog: {
+      badge: 'Technical Blog',
+      title: 'Case Studies & Insights',
+      subtitle: 'Deep dives into building AI systems, full-stack applications, and lessons learned from 20+ years of software engineering.',
+      searchPlaceholder: 'Search articles...',
+      loading: 'Loading articles...',
+      all: 'All',
+      resultsCount: {
+        single: 'article',
+        plural: 'articles',
+        matching: 'matching',
+      },
+      featured: 'Featured Article',
+      noResults: 'No articles found matching your criteria.',
+      clearFilters: 'Clear filters',
+    },
+    
     // Contact Section
     contact: {
       badge: "LET'S BUILD",
@@ -475,6 +494,7 @@ export const translations = {
       about: 'Acerca',
       approach: 'Enfoque',
       work: 'Trabajo',
+      blog: 'Blog',
       contact: 'Contacto',
     },
     
@@ -906,6 +926,24 @@ export const translations = {
         ],
       },
       techStack: 'Herramientas que Domino',
+    },
+    
+    // Página Blog
+    blog: {
+      badge: 'Blog Técnico',
+      title: 'Casos de Estudio & Aprendizajes',
+      subtitle: 'Análisis profundos sobre construcción de sistemas de IA, aplicaciones full-stack, y lecciones de 20+ años de ingeniería de software.',
+      searchPlaceholder: 'Buscar artículos...',
+      loading: 'Cargando artículos...',
+      all: 'Todos',
+      resultsCount: {
+        single: 'artículo',
+        plural: 'artículos',
+        matching: 'que coinciden con',
+      },
+      featured: 'Artículo Destacado',
+      noResults: 'No se encontraron artículos con esos criterios.',
+      clearFilters: 'Limpiar filtros',
     },
     
     // Sección Contacto

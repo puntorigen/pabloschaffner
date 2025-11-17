@@ -5,12 +5,13 @@ import Image from "next/image";
 import { GridBackground } from "@/components/GridBackground";
 import { ContactForm } from "@/components/ContactForm";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { FeaturedWorkSection } from "@/components/FeaturedWorkSection";
+import { Footer } from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 
 export default function Home() {
   const { t } = useLanguage();
-  const [featuredCase, setFeaturedCase] = useState<string>('fenixblack');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
@@ -38,22 +39,35 @@ export default function Home() {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-6 text-sm">
-              {(["about", "approach", "work", "contact"] as const).map((item, i) => (
-                <motion.button
-                  key={item}
-                  onClick={() => {
-                    const element = document.getElementById(item);
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }}
-                  className="text-foreground hover:text-primary transition-colors relative font-medium uppercase tracking-wide cursor-pointer"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i, duration: 0.3 }}
-                >
-                  {t.nav[item]}
-                </motion.button>
+              {(["about", "approach", "work", "blog", "contact"] as const).map((item, i) => (
+                item === "blog" ? (
+                  <motion.a
+                    key={item}
+                    href="/blog"
+                    className="text-foreground hover:text-primary transition-colors relative font-medium uppercase tracking-wide cursor-pointer"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * i, duration: 0.3 }}
+                  >
+                    {t.nav[item]}
+                  </motion.a>
+                ) : (
+                  <motion.button
+                    key={item}
+                    onClick={() => {
+                      const element = document.getElementById(item);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
+                    className="text-foreground hover:text-primary transition-colors relative font-medium uppercase tracking-wide cursor-pointer"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * i, duration: 0.3 }}
+                  >
+                    {t.nav[item]}
+                  </motion.button>
+                )
               ))}
               <LanguageSwitcher />
             </div>
@@ -98,25 +112,39 @@ export default function Home() {
           className="md:hidden overflow-hidden border-t-2 border-border"
         >
           <div className="container mx-auto px-4 py-6 space-y-4">
-            {(["about", "approach", "work", "contact"] as const).map((item, i) => (
-              <motion.button
-                key={item}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setTimeout(() => {
-                    const element = document.getElementById(item);
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }, 350);
-                }}
-                className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium uppercase tracking-wide text-lg py-2 cursor-pointer"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : -20 }}
-                transition={{ delay: mobileMenuOpen ? 0.1 * i : 0, duration: 0.3 }}
-              >
-                {t.nav[item]}
-              </motion.button>
+            {(["about", "approach", "work", "blog", "contact"] as const).map((item, i) => (
+              item === "blog" ? (
+                <motion.a
+                  key={item}
+                  href="/blog"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium uppercase tracking-wide text-lg py-2 cursor-pointer"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : -20 }}
+                  transition={{ delay: mobileMenuOpen ? 0.1 * i : 0, duration: 0.3 }}
+                >
+                  {t.nav[item]}
+                </motion.a>
+              ) : (
+                <motion.button
+                  key={item}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setTimeout(() => {
+                      const element = document.getElementById(item);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }, 350);
+                  }}
+                  className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium uppercase tracking-wide text-lg py-2 cursor-pointer"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: mobileMenuOpen ? 1 : 0, x: mobileMenuOpen ? 0 : -20 }}
+                  transition={{ delay: mobileMenuOpen ? 0.1 * i : 0, duration: 0.3 }}
+                >
+                  {t.nav[item]}
+                </motion.button>
+              )
             ))}
           </div>
         </motion.div>
@@ -403,337 +431,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects / Case Studies Section */}
       <section id="work" className="container mx-auto px-4 py-20 md:py-32">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
-          >
-            <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md border-2 border-border uppercase tracking-wider mb-4">
-              {t.projects.badge}
-            </span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-foreground mb-4">
-              {t.projects.title}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mb-0">
-              {t.projects.subtitle}
-            </p>
-          </motion.div>
-
-          {/* Define all case studies */}
-          {(() => {
-            const caseStudies = {
-              fenixblack: {
-                id: 'fenixblack',
-                title: t.fenixblack.mainTitle,
-                subtitle: t.fenixblack.mainSubtitle,
-                badge: 'SAAS PLATFORM',
-                description: t.fenixblack.intro,
-                features: [
-                  t.fenixblack.feature1,
-                  t.fenixblack.feature2,
-                  t.fenixblack.feature3,
-                ],
-                tech: ['Python', 'NiceGUI', 'Custom React Bridge', 'Next.js', 'Vercel'],
-                link: 'https://www.fenixblack.ai',
-                linkText: t.fenixblack.visit,
-                color: 'primary',
-                type: 'fenixblack',
-                microApps: [
-                  {
-                    nameKey: "holidays",
-                    url: "https://holidays.fenixblack.ai",
-                    icon: "🎥",
-                    color: "primary",
-                  },
-                  {
-                    nameKey: "brand",
-                    url: "https://brand.fenixblack.ai",
-                    icon: "🎨",
-                    color: "secondary",
-                  },
-                  {
-                    nameKey: "backgrounds",
-                    url: "https://backgrounds.fenixblack.ai",
-                    icon: "🖼️",
-                    color: "accent",
-                  },
-                  {
-                    nameKey: "canvas",
-                    url: "https://canvas.fenixblack.ai",
-                    icon: "✏️",
-                    color: "primary",
-                  },
-                  {
-                    nameKey: "restore",
-                    url: "https://restore.fenixblack.ai",
-                    icon: "📸",
-                    color: "secondary",
-                  },
-                  {
-                    nameKey: "growth",
-                    url: "https://growth.fenixblack.ai",
-                    icon: "📊",
-                    color: "accent",
-                  },
-                ],
-              },
-              okidoki: {
-                id: 'okidoki',
-                title: t.okidoki.title,
-                subtitle: t.okidoki.subtitle,
-                badge: t.okidoki.badge,
-                description: t.okidoki.description,
-                features: t.okidoki.features,
-                tech: ['Next.js', 'TypeScript', 'Gemini Live', 'Daily.co', 'AssemblyAI', 'Groq', 'Redis', 'Vercel'],
-                color: 'secondary',
-                type: 'standard',
-                link: 'https://okidoki.chat',
-                linkText: t.viewProject,
-              },
-              vplus: {
-                id: 'vplus',
-                title: t.vplus.title,
-                subtitle: t.vplus.subtitle,
-                badge: t.vplus.badge,
-                description: t.vplus.description,
-                features: t.vplus.features,
-                tech: ['Python', 'C', 'Java', 'Vue.js', 'Nuxt.js', 'React Native', 'AWS', 'MongoDB', 'DynamoDB'],
-                color: 'accent',
-                type: 'standard',
-              },
-              concepto: {
-                id: 'concepto',
-                title: t.concepto.title,
-                subtitle: t.concepto.subtitle,
-                badge: t.concepto.badge,
-                description: t.concepto.description,
-                features: t.concepto.features,
-                tech: ['Java', 'Eclipse IDE', 'Compiler', 'Node.js', 'React', 'Vue.js', 'Mobile'],
-                color: 'primary',
-                type: 'standard',
-              },
-            };
-
-            const featured = caseStudies[featuredCase as keyof typeof caseStudies];
-            const allCases = Object.values(caseStudies);
-
-            return (
-              <>
-                {/* Split Screen Layout */}
-                <div className="grid lg:grid-cols-[1.5fr,1fr] gap-8">
-                  {/* Left: Featured Case Study + FenixBlack Apps */}
-                  <div className="space-y-8">
-                  <motion.div
-                    key={featuredCase}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="group relative block lg:sticky lg:top-24">
-                      <div className="relative bg-card border-2 border-border rounded-lg p-8 md:p-10 overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-                        {/* Subtle gradient background */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-                        
-                        <div className="relative">
-                          <div className="flex items-start justify-between flex-wrap gap-6 mb-6">
-                            <div className="flex-1">
-                              <div className="inline-block px-3 py-1 bg-primary text-primary-foreground border-2 border-border rounded-md text-xs font-bold uppercase tracking-wider mb-4">
-                                {t.featured} • {featured.badge}
-                              </div>
-                              <h3 className="text-3xl md:text-4xl font-serif font-bold mb-3 text-foreground">
-                                {featured.title}
-                              </h3>
-                              <p className="text-xl font-bold text-foreground italic mb-4">
-                                {featured.subtitle}
-                              </p>
-                            </div>
-                            {'link' in featured && featured.link && (
-                              <motion.a
-                                href={featured.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-primary text-base font-semibold hover:text-primary-hover transition-colors"
-                                whileHover={{ x: 4 }}
-                              >
-                                <span>{'linkText' in featured ? featured.linkText : 'View Project'}</span>
-                                <span>→</span>
-                              </motion.a>
-                            )}
-                          </div>
-
-                          <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                            {featured.description}
-                          </p>
-
-                          {/* Try It Live CTA for Okidoki */}
-                          {featured.id === 'okidoki' && 'tryItTitle' in t.projects.okidoki && (
-                            <motion.div
-                              className="mb-6 p-3 bg-blue/10 border-2 border-blue rounded-md"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.3 }}
-                            >
-                              <h4 className="text-sm font-display font-bold mb-1 text-blue flex items-center gap-2">
-                                <span>💬</span>
-                                {t.projects.okidoki.tryItTitle}
-                              </h4>
-                              <p className="text-xs text-muted-foreground">
-                                {t.projects.okidoki.tryItText}
-                              </p>
-                            </motion.div>
-                          )}
-
-                          <div className="mb-6">
-                            <h4 className="text-lg font-display font-bold mb-3">{t.keyFeatures}</h4>
-                            <div className="grid md:grid-cols-2 gap-3">
-                              {featured.features.map((feature, i) => (
-                                <motion.div
-                                  key={i}
-                                  className="flex items-start gap-2 text-sm"
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: i * 0.05 }}
-                                >
-                                  <span className="text-primary text-lg">✓</span>
-                                  <span className="text-muted-foreground">{feature}</span>
-                                </motion.div>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="mb-4">
-                            <h4 className="text-base font-display font-bold mb-3 text-foreground">{t.techStack}</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {featured.tech.map((tech, i) => (
-                                <span
-                                  key={i}
-                                  className="px-3 py-1 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground hover:border-primary hover:text-primary transition-colors"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* FenixBlack Micro-Apps Grid (only when fenixblack is featured) */}
-                  {featured.type === 'fenixblack' && 'microApps' in featured && featured.microApps && (
-                    <div className="grid md:grid-cols-2 gap-4">
-                        {featured.microApps.map((app: any, i: number) => (
-                          <motion.div
-                            key={i}
-                            className="relative"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ 
-                              duration: 0.4, 
-                              delay: i * 0.05
-                            }}
-                          >
-                            <motion.a
-                              href={app.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group relative block bg-card border-2 border-border hover:border-border rounded-lg p-4 h-full transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]"
-                              transition={{ duration: 0.2 }}
-                            >
-                              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                              
-                              <div className="relative">
-                                <div className="text-3xl mb-3">
-                                  {app.icon}
-                                </div>
-                                
-                                <h4 className="text-base font-serif font-bold mb-1 text-foreground group-hover:text-primary transition-colors">
-                                  {(t.fenixblack as any)[app.nameKey].name}
-                                </h4>
-                                <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
-                                  {(t.fenixblack as any)[app.nameKey].description}
-                                </p>
-                                
-                                <div className="flex items-center gap-1 text-xs font-semibold text-muted-foreground group-hover:text-primary transition-colors">
-                                  <span>{t.fenixblack.launchApp}</span>
-                                  <span>→</span>
-                                </div>
-                              </div>
-                            </motion.a>
-                          </motion.div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Right: All Case Studies Grid */}
-                  <div className="space-y-4">
-                    {allCases.map((caseStudy, i) => (
-                      <motion.div
-                        key={caseStudy.id}
-                        className={`group relative bg-card rounded-lg overflow-hidden transition-all cursor-pointer ${
-                          caseStudy.id === featuredCase
-                            ? 'border-4 border-primary shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] bg-primary/5'
-                            : 'border-2 border-border shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px]'
-                        }`}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: i * 0.1 }}
-                        onClick={() => setFeaturedCase(caseStudy.id)}
-                      >
-                        {caseStudy.id === featuredCase && (
-                          <div className="absolute top-4 right-4 z-10">
-                            <span className="inline-block px-2 py-1 bg-primary text-primary-foreground text-xs font-bold rounded border-2 border-border uppercase tracking-wider">
-                              {t.viewing}
-                            </span>
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        
-                        <div className="p-6 relative">
-                          <div>
-                            <h3 className="text-lg font-serif font-bold mb-1 text-foreground">
-                              {caseStudy.title}
-                            </h3>
-                            <p className="font-bold mb-3 text-sm text-foreground/70 italic">
-                              {caseStudy.subtitle}
-                            </p>
-                          </div>
-                          
-                          <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">
-                            {caseStudy.description}
-                          </p>
-
-                          <div className="flex flex-wrap gap-1">
-                            {caseStudy.tech.slice(0, 3).map((tech, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                            {caseStudy.tech.length > 3 && (
-                              <span className="px-2 py-0.5 bg-muted border border-border rounded-full text-xs font-medium text-muted-foreground">
-                                +{caseStudy.tech.length - 3}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            );
-          })()}
-        </div>
+        <FeaturedWorkSection 
+          badge={t.projects.badge}
+          title={t.projects.title}
+          subtitle={t.projects.subtitle}
+        />
       </section>
 
       {/* Open Source Section */}
@@ -1206,18 +910,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-slate-100/50 dark:bg-slate-900/30 py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="font-display font-bold text-lg text-foreground">
-              Pablo Schaffner
-            </div>
-            <div className="text-sm text-muted-foreground">
-              {t.footer.built} {t.footer.by}. v0.1.1. {t.footer.version}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }
