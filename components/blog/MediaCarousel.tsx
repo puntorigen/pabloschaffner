@@ -29,10 +29,6 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
   const playersRef = useRef<{ [key: number]: any }>({});
   const swiperRef = useRef<SwiperType | null>(null);
 
-  if (!items || items.length === 0) {
-    return null;
-  }
-
   // Load YouTube IFrame API
   useEffect(() => {
     // Check if API is already loaded
@@ -59,7 +55,7 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
 
   // Initialize all YouTube players upfront for faster loading
   useEffect(() => {
-    if (!apiReady) return;
+    if (!apiReady || !items || items.length === 0) return;
 
     // Small delay to ensure DOM is fully rendered
     const timer = setTimeout(() => {
@@ -95,7 +91,7 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
 
   // Control video playback based on active slide
   useEffect(() => {
-    if (!apiReady) return;
+    if (!apiReady || !items || items.length === 0) return;
 
     items.forEach((item, index) => {
       if (item.type === 'youtube') {
@@ -116,6 +112,11 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
   const handleSlideChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
   };
+
+  // Check if items is empty after all hooks are called
+  if (!items || items.length === 0) {
+    return null;
+  }
 
   return (
     <div className="my-8 max-w-3xl mx-auto">

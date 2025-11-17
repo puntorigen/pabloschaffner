@@ -1,13 +1,13 @@
 ---
 title: "V+ Publicidad: D-OOH Advertising Platform"
-subtitle: "From founding to production—complete ad-tech platform with IoT devices"
+subtitle: "Founded startup and built IoT ad platform from scratch—hardware, software, and infrastructure"
 slug: "vplus-dooh-platform"
 date: "2021-09-01"
-lastModified: "2024-11-16"
+lastModified: "2025-11-17"
 author: "Pablo Schaffner"
 category: "Case Study"
 tags: ["IoT", "Founder", "CTO", "Vue.js", "React Native", "AWS", "Real-time", "Hardware"]
-excerpt: "Founded and built complete D-OOH advertising platform. Drivers earn revenue displaying ads on rear-window IoT devices. Real-time ad serving at scale."
+excerpt: "Founded D-OOH advertising startup. Built complete platform: IoT devices, real-time ad serving, web dashboard, mobile apps. Sole technical lead for 2 years."
 featured: true
 featuredOrder: 3
 coverImage: "/blog/vplus-cover.jpg"
@@ -15,71 +15,160 @@ tech: ["Python", "C", "Java", "Vue.js", "Nuxt.js", "React Native", "AWS", "Mongo
 language: "en"
 ---
 
-<Section title="The Company" badge="Overview">
+<Section title="The Market Opportunity" badge="Context" color="purple">
 
-**Founded V+ Publicidad** (Santiago, Chile, 2019-2021) as Founder & Principal Engineer.
+Out-of-home (OOH) advertising is a $30B+ market, but traditional billboards are static, expensive, and hard to measure.
 
-**Concept:** Uber-like experience for digital advertising. Drivers earn revenue by displaying ads on rear-window IoT devices.
+**The insight:** Cars spend hours in traffic. Those rear windows are premium advertising real estate going unused.
 
-**Business Model:**
-- Drivers install IoT display devices on rear windows
-- Platform serves real-time targeted ads based on location/time
-- Drivers earn passive income
-- Advertisers get mobile, measurable campaigns
+**The challenge:** Build a platform that turns private vehicles into mobile billboards—but make it easy enough that drivers actually want to participate.
 
 </Section>
 
-<Section title="Technical Architecture" badge="Full-Stack">
+<Section title="The Company" badge="V+ Publicidad" color="blue">
 
-Built **complete end-to-end platform** as sole technical lead:
+**Founded V+ Publicidad** in Santiago, Chile (2019-2021) as co-founder and sole technical lead.
 
-**IoT Devices:**
-- Android-based rear-window displays
-- Custom device programming (C + Python + Java)
-- Real-time ad updates under high load
-- Power management for all-day operation
+**Business model:**
+- Drivers install our IoT display devices on rear windows
+- Platform serves targeted ads based on location, time, and traffic patterns
+- Drivers earn passive income per impression
+- Advertisers get mobile, measurable, geo-targeted campaigns
 
-**Web Platform (Vue.js / Nuxt.js):**
-- Ad agency management panel
-- Campaign creation and targeting
+**My role:** Founder & Principal Engineer. Built the entire technical stack from IoT firmware to cloud infrastructure.
+
+Think Uber meets Waze Ads—but I built all the technology myself.
+
+</Section>
+
+<Section title="Hardware: IoT Displays" badge="Devices" color="orange">
+
+The hardest part wasn't software—it was building reliable IoT devices that could survive Chilean traffic for 8+ hours daily.
+
+**Technical challenges:**
+- **Power management** - Operate all day without draining car battery
+- **Brightness** - Visible in Santiago sunlight (intense)
+- **Durability** - Withstand heat, vibration, theft attempts
+- **Connectivity** - 4G connection while moving through tunnels
+- **Updates** - Remote firmware deployment to devices in the field
+
+**Stack:**
+- **Android-based displays** - Custom ROM for advertising
+- **Device firmware** - C for low-level control, Python for logic, Java for Android layer
+- **Real-time sync** - WebSocket connection to ad server
+- **Offline mode** - Cache ads for connectivity gaps
+
+**Result:** Devices that "just worked" for drivers. Install once, earn forever.
+
+</Section>
+
+<Section title="Software: Three Platforms" badge="Full-Stack" color="green">
+
+Built three complete applications as sole developer:
+
+**1. Web Platform (Vue.js / Nuxt.js)**
+For advertisers and agencies:
+- Campaign creation with geo-targeting
 - Real-time analytics dashboard
-- Advertiser billing system
+- Billing and payment processing
+- Ad creative upload and approval workflow
+- Map visualization of active vehicles
 
-**Mobile App (React Native):**
-- Driver onboarding and management
-- Earnings tracking
-- Device pairing and configuration
+**2. Mobile App (React Native)**
+For drivers:
+- Onboarding and KYC verification
+- Device pairing via Bluetooth
+- Real-time earnings tracking
+- Payment withdrawals
+- Support system
 
-**AWS Infrastructure:**
-- Elastic Beanstalk for scalable web apps
-- Lambda for serverless functions
-- Route 53, CloudFront, S3
-- AuroraDB (PostgreSQL) and DynamoDB
-- Real-time ad serving at scale
+**3. Admin Portal (Vue.js)**
+Internal ops tools:
+- Device management and diagnostics
+- Driver approval workflow
+- Ad content moderation
+- Financial reporting
 
 <TechStack items={["Python", "C", "Java", "Vue.js", "Nuxt.js", "React Native", "AWS", "MongoDB", "DynamoDB"]} />
 
 </Section>
 
-<Section title="Results" badge="Impact">
+<Section title="Infrastructure: Real-Time at Scale" badge="AWS" color="cyan">
 
-<Stats items={[
-  { label: "Role", value: "Founder + CTO" },
-  { label: "Scope", value: "End-to-End" },
-  { label: "Duration", value: "2019-2021" },
-  { label: "Stack", value: "Full-Stack+IoT" }
-]} />
+**The challenge:** Serve different ads to hundreds of moving vehicles simultaneously based on their current location.
 
-Demonstrated ability to:
-- Found and lead technology company
-- Build hardware + software integrated systems
-- Deploy scalable real-time platforms
-- Handle multiple technology stacks simultaneously
+**Architecture:**
+- **AWS Elastic Beanstalk** - Web application hosting
+- **AWS Lambda** - Serverless ad matching algorithm
+- **AuroraDB (PostgreSQL)** - Relational data (users, campaigns, transactions)
+- **DynamoDB** - Real-time device state and location
+- **S3 + CloudFront** - Ad creative CDN for fast delivery
+- **Route 53** - DNS and traffic management
+- **WebSockets** - Real-time device communication
+
+**Performance requirements:**
+- Sub-second ad delivery to moving devices
+- Handle 1000+ concurrent device connections
+- Geo-query optimization for location-based targeting
+- 99.9% uptime for driver earnings
+
+**Result:** System handled peak traffic hours without issues. Drivers never missed ad revenue due to tech failures.
 
 </Section>
 
-<Section title="Availability" badge="Let's Build">
+<Section title="What Made This Hard" badge="Challenges" color="indigo">
 
-**Building hardware-software integrated systems or ad-tech platforms?** I've built production IoT systems and scaled real-time platforms. [Let's talk](/contact).
+**Hardware + Software integration:**
+Most startups are software-only. We had to solve device manufacturing, supply chain, installation logistics, AND build the platform.
+
+**Real-time at scale:**
+Serving ads to moving vehicles with sub-second latency while they pass through tunnels, change lanes, and experience variable connectivity.
+
+**Multi-sided marketplace:**
+Had to build and balance three experiences: advertisers (create campaigns), drivers (earn money), and admins (ops tools).
+
+**Regulatory uncertainty:**
+D-OOH advertising in Chile had no clear regulations. Had to navigate municipal permits, transit authority approvals, and advertising standards boards.
+
+</Section>
+
+<Section title="Results" badge="Outcomes" color="teal">
+
+<Stats items={[
+  { label: "Role", value: "Founder + CTO" },
+  { label: "Duration", value: "2019-2021" },
+  { label: "Technical Scope", value: "Hardware + Software" },
+  { label: "Apps Built", value: "3 platforms" }
+]} />
+
+**Technical achievements:**
+- Built IoT devices from scratch that operated reliably in field conditions
+- Deployed real-time ad serving platform handling 1000+ concurrent devices
+- Developed three production applications as sole technical lead
+- Integrated hardware, software, and cloud infrastructure into cohesive system
+
+**Business outcomes:**
+- Launched in Santiago with initial driver fleet
+- Secured paying advertisers for pilot campaigns
+- Validated technical feasibility of mobile D-OOH concept
+- Gained deep expertise in IoT, real-time systems, and startup operations
+
+**What I learned:**
+Founding a hardware+software startup is 10x harder than pure software. But the competitive moat is also 10x stronger—nobody can clone IoT devices as easily as they can clone apps.
+
+</Section>
+
+<Section title="Build With Me" badge="Available" color="rose">
+
+**Building IoT systems, real-time platforms, or hardware-software integrated products?** I've done it from scratch as a founder.
+
+I understand:
+- Hardware constraints and firmware development
+- Real-time systems at scale
+- Multi-sided marketplace dynamics
+- Full-stack development as sole technical lead
+- Founder/CTO experience
+
+[Let's talk](/contact) about your next ambitious project.
 
 </Section>
