@@ -1,0 +1,200 @@
+---
+title: "Reverse Engineering Titanium APKs: Recovering Lost Source Code"
+subtitle: "Built three npm packages to extract JavaScript source from compiled Android apps"
+slug: "recovering-titanium-apk-source-code"
+date: "2017-02-01"
+lastModified: "2025-11-17"
+author: "Pablo Schaffner"
+category: "Technical Deep Dive"
+tags: ["Security", "Reverse Engineering", "Node.js", "Titanium", "APK", "npm", "Open Source"]
+excerpt: "Client lost their Titanium app source code. Built custom tooling to reverse engineer the APK and recover the original JavaScript. Created three npm packages in the process."
+featured: false
+coverImage: "/blog/titanium-recovery-cover.jpg"
+githubUrl: "https://github.com/creador/ti_unpack"
+tech: ["Node.js", "Java", "Appcelerator Titanium", "Reverse Engineering", "APK Tools"]
+language: "en"
+---
+
+<Section title="The Problem" badge="Lost Code" color="purple">
+
+A potential client reached out with a common disaster scenario: they had a production Android app built by a freelance developer, but **no source code**. The developer was gone. The app needed updates.
+
+**Their question:** Can you recover the source code from the APK?
+
+**My answer:** Let me find out.
+
+The app was built with **Appcelerator Titanium**—a framework I knew well since I was actively building compilers that generated Titanium code. This wasn't just a client problem anymore—it was a technical challenge I wanted to solve.
+
+</Section>
+
+<Section title="Understanding APK Structure" badge="Research" color="blue">
+
+APKs are essentially ZIP files with a specific structure. Any Android developer knows you can unpack them with the right tools.
+
+**Standard APK contents:**
+- `resources.arsc` - Compiled resources
+- `classes.dex` - Dalvik bytecode (Java classes)
+- `AndroidManifest.xml` - Binary manifest
+- Assets folder - Images, sounds, fonts, layouts
+
+**Standard reverse engineering tools:**
+- **apktool** - Extracts assets and decrypts manifests
+- **dex2jar** - Converts DEX to JAR format
+- **JD/JADx** - Decompiles Java classes back to source
+
+But Titanium apps are different. They market themselves as "JavaScript compiled to native"—which means the JS code isn't sitting in the resources folder like Ionic apps.
+
+**The question:** Where is Titanium hiding the source code?
+
+</Section>
+
+<Section title="Building the Tool Chain" badge="Development" color="orange">
+
+I needed custom tooling. No existing solution did what I needed, so I built three npm packages.
+
+### 1. APK_unpack - Resource Extraction
+
+**Problem:** Existing APK tools are CLI-based and clunky for automation.
+
+**Solution:** Built a Node.js package that wraps apktool with a Java bridge for one-step resource extraction.
+
+**Challenge:** This was my first Node.js app consuming Java classes directly. Interesting integration problem.
+
+<ImageWithCaption 
+  src="/blog/blog-pablo-npm-apk-unpack.jpg" 
+  alt="APK unpacking process showing extracted resources and structure"
+  caption="APK_unpack in action - extracting resources, manifest, and assets from a compiled Android app"
+/>
+
+**NPM:** [apk_unpack](https://www.npmjs.com/package/apk_unpack)
+
+### 2. ti_unpack - Titanium Code Extraction
+
+**Problem:** Where does Titanium store the JavaScript source in compiled APKs?
+
+**Research:** Found a SlideShare presentation ("Help Doctor, My Application is an Onion") explaining that Titanium code lives in a file called `AssetCryptImpl` in the main package directory.
+
+**Solution:** Built a JavaScript unpacker that extracts and decrypts Titanium's encrypted asset bundle.
+
+**Result:** Successfully extracted the entire app's source code into memory!
+
+<ImageWithCaption 
+  src="/blog/big-eyes.jpg" 
+  alt="Extracted JavaScript source code from Titanium APK displayed in terminal"
+  caption="Successfully recovered - the entire Titanium app source code extracted and visible in memory"
+/>
+
+**GitHub:** [ti_unpack](https://github.com/creador/ti_unpack)
+
+### 3. ti_recover - Project Structure Restoration
+
+**Problem:** Having the code in memory isn't enough—developers need the original project structure.
+
+**Challenge:** Different Titanium versions minify code differently. I needed to reverse that.
+
+**Solution:** Built a recovery tool that reconstructs proper Titanium project structure from the extracted code.
+
+**Result:** Complete, working Titanium project ready for development.
+
+**NPM:** [ti_recover](https://www.npmjs.com/package/ti_recover)
+
+<TechStack items={["Node.js", "Java", "Appcelerator Titanium", "APK Tools", "Reverse Engineering", "npm"]} />
+
+</Section>
+
+<Section title="What I Learned" badge="Insights" color="green">
+
+**On code security:**
+This frightened me. I had published **dozens of Titanium apps** to app stores. Now I knew exactly how recoverable they were.
+
+**On obfuscation vs encryption:**
+Titanium's "encrypted" assets are really just obfuscated. With the right tools and understanding of the format, recovery is straightforward.
+
+**On protecting intellectual property:**
+If source code protection is critical, compilation to native bytecode isn't enough. Real encryption or server-side logic is necessary.
+
+**On framework transparency:**
+Titanium is a great product—this isn't criticism. But developers should understand how their framework actually packages and protects (or doesn't protect) their code.
+
+**The positive side:**
+Sometimes you **need** to recover source code. Lost contractors, corrupted drives, missing backups—it happens. Now I know recovery is possible.
+
+</Section>
+
+<Section title="Impact" badge="Open Source" color="cyan">
+
+<Stats items={[
+  { label: "npm Packages", value: "3" },
+  { label: "GitHub Stars", value: "Open Source" },
+  { label: "Problem Solved", value: "Client Unblocked" },
+  { label: "Use Cases", value: "Code Recovery" }
+]} />
+
+**Who benefits:**
+- Developers who lost Titanium source code
+- Security researchers analyzing Titanium apps
+- Companies with contractor code recovery needs
+- Anyone curious about Titanium's internals
+
+**Published packages:**
+- `apk_unpack` - General APK resource extraction
+- `ti_unpack` - Titanium code extraction
+- `ti_recover` - Full project restoration
+
+**Real-world usage:**
+I've seen this problem multiple times on Quora and Stack Overflow. These tools solve a real need in the Titanium community.
+
+</Section>
+
+<Section title="The Takeaway" badge="Lessons" color="indigo">
+
+**On reverse engineering:**
+Most mobile frameworks can be reversed with enough understanding of their architecture. "Compiled to native" often means "compiled to something that can be decompiled."
+
+**On building tools:**
+When you hit a problem that existing tools don't solve, build the tool. I needed this for one client—ended up creating value for the entire Titanium community.
+
+**On code ownership:**
+Always maintain source control. Always have backups. Always ensure contractors deliver source code. But if you lose it—recovery might still be possible.
+
+</Section>
+
+<Section title="Technical Details" badge="For Engineers" color="teal">
+
+**How Titanium packages JavaScript:**
+
+1. **Compilation phase**: JS → Native bindings
+2. **Encryption phase**: JS bundled into `AssetCryptImpl`
+3. **Packaging phase**: Everything compressed into APK
+
+**The recovery process:**
+
+1. **Unzip APK** → Access internal structure
+2. **Extract AssetCryptImpl** → Get encrypted bundle
+3. **Decrypt bundle** → Recover JavaScript source
+4. **Parse structure** → Rebuild project files
+5. **Restore project** → Working Titanium app
+
+**Key insight:**
+The encryption is reversible because the decryption key must be embedded in the app itself (otherwise the app couldn't run). This is a fundamental limitation of client-side "encryption."
+
+</Section>
+
+<Section title="Use This Knowledge Responsibly" badge="Ethics" color="rose">
+
+These tools exist for **legitimate recovery purposes**:
+- Recovering your own lost source code
+- Security research and auditing
+- Educational understanding of framework internals
+
+**Not for:**
+- Stealing others' intellectual property
+- Reverse engineering to clone apps
+- Violating software licenses
+
+With great power comes great responsibility. I built these tools to help developers in genuine need—not to enable theft.
+
+**Building similar systems or need code recovery expertise?** [Let's talk](/contact).
+
+</Section>
+
