@@ -26,6 +26,7 @@ interface MediaCarouselProps {
 export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [apiReady, setApiReady] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
   const playersRef = useRef<{ [key: number]: any }>({});
   const swiperRef = useRef<SwiperType | null>(null);
 
@@ -63,24 +64,25 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
         if (item.type === 'youtube' && !playersRef.current[index]) {
           const playerElement = document.getElementById(`youtube-player-${index}`);
           if (playerElement) {
-            playersRef.current[index] = new (window as any).YT.Player(`youtube-player-${index}`, {
-              videoId: item.src,
-              playerVars: {
-                autoplay: 0, // Don't autoplay on init, we'll control this manually
-                controls: 1,
-                rel: 0,
-                modestbranding: 1,
-                enablejsapi: 1,
-              },
-              events: {
-                onReady: (event: any) => {
-                  // If this is the first slide, play it
-                  if (index === activeIndex) {
-                    event.target.playVideo();
-                  }
+              playersRef.current[index] = new (window as any).YT.Player(`youtube-player-${index}`, {
+                videoId: item.src,
+                playerVars: {
+                  autoplay: 0, // Don't autoplay on init, we'll control this manually
+                  controls: 1,
+                  rel: 0,
+                  modestbranding: 1,
+                  enablejsapi: 1,
                 },
-              },
-            });
+                events: {
+                  onReady: (event: any) => {
+                    // If this is the first slide, play it muted
+                    if (index === activeIndex) {
+                      event.target.mute();
+                      event.target.playVideo();
+                    }
+                  },
+                },
+              });
           }
         }
       });
@@ -98,6 +100,10 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
         const player = playersRef.current[index];
         if (player && player.playVideo && player.pauseVideo) {
           if (index === activeIndex) {
+            // Unmute if user has interacted, otherwise keep muted
+            if (userInteracted && player.unMute) {
+              player.unMute();
+            }
             // Play active video
             player.playVideo();
           } else {
@@ -107,10 +113,12 @@ export function MediaCarousel({ items, height = "400px" }: MediaCarouselProps) {
         }
       }
     });
-  }, [activeIndex, apiReady, items]);
+  }, [activeIndex, apiReady, items, userInteracted]);
 
   const handleSlideChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
+    // Mark that user has interacted (swiped or clicked pagination)
+    setUserInteracted(true);
   };
 
   // Check if items is empty after all hooks are called
