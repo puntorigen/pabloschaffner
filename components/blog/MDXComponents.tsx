@@ -585,7 +585,7 @@ export const MDXComponents = {
     // For code blocks (inside pre)
     return (
       <code
-        className={`${className} text-green-400 bg-transparent`}
+        className={`${className} bg-transparent`}
         {...props}
       >
         {children}
@@ -596,7 +596,7 @@ export const MDXComponents = {
   // Pre (for code blocks)
   pre: ({ children, ...props }: any) => (
     <pre
-      className="my-6 p-4 bg-slate-950 border-4 border-border rounded-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-x-auto text-green-400 font-mono [&_code]:bg-transparent"
+      className="my-6 p-4 bg-slate-950 border-4 border-border rounded-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-x-auto font-mono [&_code]:bg-transparent"
       {...props}
     >
       {children}
