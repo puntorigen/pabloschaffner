@@ -1,0 +1,280 @@
+---
+title: "Detecting Blurry Images with Node.js: No OpenCV Required"
+excerpt: "Built a lightweight blur detector using Sharp and the Laplacian operator. OpenCV would add 50MB+ to the bundle. This solution? Less than 1MB."
+date: "2023-08-05"
+lastModified: "2025-11-17"
+author: "Pablo Schaffner"
+category: "Image Processing"
+tags: ["Node.js", "Image Processing", "Sharp", "Computer Vision", "npm"]
+featured: false
+coverImage: "/blog/linkedin/cover.jpg"
+tech: ["Node.js", "Sharp", "JavaScript", "npm"]
+---
+
+<Section title="The Problem" badge="Challenge" color="red">
+
+You're building a photo app. Users upload images. Some are sharp, others... not so much. You need to detect blurry images programmatically.
+
+**The obvious solution:** OpenCV. Industry standard. Battle-tested.
+
+**The problem:** OpenCV adds **50MB+** to your bundle. For a simple blur detection feature, that's overkill.
+
+There had to be a lighter way.
+
+</Section>
+
+<Section title="The Solution" badge="Approach" color="blue">
+
+**The insight:** Blur detection is about detecting edges. Sharp images have strong edges. Blurry images don't.
+
+**The tool:** The Laplacian operator. A simple mathematical operation that highlights rapid changes in image intensity—exactly what edges are.
+
+**The implementation:** Node.js + Sharp (the high-performance image library) + a custom Laplacian kernel.
+
+**Bundle size:** Less than 1MB. Sharp is lean and fast.
+
+</Section>
+
+<Section title="How It Works" badge="Theory" color="purple">
+
+**Convolution:**
+
+Imagine pressing a small stamp across an entire image, one section at a time. At each position, you're checking how well the stamp pattern matches that section. The result of this "stamping" process is a new image. In image processing, this is called **convolution**.
+
+**Kernel:**
+
+The stamp is the **kernel**—a small matrix of numbers that defines the pattern we're looking for. By changing the kernel, we can detect different features: edges, textures, or blur.
+
+**Laplacian Kernel:**
+
+<ImageWithCaption 
+  src="/blog/linkedin/laplacian.gif" 
+  alt="Laplacian kernel 3x3 matrix visualization"
+  caption="The Laplacian kernel: a 3x3 matrix that detects edges by highlighting rapid intensity changes"
+  width={500}
+  height={375}
+  contain={true}
+  bgColor="white"
+/>
+
+This 3x3 matrix detects edges. When applied to an image:
+- **Sharp images** produce high variance (lots of edge detail)
+- **Blurry images** produce low variance (edges are soft/missing)
+
+<ImageWithCaption 
+  src="/blog/linkedin/blurred.png" 
+  alt="Comparison between blurred and sharp images"
+  caption="Visual comparison: Blurred image (low Laplacian variance) vs. Sharp image (high variance)"
+  width={800}
+  height={400}
+  contain={true}
+  bgColor="white"
+/>
+
+That's it. Simple math, powerful results.
+
+</Section>
+
+<Section title="The Implementation" badge="Code" color="green">
+
+I built `blurry-detector`, a lightweight npm package that wraps this logic into a clean API.
+
+**Installation:**
+
+```bash
+npm install blurry-detector
+```
+
+**Core class:**
+
+<CodeBlock language="javascript" title="index.js">
+{`const sharp = require('sharp');
+
+class BlurryDetector {
+  constructor(threshold = 300) {
+    this.threshold = threshold;
+  }
+
+  async computeLaplacianVariance(imagePath) {
+    // Laplacian kernel
+    const laplacianKernel = {
+      width: 3,
+      height: 3,
+      kernel: [0, 1, 0, 1, -4, 1, 0, 1, 0]
+    };
+
+    // Convolve image with kernel
+    const laplacianImageData = await sharp(imagePath)
+      .greyscale()
+      .raw()
+      .convolve(laplacianKernel)
+      .toBuffer();
+
+    // Calculate variance
+    const mean = laplacianImageData.reduce((sum, value) => 
+      sum + value, 0) / laplacianImageData.length;
+    
+    const variance = laplacianImageData.reduce((sum, value) => 
+      sum + Math.pow(value - mean, 2), 0) / laplacianImageData.length;
+
+    return variance;
+  }
+
+  async isImageBlurry(imagePath) {
+    const variance = await this.computeLaplacianVariance(imagePath);
+    return variance < this.threshold;
+  }
+}
+
+module.exports = BlurryDetector;`}
+</CodeBlock>
+
+**CLI tool:**
+
+<CodeBlock language="javascript" title="cli.js">
+{`#!/usr/bin/env node
+const yargs = require('yargs');
+const BlurryDetector = require('./index');
+
+const argv = yargs
+  .usage('Usage: $0 <imagePath> [options]')
+  .command('$0 <imagePath>', 'Assess image for blurriness', (yargs) => {
+    yargs.positional('imagePath', {
+      describe: 'Path to the image',
+      type: 'string'
+    });
+  })
+  .option('t', {
+    alias: 'threshold',
+    describe: 'Threshold for blurriness',
+    default: 300,
+    type: 'number'
+  })
+  .help('h')
+  .alias('h', 'help')
+  .argv;
+
+const detector = new BlurryDetector(argv.threshold);
+
+detector.isImageBlurry(argv.imagePath).then(isBlurry => {
+  if (isBlurry) {
+    console.log('🔍 Given image is blurred!');
+  } else {
+    console.log('🔍 Given image seems focused!');
+  }
+});`}
+</CodeBlock>
+
+**Usage:**
+
+```bash
+blurry-detector path/to/image.jpg
+# Output: 🔍 Given image seems focused!
+
+blurry-detector path/to/blurry.jpg --threshold 250
+# Output: 🔍 Given image is blurred!
+```
+
+</Section>
+
+<Section title="Real-World Usage" badge="Applications" color="cyan">
+
+**Photo upload validation:**
+Automatically reject blurry uploads in your photo app.
+
+**Quality control:**
+Batch process image collections and flag low-quality photos.
+
+**Camera feedback:**
+Provide real-time feedback to users about image sharpness.
+
+**Image pipeline optimization:**
+Skip expensive processing (resizing, filters) on blurry images.
+
+**The threshold is adjustable.** Different use cases need different sensitivity:
+- **Strict (400+):** Only the sharpest images pass
+- **Moderate (300):** Balanced default
+- **Lenient (200):** Catches only obviously blurry images
+
+</Section>
+
+<Section title="Performance & Trade-offs" badge="Insights" color="orange">
+
+**What this approach does well:**
+
+- **Fast:** Sharp is one of the fastest image processing libraries for Node.js
+- **Lightweight:** No 50MB+ OpenCV dependency
+- **Simple:** One file, minimal dependencies
+- **Configurable:** Adjust threshold to your needs
+
+**What it doesn't do:**
+
+- **Not ML-based:** This is classical computer vision, not deep learning
+- **Context-agnostic:** Doesn't understand image content (faces, objects)
+- **Threshold tuning required:** Different image types may need different thresholds
+
+**For most use cases,** this simple approach is enough. If you need ML-based quality assessment, you'd reach for TensorFlow.js or similar—but for basic blur detection, Laplacian variance gets you 90% there with 10% of the complexity.
+
+</Section>
+
+<Section title="What I Learned" badge="Lessons" color="indigo">
+
+**On bundle size:**
+
+Always question heavyweight dependencies. OpenCV is amazing, but do you need 50MB for a single feature? Often, simpler solutions exist.
+
+**On classical computer vision:**
+
+Not everything needs ML. The Laplacian operator is 40+ years old and still works perfectly for edge detection. Don't overcomplicate.
+
+**On API design:**
+
+The best APIs have sensible defaults but allow customization. `threshold = 300` works for most cases, but users can adjust it.
+
+**On packaging:**
+
+A good npm package should be:
+- Single-purpose (does one thing well)
+- Well-documented (clear examples)
+- CLI-friendly (can be used from command line or code)
+
+</Section>
+
+<Section title="Try It Yourself" badge="Resources" color="pink">
+
+**GitHub Repository:**  
+[github.com/puntorigen/blurry-detector](https://github.com/puntorigen/blurry-detector)
+
+**npm Package:**  
+[npmjs.com/package/blurry-detector](https://www.npmjs.com/package/blurry-detector)
+
+**Install:**
+
+```bash
+npm install blurry-detector
+```
+
+**Quick example:**
+
+<CodeBlock language="javascript">
+{`const BlurryDetector = require('blurry-detector');
+const detector = new BlurryDetector();
+
+detector.isImageBlurry('photo.jpg').then(isBlurry => {
+  console.log(isBlurry ? 'Blurry 😢' : 'Sharp! 🎯');
+});`}
+</CodeBlock>
+
+**Use cases to explore:**
+
+1. Build a photo quality checker
+2. Add to your image upload pipeline
+3. Create a bulk image analysis tool
+4. Integrate with camera preview for real-time feedback
+
+The code is open source. Fork it, extend it, make it your own.
+
+</Section>
+
+<TechStack items={["Node.js", "Sharp", "JavaScript", "Laplacian Operator", "Image Processing", "npm"]} />
+

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { ContactLink } from "./ContactLink";
 import { MediaCarousel } from "./MediaCarousel";
+import { CodeBlock } from "./CodeBlock";
 
 // Section counter for alternating backgrounds
 let sectionCounter = 0;
@@ -159,6 +160,7 @@ interface ImageWithCaptionProps {
   width?: number;
   height?: number;
   contain?: boolean; // Use 'contain' instead of 'cover' for background
+  bgColor?: string; // Custom background color for contain mode
 }
 
 export function ImageWithCaption({
@@ -168,16 +170,26 @@ export function ImageWithCaption({
   width = 1200,
   height = 675,
   contain = false,
+  bgColor,
 }: ImageWithCaptionProps) {
   // Calculate max-width based on provided width
   const maxWidth = width <= 500 ? 'max-w-md' : width <= 800 ? 'max-w-xl' : 'max-w-2xl';
+  
+  // Calculate aspect ratio from width/height when in contain mode
+  const aspectRatio = contain ? `${width}/${height}` : '4/3';
   
   return (
     <figure className={`my-8 ${maxWidth} mx-auto`}>
       {/* Neo-brutalist Polaroid Card */}
       <div className="bg-card border-2 border-border rounded-lg p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
         {/* Image container */}
-        <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-muted">
+        <div 
+          className="relative w-full rounded-md overflow-hidden"
+          style={{ 
+            backgroundColor: bgColor || 'hsl(var(--muted))',
+            aspectRatio: aspectRatio
+          }}
+        >
           {contain ? (
             // Background image style (for contain mode, like vic20)
             <div 
@@ -570,9 +582,10 @@ export const MDXComponents = {
       );
     }
 
+    // For code blocks (inside pre)
     return (
       <code
-        className={`${className} block p-4 my-6 rounded-lg border-2 border-border shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] overflow-x-auto`}
+        className={`${className} text-green-400 bg-transparent`}
         {...props}
       >
         {children}
@@ -583,7 +596,7 @@ export const MDXComponents = {
   // Pre (for code blocks)
   pre: ({ children, ...props }: any) => (
     <pre
-      className="my-6 p-4 bg-slate-950 border-2 border-border rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-x-auto"
+      className="my-6 p-4 bg-slate-950 border-4 border-border rounded-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-x-auto text-green-400 font-mono [&_code]:bg-transparent"
       {...props}
     >
       {children}
@@ -646,6 +659,7 @@ export const MDXComponents = {
   Section,
   Callout,
   ImageWithCaption,
+  CodeBlock,
   CodeScreenshot,
   YouTubeEmbed,
   MediaCarousel,
