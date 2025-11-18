@@ -169,8 +169,11 @@ export function ImageWithCaption({
   height = 675,
   contain = false,
 }: ImageWithCaptionProps) {
+  // Calculate max-width based on provided width
+  const maxWidth = width <= 500 ? 'max-w-md' : width <= 800 ? 'max-w-xl' : 'max-w-2xl';
+  
   return (
-    <figure className="my-8 max-w-2xl mx-auto">
+    <figure className={`my-8 ${maxWidth} mx-auto`}>
       {/* Neo-brutalist Polaroid Card */}
       <div className="bg-card border-2 border-border rounded-lg p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
         {/* Image container */}
@@ -202,6 +205,48 @@ export function ImageWithCaption({
           <p className="text-center text-sm text-muted-foreground mt-3 font-medium italic">
             {caption}
           </p>
+        )}
+      </div>
+    </figure>
+  );
+}
+
+// Code Screenshot component - optimized for code images with tight wrapping
+interface CodeScreenshotProps {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+export function CodeScreenshot({
+  src,
+  alt,
+  caption,
+  width = 960,
+  height = 270,
+}: CodeScreenshotProps) {
+  return (
+    <figure className="my-8 max-w-4xl mx-auto">
+      {/* Neo-brutalist Code Card - tighter padding, auto height */}
+      <div className="bg-card border-4 border-border rounded-lg p-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all">
+        {/* Image container - no forced aspect ratio */}
+        <div className="relative w-full rounded-md overflow-hidden bg-muted">
+          <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            className="w-full h-auto"
+          />
+        </div>
+
+        {/* Caption (Bottom text) */}
+        {caption && (
+          <div className="mt-2 px-2">
+            <p className="text-sm text-muted-foreground italic">{caption}</p>
+          </div>
         )}
       </div>
     </figure>
@@ -281,6 +326,95 @@ export function Stats({ items }: StatsProps) {
   );
 }
 
+interface ToolCardProps {
+  number: string;
+  title: string;
+  problem: string;
+  solution: string;
+  result?: string;
+  link?: string;
+  linkText?: string;
+  children?: ReactNode;
+}
+
+export function ToolCard({ number, title, problem, solution, result, link, linkText, children }: ToolCardProps) {
+  return (
+    <div className="my-6 bg-card border-4 border-border rounded-lg p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all">
+      {/* Header with number */}
+      <div className="flex items-start gap-4 mb-4">
+        <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground border-2 border-border rounded-lg flex items-center justify-center font-bold text-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+          {number}
+        </div>
+        <div className="flex-1">
+          <h3 className="text-2xl font-serif font-bold text-foreground mb-2">{title}</h3>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="space-y-4">
+        <div>
+          <span className="inline-block px-3 py-1 bg-red-500/10 border border-red-500/30 rounded-md text-sm font-bold text-foreground mb-2">Problem</span>
+          <p className="text-muted-foreground">{problem}</p>
+        </div>
+
+        <div>
+          <span className="inline-block px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-md text-sm font-bold text-foreground mb-2">Solution</span>
+          <p className="text-muted-foreground">{solution}</p>
+        </div>
+
+        {result && (
+          <div>
+            <span className="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-md text-sm font-bold text-foreground mb-2">Result</span>
+            <p className="text-muted-foreground font-medium">{result}</p>
+          </div>
+        )}
+
+        {/* Children for additional content like images */}
+        {children}
+
+        {link && (
+          <div className="pt-2">
+            <a 
+              href={link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-bold underline underline-offset-4"
+            >
+              {linkText || 'View on GitHub'}
+              <span>→</span>
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+interface FeatureListProps {
+  items: { label: string; text: string }[];
+}
+
+export function FeatureList({ items }: FeatureListProps) {
+  return (
+    <div className="my-6 space-y-3">
+      {items.map((item, i) => (
+        <div
+          key={i}
+          className="bg-card border-2 border-border rounded-lg p-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all"
+        >
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-2"></div>
+            <div className="flex-1">
+              <span className="font-bold text-foreground">{item.label}:</span>{' '}
+              <span className="text-muted-foreground">{item.text}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export const MDXComponents = {
   // Headings with custom styling
   h1: ({ children, ...props }: any) => (
@@ -300,12 +434,11 @@ export const MDXComponents = {
     </h2>
   ),
   h3: ({ children, ...props }: any) => (
-    <h3
-      className="text-2xl md:text-3xl font-serif font-bold text-foreground mt-8 mb-4"
-      {...props}
-    >
-      {children}
-    </h3>
+    <div className="mt-8 mb-6 not-prose">
+      <div className="inline-block text-xl md:text-2xl font-serif font-bold text-foreground bg-primary/10 border-2 border-border rounded-lg px-4 py-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all">
+        {children}
+      </div>
+    </div>
   ),
   h4: ({ children, ...props }: any) => (
     <h4
@@ -513,9 +646,12 @@ export const MDXComponents = {
   Section,
   Callout,
   ImageWithCaption,
+  CodeScreenshot,
   YouTubeEmbed,
   MediaCarousel,
   TechStack,
   Stats,
+  ToolCard,
+  FeatureList,
 };
 

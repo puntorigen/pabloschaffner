@@ -52,51 +52,85 @@ But Titanium apps are different. They market themselves as "JavaScript compiled 
 
 I needed custom tooling. No existing solution did what I needed, so I built three npm packages.
 
-### 1. APK_unpack - Resource Extraction
+<ToolCard
+  number="1"
+  title="APK_unpack - Resource Extraction"
+  problem="Existing APK tools are CLI-based and clunky for automation."
+  solution="Built a Node.js package that wraps apktool with a Java bridge for one-step resource extraction."
+  result="First Node.js app consuming Java classes directly. Interesting integration problem."
+  link="https://www.npmjs.com/package/apk_unpack"
+  linkText="View on NPM"
+>
+  <ImageWithCaption 
+    src="/blog/blog-pablo-npm-apk-unpack.jpg" 
+    alt="APK unpacking process showing extracted resources and structure"
+    caption="APK_unpack in action - extracting resources, manifest, and assets from a compiled Android app"
+    width={700}
+    height={525}
+  />
+</ToolCard>
 
-**Problem:** Existing APK tools are CLI-based and clunky for automation.
+<ToolCard
+  number="2"
+  title="ti_unpack - Titanium Code Extraction (The Breakthrough)"
+  problem="Where does Titanium store the JavaScript source in compiled APKs?"
+  solution="Discovered Titanium encodes source code in AssetCryptImpl file using obfuscation, not real encryption."
+  result="Successfully extracted entire application source code from production APKs."
+  link="https://github.com/creador/ti_unpack"
+  linkText="View on GitHub"
+>
+  <div className="space-y-4 text-muted-foreground">
+    <p>Titanium promotes itself as "JavaScript compiled to native," so it was no surprise the JS files weren't in the resources folder like Ionic apps. For developer-mode APKs, the source is there—but production builds? Hidden.</p>
 
-**Solution:** Built a Node.js package that wraps apktool with a Java bridge for one-step resource extraction.
+    <div>
+      <strong className="text-foreground">The Hunt:</strong>
+      <p className="mt-1">I needed to find where Titanium was hiding the JavaScript. Started Googling variations of "titanium apk structure," "titanium source code location," "titanium encryption."</p>
+    </div>
 
-**Challenge:** This was my first Node.js app consuming Java classes directly. Interesting integration problem.
+    <div>
+      <strong className="text-foreground">The Discovery:</strong>
+      <p className="mt-1">Found a SlideShare presentation titled <a href="http://es.slideshare.net/0xroot/help-doctor-my-application-is-an-onion" className="text-primary hover:text-primary-hover underline">"Help Doctor, My Application is an Onion"</a> explaining Titanium's packaging structure. <strong>The JavaScript source lives in a file called <code className="bg-muted px-2 py-1 rounded">AssetCryptImpl</code></strong> in the main package directory.</p>
+      <p className="mt-2">The presentation outlined the encryption format and how to decrypt it. Perfect—now I just needed to implement it.</p>
+    </div>
 
-<ImageWithCaption 
-  src="/blog/blog-pablo-npm-apk-unpack.jpg" 
-  alt="APK unpacking process showing extracted resources and structure"
-  caption="APK_unpack in action - extracting resources, manifest, and assets from a compiled Android app"
+    <div>
+      <strong className="text-foreground">Building the Unpacker:</strong>
+      <p className="mt-1">Created a JavaScript/Node.js implementation that:</p>
+      <ol className="list-decimal list-inside mt-1 space-y-1">
+        <li><strong>Locates</strong> the AssetCryptImpl file in the APK</li>
+        <li><strong>Reads</strong> the encrypted bundle structure</li>
+        <li><strong>Decrypts</strong> using the embedded encryption keys</li>
+        <li><strong>Extracts</strong> all JavaScript files into memory</li>
+      </ol>
+      <p className="mt-2 italic">The "encryption" is really obfuscation—the decryption key must be in the app itself for it to run. This is a fundamental limitation of client-side encryption.</p>
+    </div>
+
+    <div>
+      <strong className="text-foreground">The Moment:</strong>
+      <p className="mt-1">Ran the unpacker on the client's APK. <strong>It worked.</strong> The entire application source code—controllers, views, models, utilities—all extracted, readable, and recoverable.</p>
+    </div>
+  </div>
+
+  <ImageWithCaption 
+    src="/blog/big-eyes.jpg" 
+    alt="Extracted JavaScript source code from Titanium APK displayed in terminal"
+    caption="Successfully recovered - the entire Titanium app source code extracted and visible in memory"
+    width={500}
+    height={375}
+  />
+
+  <p className="text-muted-foreground mt-4">This was both exciting and frightening. I had published <strong>dozens</strong> of Titanium apps to app stores. Now I knew exactly how recoverable they were.</p>
+</ToolCard>
+
+<ToolCard
+  number="3"
+  title="ti_recover - Project Structure Restoration"
+  problem="Having the code in memory isn't enough—developers need the original project structure."
+  solution="Built a recovery tool that reconstructs proper Titanium project structure from the extracted code."
+  result="Complete, working Titanium project ready for development. Different Titanium versions minify code differently, so I had to reverse that."
+  link="https://www.npmjs.com/package/ti_recover"
+  linkText="View on NPM"
 />
-
-**NPM:** [apk_unpack](https://www.npmjs.com/package/apk_unpack)
-
-### 2. ti_unpack - Titanium Code Extraction
-
-**Problem:** Where does Titanium store the JavaScript source in compiled APKs?
-
-**Research:** Found a SlideShare presentation ("Help Doctor, My Application is an Onion") explaining that Titanium code lives in a file called `AssetCryptImpl` in the main package directory.
-
-**Solution:** Built a JavaScript unpacker that extracts and decrypts Titanium's encrypted asset bundle.
-
-**Result:** Successfully extracted the entire app's source code into memory!
-
-<ImageWithCaption 
-  src="/blog/big-eyes.jpg" 
-  alt="Extracted JavaScript source code from Titanium APK displayed in terminal"
-  caption="Successfully recovered - the entire Titanium app source code extracted and visible in memory"
-/>
-
-**GitHub:** [ti_unpack](https://github.com/creador/ti_unpack)
-
-### 3. ti_recover - Project Structure Restoration
-
-**Problem:** Having the code in memory isn't enough—developers need the original project structure.
-
-**Challenge:** Different Titanium versions minify code differently. I needed to reverse that.
-
-**Solution:** Built a recovery tool that reconstructs proper Titanium project structure from the extracted code.
-
-**Result:** Complete, working Titanium project ready for development.
-
-**NPM:** [ti_recover](https://www.npmjs.com/package/ti_recover)
 
 <TechStack items={["Node.js", "Java", "Appcelerator Titanium", "APK Tools", "Reverse Engineering", "npm"]} />
 
@@ -122,13 +156,6 @@ Sometimes you **need** to recover source code. Lost contractors, corrupted drive
 </Section>
 
 <Section title="Impact" badge="Open Source" color="cyan">
-
-<Stats items={[
-  { label: "npm Packages", value: "3" },
-  { label: "GitHub Stars", value: "Open Source" },
-  { label: "Problem Solved", value: "Client Unblocked" },
-  { label: "Use Cases", value: "Code Recovery" }
-]} />
 
 **Who benefits:**
 - Developers who lost Titanium source code

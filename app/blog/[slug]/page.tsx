@@ -115,7 +115,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
             <BlogHeader post={post} referrer={ref} />
 
             {/* MDX Content */}
-            <div className="prose prose-lg max-w-none">
+            <div className="prose prose-lg max-w-none prose-headings:no-underline prose-h3:no-underline">
               <MDXRemote
                 source={post.content}
                 components={MDXComponents}
