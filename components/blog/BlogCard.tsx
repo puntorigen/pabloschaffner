@@ -11,8 +11,13 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post, index = 0 }: BlogCardProps) {
-  const colors = ["primary", "secondary", "accent"];
-  const colorClass = colors[index % 3];
+  // Predefined badge color combinations
+  const badgeColors = [
+    'bg-primary/10 text-primary border-primary/30',
+    'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30',
+    'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/30',
+  ];
+  const badgeClass = badgeColors[index % 3];
 
   return (
     <motion.div
@@ -43,7 +48,7 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
             {/* Category Badge */}
             <div className="inline-block mb-3">
               <span
-                className={`px-2 py-1 bg-${colorClass}/10 text-${colorClass} border border-${colorClass}/30 rounded text-xs font-bold uppercase tracking-wide`}
+                className={`px-2 py-1 ${badgeClass} rounded text-xs font-bold uppercase tracking-wide`}
               >
                 {post.category}
               </span>
