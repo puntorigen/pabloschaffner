@@ -32,16 +32,6 @@ Modern, high-performance personal website built with Next.js 15, TypeScript, and
 pnpm install
 ```
 
-### Environment Variables
-
-Create a `.env.local` file in the root directory with the following variables:
-
-```bash
-# Google Search Console Verification (optional)
-# Get this from: https://search.google.com/search-console
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code-here
-```
-
 ### Run development server
 ```bash
 pnpm dev
@@ -76,16 +66,29 @@ This site is optimized for deployment on Vercel Pro:
 
 1. Push to GitHub
 2. Connect repository to Vercel
-3. Add environment variables in Vercel dashboard:
-   - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` - Your Google Search Console verification code
-4. Deploy automatically
+3. Deploy automatically
 
-### Adding Environment Variables to Vercel
+### Google Search Console Verification (Recommended)
 
-1. Go to your project in Vercel Dashboard
-2. Navigate to **Settings** → **Environment Variables**
-3. Add the required variables for Production, Preview, and Development environments
-4. Redeploy to apply changes
+Use DNS verification for the most reliable method:
+
+1. Go to [Google Search Console](https://search.google.com/search-console)
+2. Add your property: `https://pabloschaffner.com`
+3. Choose **Domain** property type (not URL prefix)
+4. Google will provide a TXT record like: `google-site-verification=abc123...`
+5. In Vercel Dashboard:
+   - Go to your project → **Settings** → **Domains**
+   - Click on your domain → **Edit**
+   - Scroll to **DNS Records**
+   - Click **Add Record**
+   - Type: `TXT`
+   - Name: `@` (or leave blank for root domain)
+   - Value: `google-site-verification=abc123...` (paste the full value from Google)
+   - TTL: `3600` (or default)
+6. Click **Save**
+7. Go back to Google Search Console and click **Verify**
+
+**Note**: DNS propagation can take up to 48 hours, but usually completes within minutes.
 
 ## Positioning
 
