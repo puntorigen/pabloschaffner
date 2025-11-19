@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { BlogPostMetadata } from "@/lib/blog";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface RecentArticlesGridProps {
   title?: string;
@@ -16,17 +17,33 @@ export function RecentArticlesGrid({
   subtitle = "Latest insights and tutorials",
   limit = 4 
 }: RecentArticlesGridProps) {
+  const { language } = useLanguage();
   const [articles, setArticles] = useState<BlogPostMetadata[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/blog/posts?lang=en')
+    // Try to fetch posts in current language, fallback to all posts if none found
+    fetch(`/api/blog/posts?lang=${language}`)
       .then(res => res.json())
       .then(data => {
-        // Get non-featured articles, limit to specified number
-        const nonFeatured = (data.posts || [])
+        // Get non-featured articles in current language
+        let nonFeatured = (data.posts || [])
           .filter((post: BlogPostMetadata) => !post.featured)
           .slice(0, limit);
+        
+        // If no articles in current language, fetch all posts as fallback
+        if (nonFeatured.length === 0 && language !== 'en') {
+          return fetch('/api/blog/posts?lang=en')
+            .then(res => res.json())
+            .then(englishData => {
+              const englishNonFeatured = (englishData.posts || [])
+                .filter((post: BlogPostMetadata) => !post.featured)
+                .slice(0, limit);
+              setArticles(englishNonFeatured);
+              setIsLoading(false);
+            });
+        }
+        
         setArticles(nonFeatured);
         setIsLoading(false);
       })
@@ -34,7 +51,7 @@ export function RecentArticlesGrid({
         console.error('Failed to load recent articles:', err);
         setIsLoading(false);
       });
-  }, [limit]);
+  }, [limit, language]);
 
   if (isLoading || articles.length === 0) {
     return null;
@@ -93,7 +110,7 @@ export function RecentArticlesGrid({
                     <span>{article.readingTime}</span>
                     <span>•</span>
                     <time dateTime={article.date}>
-                      {new Date(article.date).toLocaleDateString("en-US", {
+                      {new Date(article.date).toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', {
                         month: "short",
                         day: "numeric",
                         year: "numeric",

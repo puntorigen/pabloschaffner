@@ -444,8 +444,8 @@ export default function Home() {
 
       {/* Recent Articles Grid */}
       <RecentArticlesGrid 
-        title="Recent Articles"
-        subtitle="Latest insights, tutorials, and technical deep dives"
+        title={t.recentArticles.title}
+        subtitle={t.recentArticles.subtitle}
         limit={4}
       />
 

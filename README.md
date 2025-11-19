@@ -32,6 +32,16 @@ Modern, high-performance personal website built with Next.js 15, TypeScript, and
 pnpm install
 ```
 
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```bash
+# Google Search Console Verification (optional)
+# Get this from: https://search.google.com/search-console
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code-here
+```
+
 ### Run development server
 ```bash
 pnpm dev
@@ -66,7 +76,16 @@ This site is optimized for deployment on Vercel Pro:
 
 1. Push to GitHub
 2. Connect repository to Vercel
-3. Deploy automatically
+3. Add environment variables in Vercel dashboard:
+   - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` - Your Google Search Console verification code
+4. Deploy automatically
+
+### Adding Environment Variables to Vercel
+
+1. Go to your project in Vercel Dashboard
+2. Navigate to **Settings** → **Environment Variables**
+3. Add the required variables for Production, Preview, and Development environments
+4. Redeploy to apply changes
 
 ## Positioning
 

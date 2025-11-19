@@ -442,6 +442,12 @@ export const translations = {
       techStack: 'Tech Stack Highlight',
     },
     
+    // Recent Articles Section
+    recentArticles: {
+      title: 'Recent Articles',
+      subtitle: 'Latest insights, tutorials, and technical deep dives',
+    },
+    
     // Blog Page
     blog: {
       badge: 'Technical Blog',
@@ -928,6 +934,12 @@ export const translations = {
         ],
       },
       techStack: 'Herramientas que Domino',
+    },
+    
+    // Sección Artículos Recientes
+    recentArticles: {
+      title: 'Artículos Recientes',
+      subtitle: 'Últimos conocimientos, tutoriales y análisis técnicos',
     },
     
     // Página Blog

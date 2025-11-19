@@ -47,6 +47,14 @@ export async function generateMetadata({
   }
 
   const url = `https://pabloschaffner.com/blog/${slug}`;
+  const baseUrl = 'https://pabloschaffner.com';
+  
+  // Ensure cover image is an absolute URL
+  const coverImageUrl = post.coverImage 
+    ? (post.coverImage.startsWith('http') 
+        ? post.coverImage 
+        : `${baseUrl}${post.coverImage}`)
+    : undefined;
 
   return {
     title: `${post.title} | Pablo Schaffner`,
@@ -61,10 +69,10 @@ export async function generateMetadata({
       modifiedTime: post.lastModified,
       authors: [post.author],
       tags: post.tags,
-      images: post.coverImage
+      images: coverImageUrl
         ? [
             {
-              url: post.coverImage,
+              url: coverImageUrl,
               width: 1200,
               height: 630,
               alt: post.title,
@@ -72,15 +80,28 @@ export async function generateMetadata({
           ]
         : undefined,
       url,
+      siteName: 'Pablo Schaffner',
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: post.coverImage ? [post.coverImage] : undefined,
+      images: coverImageUrl ? [coverImageUrl] : undefined,
+      creator: '@pabloschaffner',
     },
     alternates: {
       canonical: url,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   };
 }
@@ -96,12 +117,53 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
 
   const relatedPosts = getRelatedPosts(slug, 3);
   const postUrl = `https://pabloschaffner.com/blog/${slug}`;
+  const baseUrl = 'https://pabloschaffner.com';
   
   // Reset section counter for each article
   resetSectionCounter();
 
+  // Ensure cover image is absolute URL for JSON-LD
+  const coverImageUrl = post.coverImage 
+    ? (post.coverImage.startsWith('http') 
+        ? post.coverImage 
+        : `${baseUrl}${post.coverImage}`)
+    : undefined;
+
+  // JSON-LD structured data for Article
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: coverImageUrl,
+    datePublished: post.date,
+    dateModified: post.lastModified || post.date,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      url: 'https://pabloschaffner.com',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Pablo Schaffner',
+      url: 'https://pabloschaffner.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': postUrl,
+    },
+    keywords: post.tags.join(', '),
+    articleSection: post.category,
+  };
+
   return (
     <main className="min-h-screen bg-background overflow-hidden relative px-[3px] md:px-[11px]">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
       <GridBackground />
 
       {/* Navigation */}
